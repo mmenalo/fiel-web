@@ -1,0 +1,143 @@
+<meta charset="utf-8">
+<title>Fiel dizajn i logo</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
+<style>
+/* Pregled faze 4: logo na vrhu, zatim tri smjera kao jednaki redovi s jednakom strukturom, preporuka na kraju. */
+:root {
+  --bg: #f7f8fa;
+  --surface: #ffffff;
+  --fg: #1f2c3b;
+  --muted: #5f6c7c;
+  --line: #dbe1e8;
+  --accent: #2f4a6b;
+  --gold: #b88a2e;
+  --display: "Jost", "Futura", system-ui, sans-serif;
+  --body: "Source Sans 3", "Segoe UI", system-ui, sans-serif;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --bg: #121821; --surface: #1a2330; --fg: #e6ebf1; --muted: #9aa7b6; --line: #2c3949; --accent: #9db7d6; --gold: #d8ad55; color-scheme: dark; } }
+:root[data-theme="dark"] { --bg: #121821; --surface: #1a2330; --fg: #e6ebf1; --muted: #9aa7b6; --line: #2c3949; --accent: #9db7d6; --gold: #d8ad55; color-scheme: dark; }
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--fg); font: 400 17px/1.6 var(--body); }
+.page { max-width: 1000px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-block: 40px 72px; display: grid; gap: 56px; }
+h1, h2, h3 { font-family: var(--display); font-weight: 500; margin: 0; text-wrap: balance; }
+h1 { font-size: clamp(1.9rem, 4vw, 2.6rem); line-height: 1.1; }
+h2 { font-size: 1.5rem; }
+h3 { font-size: 1.15rem; }
+p { margin: 0; max-width: 65ch; }
+.lead { display: grid; gap: 12px; }
+.lead p { color: var(--muted); }
+.eyebrow { font: 500 .76rem var(--display); letter-spacing: .14em; text-transform: uppercase; color: var(--gold); }
+.block { display: grid; gap: 20px; }
+.logos { display: grid; grid-template-columns: 1.4fr 1fr; gap: 16px; }
+.tile { border-radius: 10px; padding: 28px; display: grid; place-items: center; min-height: 200px; min-width: 0; }
+.tile.light { background: #ffffff; border: 1px solid var(--line); }
+.tile.dark { background: #0f1c2c; }
+.tile .logo { width: 100%; max-width: 380px; height: auto; }
+.sizes { display: flex; align-items: end; gap: 22px; flex-wrap: wrap; justify-content: center; }
+.sizes figure { margin: 0; display: grid; gap: 6px; justify-items: center; font: 500 .75rem var(--display); color: #6a7787; }
+.notes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.notes div { display: grid; gap: 6px; align-content: start; }
+.notes p { color: var(--muted); font-size: .97rem; }
+.dir { display: grid; grid-template-columns: 220px 1fr; gap: 28px; padding-block: 28px; border-top: 1px solid var(--line); }
+.swatch { border-radius: 10px; aspect-ratio: 4/3; max-width: 100%; padding: 16px; display: grid; align-content: space-between; text-decoration: none; }
+.swatch b { font: 500 1.05rem/1.2 var(--display); }
+.swatch span { display: flex; gap: 6px; }
+.swatch i { width: 18px; height: 18px; border-radius: 50%; display: block; border: 1px solid rgba(0,0,0,.08); }
+.dir-body { display: grid; gap: 10px; align-content: start; min-width: 0; }
+.dir-body p { color: var(--muted); }
+.pc { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; font-size: .95rem; }
+.pc ul { margin: 4px 0 0; padding-left: 18px; color: var(--muted); }
+.pc strong { font: 500 .8rem var(--display); letter-spacing: .1em; text-transform: uppercase; }
+.open { justify-self: start; font: 500 1rem var(--display); color: var(--accent); text-decoration: none; border-bottom: 1.5px solid var(--gold); padding-bottom: 2px; }
+.open:hover { color: var(--fg); }
+.rec { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 28px; display: grid; gap: 12px; }
+.rec ol { margin: 0; padding-left: 20px; display: grid; gap: 6px; color: var(--muted); }
+:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+@media (max-width: 760px) {
+  .logos, .notes, .pc { grid-template-columns: 1fr; }
+  .dir { grid-template-columns: 1fr; gap: 16px; }
+  .swatch { aspect-ratio: auto; min-height: 120px; }
+}
+</style>
+
+<main class="page">
+  <header class="lead">
+    <span class="eyebrow">Faza 4 · dizajn</span>
+    <h1>Novi logo i tri smjera početne stranice</h1>
+    <p>Svi smjerovi koriste iste potvrđene tekstove, pa se razlikuju samo izgledom. Otvori svaki i pogledaj ga i na mobitelu. Mjesta za fotografije su označena, jer koristimo samo vaše fotografije.</p>
+  </header>
+
+  <section class="block" aria-labelledby="logo-h">
+    <h2 id="logo-h">Logo</h2>
+    <div class="logos">
+      <div class="tile light">%%LOGO_LIGHT%%</div>
+      <div class="tile dark">%%LOGO_DARK%%</div>
+    </div>
+    <div class="tile light">
+      <div class="sizes">
+        <figure>%%MARK_96%%<figcaption>znak, 96 px</figcaption></figure>
+        <figure>%%MARK_48%%<figcaption>48 px</figcaption></figure>
+        <figure>%%MARK_32%%<figcaption>32 px, ikona</figcaption></figure>
+        <figure>%%MARK_16%%<figcaption>16 px</figcaption></figure>
+      </div>
+    </div>
+    <div class="notes">
+      <div><h3>Što je ostalo</h3><p>Sunčeve zrake, sveti Josip spavač kao jedna linija preko slova, kuća s dvostrešnim krovom i geometrijsko pismo. Logo ostaje prepoznatljiv onima koji znaju Fidelis.</p></div>
+      <div><h3>Što je novo</h3><p>FIEL ima četiri slova, pa lijevi zid kuće sada je cijelo slovo L. Ime i kuća čitaju se kao jedna cjelina, bez dodatnog teksta „automatika”.</p></div>
+      <div><h3>Mali znak</h3><p>Za ikonu preglednika i profilnu sliku napravio sam zaseban znak: kuća, usnuli lik i zrake. Cijeli logo se na 32 px ne bi mogao pročitati.</p></div>
+    </div>
+  </section>
+
+  <section class="block" aria-labelledby="dir-h">
+    <h2 id="dir-h">Tri smjera</h2>
+
+    <article class="dir">
+      <a class="swatch" href="smjer-a.html" style="background:#fbfbfa;border:1px solid #d9dfe7;color:#1f3550"><b>A · Mirno i svijetlo</b><span><i style="background:#fbfbfa"></i><i style="background:#1f3550"></i><i style="background:#eef1f5"></i><i style="background:#c79a3a"></i></span></a>
+      <div class="dir-body">
+        <h3>A · Mirno i svijetlo</h3>
+        <p>Puno bijelog prostora, jedna tamnoplava boja i zlato samo kao iskra iz logotipa. Tanke linije umjesto kartica, pismo slično onom u logotipu.</p>
+        <div class="pc">
+          <div><strong>Dobro</strong><ul><li>Najozbiljnije i najmirnije, odgovara investitorima.</li><li>Najlakše za održavanje kad sam mijenjaš sadržaj.</li></ul></div>
+          <div><strong>Slabije</strong><ul><li>Oslanja se na fotografije, kojih još nemamo. Bez njih izgleda prazno.</li></ul></div>
+        </div>
+        <a class="open" href="smjer-a.html">Otvori smjer A</a>
+      </div>
+    </article>
+
+    <article class="dir">
+      <a class="swatch" href="smjer-b.html" style="background:#0f1c2c;color:#f3f6fa"><b>B · Tehnički nacrt</b><span><i style="background:#0f1c2c;border-color:#2f4864"></i><i style="background:#152639"></i><i style="background:#8396ad"></i><i style="background:#d8a947"></i></span></a>
+      <div class="dir-body">
+        <h3>B · Tehnički nacrt</h3>
+        <p>Tamna podloga s mrežom kao na projektu, tlocrt stana kao glavna slika i oznake u strojnom pismu. Pokazuje da sve radi na uređaju u stanu.</p>
+        <div class="pc">
+          <div><strong>Dobro</strong><ul><li>Ne treba fotografije: tlocrt objašnjava „radi lokalno” bolje od slike.</li><li>Djeluje stručno, jasno se razlikuje od konkurencije.</li></ul></div>
+          <div><strong>Slabije</strong><ul><li>Tamna stranica je hladnija za obitelji koje uređuju kuću.</li><li>Duži tekstovi se teže čitaju na tamnom.</li></ul></div>
+        </div>
+        <a class="open" href="smjer-b.html">Otvori smjer B</a>
+      </div>
+    </article>
+
+    <article class="dir">
+      <a class="swatch" href="smjer-c.html" style="background:#f5f8fb;border:1px solid #e6edf4;color:#26405f"><b>C · Toplo i domaće</b><span><i style="background:#f5f8fb"></i><i style="background:#26405f"></i><i style="background:#f6ead0"></i><i style="background:#c79a3a"></i></span></a>
+      <div class="dir-body">
+        <h3>C · Toplo i domaće</h3>
+        <p>Sunčeve zrake iz logotipa preko cijelog vrha, zaobljeni oblici i „običan dan” u pametnoj kući po satima. Najviše govori vlasnicima kuća.</p>
+        <div class="pc">
+          <div><strong>Dobro</strong><ul><li>Najtoplije i najrazumljivije ljudima bez tehničkog znanja.</li><li>Dan po satima pokazuje korist bez fotografija.</li></ul></div>
+          <div><strong>Slabije</strong><ul><li>Za investitore djeluje manje ozbiljno.</li><li>Zaobljeni stil češće se viđa kod potrošačkih proizvoda.</li></ul></div>
+        </div>
+        <a class="open" href="smjer-c.html">Otvori smjer C</a>
+      </div>
+    </article>
+  </section>
+
+  <section class="rec" aria-labelledby="rec-h">
+    <span class="eyebrow">Moja preporuka</span>
+    <h2 id="rec-h">Smjer A, s tlocrtom iz smjera B umjesto fotografije</h2>
+    <p>Prioritet su investitori, a A djeluje najozbiljnije i najlakše ga je održavati. Njegova slabost je što traži fotografije koje još nemate, pa bih na vrh stavio svijetlu verziju tlocrta iz smjera B. Kad snimite prve projekte, tlocrt ostaje na stranici Za investitore.</p>
+    <p>Moguće je i kombinirati, npr. A kao osnovu i „običan dan” iz C na stranici Pametna kuća. Napiši koji smjer biraš i što mijenjaš.</p>
+  </section>
+</main>

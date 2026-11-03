@@ -1,0 +1,257 @@
+<!doctype html>
+<html lang="hr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Fiel – smjer A: Mirno i svijetlo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
+<style>
+/* Smjer A — mirno i svijetlo: puno zraka, jedna navy boja, zlato samo kao iskra iz znaka.
+   Raspored: lijevo poravnan tekst, asimetrične dvije kolone, tanke linije umjesto kartica. */
+:root {
+  --paper: #fbfbfa;
+  --tint: #eef1f5;
+  --ink: #1f3550;
+  --text: #33404f;
+  --muted: #687586;
+  --line: #d9dfe7;
+  --gold: #c79a3a;
+  --display: "Jost", "Futura", "Century Gothic", system-ui, sans-serif;
+  --body: "Source Sans 3", "Segoe UI", system-ui, sans-serif;
+  color-scheme: light;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; background: var(--paper); color: var(--text); font: 400 18px/1.6 var(--body); }
+.wrap { max-width: 1120px; margin: 0 auto; padding-left: max(20px, env(safe-area-inset-left, 0px)); padding-right: max(20px, env(safe-area-inset-right, 0px)); }
+h1, h2, h3 { font-family: var(--display); color: var(--ink); font-weight: 500; letter-spacing: -.01em; text-wrap: balance; margin: 0; }
+h1 { font-size: clamp(2.3rem, 5.4vw, 4rem); line-height: 1.05; }
+h2 { font-size: clamp(1.6rem, 3vw, 2.3rem); line-height: 1.15; }
+h3 { font-size: 1.2rem; font-weight: 500; }
+p { margin: 0; }
+a { color: var(--ink); }
+:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+.btn { display: inline-flex; align-items: center; gap: 10px; font: 500 1rem var(--display); padding: 14px 22px; border-radius: 2px; text-decoration: none; border: 1.5px solid var(--ink); cursor: pointer; }
+.btn-solid { background: var(--ink); color: #fff; }
+.btn-solid:hover { background: #2b4868; }
+.btn-line { color: var(--ink); background: transparent; }
+.btn-line:hover { background: var(--tint); }
+.label { font: 500 .78rem var(--display); letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+
+/* header */
+header { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20; background: rgba(251,251,250,.94); backdrop-filter: blur(8px); border-bottom: 1px solid var(--line); }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 21; background: var(--paper); }
+.bar { display: flex; align-items: center; gap: 24px; height: 76px; }
+.bar .logo { height: 46px; width: auto; }
+nav { margin-left: auto; display: flex; gap: 26px; align-items: center; }
+nav a { text-decoration: none; font: 500 .98rem var(--display); color: var(--text); }
+nav a:hover { color: var(--ink); text-decoration: underline; text-underline-offset: 6px; text-decoration-color: var(--gold); }
+nav .btn { padding: 10px 18px; color: #fff; }
+.menu { display: none; margin-left: auto; background: none; border: 1.5px solid var(--line); padding: 8px 12px; font: 500 .95rem var(--display); color: var(--ink); border-radius: 2px; }
+
+/* hero */
+.hero { padding-block: 72px 88px; }
+.hero-grid { display: grid; grid-template-columns: 1.15fr .85fr; gap: 64px; align-items: end; }
+.hero-text { display: grid; gap: 26px; min-width: 0; }
+.hero-text p { font-size: 1.2rem; max-width: 34em; color: var(--text); }
+.hero-cta { display: flex; flex-wrap: wrap; gap: 12px; }
+.hero-note { display: flex; flex-wrap: wrap; gap: 8px 22px; font-size: .95rem; color: var(--muted); }
+.hero-note span::before { content: ""; display: inline-block; width: 6px; height: 6px; background: var(--gold); border-radius: 50%; margin-right: 8px; vertical-align: middle; }
+.photo { aspect-ratio: 4/5; max-width: 100%; background: linear-gradient(160deg, var(--tint), #dfe5ec); display: grid; place-items: end start; padding: 20px; border-radius: 2px; position: relative; overflow: hidden; }
+.photo .mark { position: absolute; right: -40px; top: -30px; width: 260px; opacity: .14; }
+.photo small { font: 500 .8rem var(--display); color: var(--muted); letter-spacing: .04em; background: rgba(255,255,255,.75); padding: 6px 10px; }
+
+/* doors */
+section { padding-block: 88px; }
+.head { display: grid; gap: 14px; margin-bottom: 44px; max-width: 40em; }
+.doors { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1.5px solid var(--ink); }
+.door { padding: 28px 28px 30px 0; display: grid; gap: 12px; align-content: start; border-right: 1px solid var(--line); min-width: 0; }
+.door + .door { padding-left: 28px; }
+.door:last-child { border-right: 0; }
+.door .label { color: var(--gold); }
+.door p { color: var(--text); }
+.door a { font: 500 1rem var(--display); text-decoration: none; margin-top: 6px; }
+.door a::after { content: " →"; color: var(--gold); }
+
+/* local */
+.local { background: var(--tint); }
+.local-grid { display: grid; grid-template-columns: .9fr 1.1fr; gap: 64px; }
+.local-list { display: grid; grid-template-columns: 1fr 1fr; gap: 34px 40px; }
+.local-list div { display: grid; gap: 6px; padding-top: 16px; border-top: 1px solid #c9d2dd; }
+.local-list p { color: var(--muted); font-size: 1rem; }
+
+/* connect */
+.chips { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 26px; }
+.chips span { font: 500 1rem var(--display); color: var(--ink); padding: 10px 16px; border: 1px solid var(--line); border-radius: 2px; background: #fff; }
+
+/* steps */
+.steps { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 28px; counter-reset: s; }
+.steps li { counter-increment: s; display: grid; gap: 8px; align-content: start; }
+.steps li::before { content: counter(s); font: 400 2.6rem/1 var(--display); color: var(--gold); }
+.steps p { color: var(--muted); font-size: 1rem; }
+
+/* warranty */
+.warranty { border-block: 1.5px solid var(--ink); padding-block: 40px; display: grid; grid-template-columns: auto 1fr; gap: 40px; align-items: center; }
+.warranty strong { font: 400 clamp(3rem, 8vw, 5.5rem)/1 var(--display); color: var(--ink); }
+.warranty strong small { font-size: .3em; display: block; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin-top: 8px; }
+
+/* contact */
+.contact { background: var(--ink); color: #d7dee8; }
+.contact h2 { color: #fff; }
+.contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; }
+.phone { font: 400 clamp(1.8rem, 4vw, 2.6rem) var(--display); color: #fff; margin-top: 24px; display: block; user-select: all; }
+form { display: grid; gap: 14px; }
+.row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+label { display: grid; gap: 6px; font: 500 .85rem var(--display); letter-spacing: .04em; color: #b8c4d3; }
+input, select, textarea { font: 400 1rem var(--body); padding: 12px 14px; border: 1px solid #4a6280; background: #253f5d; color: #fff; border-radius: 2px; width: 100%; }
+textarea { min-height: 110px; resize: vertical; }
+.contact .btn { background: #fff; color: var(--ink); border-color: #fff; justify-self: start; }
+.sent { color: #fff; font-size: .95rem; }
+
+footer { padding-block: 40px; font-size: .92rem; color: var(--muted); }
+.foot { display: flex; flex-wrap: wrap; gap: 16px 40px; align-items: center; justify-content: space-between; }
+.foot .logo { height: 40px; width: auto; }
+
+@media (max-width: 900px) {
+  nav { display: none; position: absolute; top: 76px; left: 0; right: 0; background: var(--paper); flex-direction: column; align-items: flex-start; gap: 4px; padding: 12px max(20px, env(safe-area-inset-left, 0px)) 22px; border-bottom: 1px solid var(--line); }
+  nav.open { display: flex; }
+  nav a { padding: 10px 0; font-size: 1.1rem; }
+  .menu { display: block; }
+  .hero-grid, .local-grid, .contact-grid { grid-template-columns: 1fr; gap: 40px; }
+  .photo { aspect-ratio: 16/10; }
+  .doors { grid-template-columns: 1fr; }
+  .door, .door + .door { padding: 24px 0; border-right: 0; border-bottom: 1px solid var(--line); }
+  .steps { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 560px) {
+  body { font-size: 17px; }
+  .hero { padding-block: 44px 60px; }
+  section { padding-block: 60px; }
+  .local-list, .steps, .row { grid-template-columns: 1fr; }
+  .warranty { grid-template-columns: 1fr; gap: 16px; }
+  .hero-cta .btn { width: 100%; justify-content: center; }
+}
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap bar">
+    <svg class="logo" viewBox="20 4 284 124" role="img" aria-label="Fiel d.o.o." xmlns="http://www.w3.org/2000/svg"><g fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M57.0 27.3L54.1 10.5M54.0 28.1L50.4 18.7M51.1 29.5L42.3 15.0M48.6 31.4L41.9 24.0M46.4 33.7L32.9 23.5M44.8 36.4L35.8 32.0M43.6 39.4L27.3 34.8M43.1 42.5L33.1 41.6M43.1 45.7L26.2 47.4M43.7 48.8L34.1 51.6M44.9 51.8L29.7 59.5M46.6 54.4L38.7 60.6M48.8 56.7L37.5 69.5M51.3 58.6L46.2 67.2M54.2 60.0L48.4 75.9" stroke="#c79a3a" stroke-width="2.6"/><circle cx="60" cy="44" r="10.5" stroke="#1f3550" stroke-width="6.5"/><path d="M70.5 40C78 34 86 33 96 33L124 32C134 31 140 33 146 38L154 44H162L168 52L176 60" stroke="#1f3550" stroke-width="6.5"/><path d="M78 120V62H108M78 91H104M126 62V120M180 62H148V120H180M148 91H176" stroke="#1f3550" stroke-width="9" stroke-linecap="butt" stroke-linejoin="miter"/><path d="M206 54V120H240" stroke="#7c8da6" stroke-width="9" stroke-linecap="butt" stroke-linejoin="miter"/><path d="M206 54L250 29L294 54V120" stroke="#7c8da6" stroke-width="4.5"/></g></svg>
+    <button class="menu" id="menu-a" aria-expanded="false" aria-controls="nav-a">Izbornik</button>
+    <nav id="nav-a" aria-label="Glavni izbornik">
+      <a href="#">Pametna kuća</a>
+      <a href="#">Video nadzor i portafoni</a>
+      <a href="#">Za investitore</a>
+      <a href="#">Kako radimo</a>
+      <a href="#">O nama</a>
+      <a class="btn btn-solid" href="#kontakt">Kontakt</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <div class="wrap hero">
+    <div class="hero-grid">
+      <div class="hero-text">
+        <span class="label">Zagreb i okolica</span>
+        <h1>Pametna kuća koja radi i kad internet ne radi.</h1>
+        <p>Projektiramo i ugrađujemo pametne instalacije, video nadzor i portafone za stambene zgrade, kuće i poslovne prostore. Sustav radi lokalno, u vašem objektu, bez mjesečne pretplate.</p>
+        <div class="hero-cta">
+          <a class="btn btn-solid" href="#kontakt">Dogovorite besplatne konzultacije</a>
+          <a class="btn btn-line" href="#ulazi">Za investitore</a>
+        </div>
+        <div class="hero-note"><span>Jamstvo 2 godine</span><span>Bez pretplate</span><span>Ista ekipa ugrađuje i održava</span></div>
+      </div>
+      <div class="photo"><svg class="mark" viewBox="0 0 64 64" role="img" aria-label="Fiel znak" xmlns="http://www.w3.org/2000/svg"><g fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M17 31l-6-4M15 37H7M17 43l-6 4M21 27l-3-7M21 47l-3 7" stroke="#c79a3a" stroke-width="2.4"/><path d="M6 26L32 8L58 26V58H6Z" stroke="#1f3550" stroke-width="4"/><circle cx="23" cy="37" r="4.5" stroke="#1f3550" stroke-width="3.4"/><path d="M27.5 35.5C32 32.5 38 32.5 44 34L48 39L52 44" stroke="#1f3550" stroke-width="3.4"/></g></svg><small>Vaša fotografija: zidni zaslon u dnevnom boravku</small></div>
+    </div>
+  </div>
+
+  <section id="ulazi">
+    <div class="wrap">
+      <div class="head"><h2>Što gradite ili uređujete?</h2></div>
+      <div class="doors">
+        <div class="door"><span class="label">Investitori</span><h3>Stambenu zgradu</h3><p>Ugradnja pametnih instalacija u sve stanove, uz minimalne izmjene standardnog projekta elektroinstalacija. Trošak po stanu znate prije početka radova.</p><a href="#">Za investitore</a></div>
+        <div class="door"><span class="label">Vlasnici</span><h3>Kuću ili penthouse</h3><p>Rasvjeta, rolete, grijanje, alarm i kamere na jednom zaslonu i u mobitelu. Za novogradnju ili postojeći objekt.</p><a href="#">Pametna kuća</a></div>
+        <div class="door"><span class="label">Firme</span><h3>Poslovni prostor</h3><p>Video nadzor, kontrola ulaza i stabilna mreža za ured, trgovinu ili radionicu.</p><a href="#">Video nadzor i portafoni</a></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="local">
+    <div class="wrap local-grid">
+      <div class="head"><span class="label">Radi lokalno</span><h2>Sustav je vaš, ne proizvođačev</h2><p>Naše instalacije rade na otvorenom sustavu koji se izvršava na uređaju u vašem objektu, a ne na tuđem serveru.</p></div>
+      <div class="local-list">
+        <div><h3>Radi bez interneta</h3><p>Rasvjeta, grijanje, alarm i brave rade i kad veza padne.</p></div>
+        <div><h3>Bez mjesečne pretplate</h3><p>Za rad sustava ne plaćate ništa mjesečno.</p></div>
+        <div><h3>Bez vezanosti uz proizvođača</h3><p>Opremu možete kombinirati i kasnije mijenjati.</p></div>
+        <div><h3>Podaci ostaju kod vas</h3><p>Snimke kamera i navike ukućana ne odlaze na tuđe servere.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="head"><h2>Jedan sustav za cijeli objekt</h2></div>
+      <div class="chips"><span>Rasvjeta</span><span>Rolete</span><span>Grijanje i hlađenje</span><span>Alarm</span><span>Pametna brava</span><span>Kamere</span><span>Portafon</span><span>Bazen</span></div>
+      <a class="btn btn-line" href="#">Sve mogućnosti pametne kuće</a>
+    </div>
+  </section>
+
+  <section style="padding-top:0">
+    <div class="wrap">
+      <div class="head"><span class="label">Kako radimo</span><h2>Od prvog razgovora do predaje</h2></div>
+      <ol class="steps">
+        <li><h3>Konzultacije</h3><p>Dođemo na lokaciju, pogledamo objekt i dogovorimo što vam treba. Besplatno.</p></li>
+        <li><h3>Projekt i ponuda</h3><p>Izradimo projekt sustava i točnu ponudu.</p></li>
+        <li><h3>Ugradnja</h3><p>Ugradimo opremu, povežemo i podešavamo sustav.</p></li>
+        <li><h3>Predaja i podrška</h3><p>Pokažemo vam kako se koristi i ostajemo dostupni za održavanje.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section style="padding-top:0">
+    <div class="wrap warranty">
+      <strong>2 god.<small>jamstvo na opremu i radove</small></strong>
+      <p>Nakon ugradnje ne nestajemo. Održavanje i podešavanje sustava radimo isti mi koji smo ga ugradili. Radimo u Zagrebu i okolici.</p>
+    </div>
+  </section>
+
+  <section class="contact" id="kontakt">
+    <div class="wrap contact-grid">
+      <div>
+        <h2>Recite nam što planirate</h2>
+        <p style="margin-top:16px">Nazovite ili pošaljite upit. Dogovorit ćemo dolazak na lokaciju bez obveze.</p>
+        <span class="phone">+385 98 802 490</span>
+      </div>
+      <form id="form-a">
+        <div class="row">
+          <label for="a-name">Ime i prezime<input id="a-name" required></label>
+          <label for="a-contact">Telefon ili e-mail<input id="a-contact" required></label>
+        </div>
+        <label for="a-type">Vrsta objekta<select id="a-type"><option>Stan</option><option>Kuća ili penthouse</option><option>Stambena zgrada (investitor)</option><option>Poslovni prostor</option></select></label>
+        <label for="a-msg">Poruka<textarea id="a-msg" placeholder="Npr. rasvjeta i rolete u stanu od 90 m² i video portafon."></textarea></label>
+        <button class="btn" type="submit">Pošalji upit</button>
+        <p class="sent" id="sent-a" hidden>Ovo je prototip, upit nije poslan.</p>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <svg class="logo" viewBox="20 4 284 124" role="img" aria-label="Fiel d.o.o." xmlns="http://www.w3.org/2000/svg"><g fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M57.0 27.3L54.1 10.5M54.0 28.1L50.4 18.7M51.1 29.5L42.3 15.0M48.6 31.4L41.9 24.0M46.4 33.7L32.9 23.5M44.8 36.4L35.8 32.0M43.6 39.4L27.3 34.8M43.1 42.5L33.1 41.6M43.1 45.7L26.2 47.4M43.7 48.8L34.1 51.6M44.9 51.8L29.7 59.5M46.6 54.4L38.7 60.6M48.8 56.7L37.5 69.5M51.3 58.6L46.2 67.2M54.2 60.0L48.4 75.9" stroke="#c79a3a" stroke-width="2.6"/><circle cx="60" cy="44" r="10.5" stroke="#1f3550" stroke-width="6.5"/><path d="M70.5 40C78 34 86 33 96 33L124 32C134 31 140 33 146 38L154 44H162L168 52L176 60" stroke="#1f3550" stroke-width="6.5"/><path d="M78 120V62H108M78 91H104M126 62V120M180 62H148V120H180M148 91H176" stroke="#1f3550" stroke-width="9" stroke-linecap="butt" stroke-linejoin="miter"/><path d="M206 54V120H240" stroke="#7c8da6" stroke-width="9" stroke-linecap="butt" stroke-linejoin="miter"/><path d="M206 54L250 29L294 54V120" stroke="#7c8da6" stroke-width="4.5"/></g></svg>
+    <span>Fiel d.o.o. · Rušiščak 5b, 10000 Zagreb · +385 98 802 490</span>
+    <span>Pravila privatnosti</span>
+  </div>
+</footer>
+<script>
+document.getElementById('menu-a').addEventListener('click', function () {
+  var n = document.getElementById('nav-a'); var o = n.classList.toggle('open'); this.setAttribute('aria-expanded', o);
+});
+document.getElementById('form-a').addEventListener('submit', function (e) { e.preventDefault(); document.getElementById('sent-a').hidden = false; });
+</script>
+</body>
+</html>
