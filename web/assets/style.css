@@ -194,3 +194,15 @@ main section.tight { padding-top: 0; }
   .process article { grid-template-columns: 1fr; gap: 10px; }
 }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+/* fotografije (privremeno iz Unsplasha, zamijeniti vlastitima) */
+.photo { margin: 0; position: relative; overflow: hidden; background: var(--tint); min-width: 0; }
+.photo img { display: block; width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: cover; }
+.photo.tall img { aspect-ratio: 4 / 5; }
+.photo.wide img { aspect-ratio: 21 / 9; }
+.photo figcaption { font: 400 .78rem var(--body); color: var(--muted); margin-top: 8px; }
+.door img { display: block; width: 100%; height: auto; aspect-ratio: 3 / 2; object-fit: cover; margin-bottom: 8px; }
+.page-head.with-photo .wrap { display: grid; grid-template-columns: 1.05fr .95fr; gap: 56px; align-items: center; }
+.page-head.with-photo .inner { max-width: none; }
+.photo-band { margin-top: 40px; }
+@media (max-width: 960px) { .page-head.with-photo .wrap { grid-template-columns: 1fr; gap: 32px; } .photo.wide img { aspect-ratio: 16 / 9; } }
