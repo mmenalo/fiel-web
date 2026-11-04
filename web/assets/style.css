@@ -206,3 +206,62 @@ main section.tight { padding-top: 0; }
 .page-head.with-photo .inner { max-width: none; }
 .photo-band { margin-top: 40px; }
 @media (max-width: 960px) { .page-head.with-photo .wrap { grid-template-columns: 1fr; gap: 32px; } .photo.wide img { aspect-ratio: 16 / 9; } }
+
+/* primjer sučelja (tablet i mobitel) — crtano u HTML-u, nije snimka stvarne aplikacije */
+.demo { margin: 0; display: grid; gap: 10px; min-width: 0; }
+.demo figcaption { font: 500 .72rem var(--mono); letter-spacing: .06em; color: var(--muted); text-transform: uppercase; }
+.demo-stage { background: linear-gradient(160deg, #e7ecf2, #d6dee8); padding: clamp(18px, 4vw, 40px); display: grid; place-items: center; }
+.tablet { width: 100%; max-width: 520px; background: #16263b; border-radius: 22px; padding: 14px; box-shadow: 0 24px 50px -24px rgba(22,38,59,.55); }
+.screen { background: #f6f7f9; border-radius: 10px; padding: 16px; display: grid; gap: 12px; font-family: var(--display); color: var(--ink); }
+.screen .top { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
+.screen .top b { font-weight: 500; font-size: 1.05rem; }
+.screen .top span { font: 400 .78rem var(--mono); color: var(--muted); }
+.scenes { display: flex; gap: 6px; flex-wrap: wrap; }
+.scenes span { font-size: .8rem; padding: 6px 10px; border: 1px solid var(--line-strong); border-radius: 999px; background: #fff; }
+.scenes span.on { background: var(--ink); color: #fff; border-color: var(--ink); }
+.tiles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.tile { background: #fff; border: 1px solid var(--line); border-radius: 8px; padding: 10px; display: grid; gap: 2px; min-width: 0; }
+.tile small { font: 400 .7rem var(--body); color: var(--muted); }
+.tile strong { font-weight: 500; font-size: .95rem; line-height: 1.2; }
+.tile.on { border-color: var(--gold); box-shadow: inset 0 0 0 1px var(--gold); }
+.tile .bar { height: 4px; background: var(--line); border-radius: 2px; margin-top: 6px; overflow: hidden; }
+.tile .bar i { display: block; height: 100%; background: var(--gold); }
+.status { display: flex; gap: 14px; flex-wrap: wrap; font: 400 .75rem var(--body); color: var(--muted); border-top: 1px solid var(--line); padding-top: 10px; }
+.status span::before { content: ""; display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: #3f8f5a; margin-right: 6px; vertical-align: 1px; }
+.mob { width: 250px; max-width: 100%; background: #16263b; border-radius: 34px; padding: 10px; box-shadow: 0 24px 50px -24px rgba(22,38,59,.55); }
+.mob .screen { border-radius: 26px; padding: 18px 14px; min-height: 440px; align-content: start; }
+.feed { position: relative; border-radius: 10px; overflow: hidden; }
+.feed img { display: block; width: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
+.feed span { position: absolute; left: 8px; top: 8px; background: rgba(22,38,59,.8); color: #fff; font: 400 .66rem var(--mono); padding: 3px 7px; border-radius: 3px; }
+.call { text-align: center; display: grid; gap: 2px; }
+.call b { font-weight: 500; font-size: 1.15rem; }
+.call small { font: 400 .78rem var(--body); color: var(--muted); }
+.call-btns { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.call-btns span { text-align: center; font-size: .85rem; padding: 10px 6px; border-radius: 999px; background: #fff; border: 1px solid var(--line-strong); }
+.call-btns span.go { background: var(--gold); border-color: var(--gold); color: #fff; }
+.mob .tiles { grid-template-columns: 1fr 1fr; }
+@media (max-width: 600px) { .tiles { grid-template-columns: 1fr 1fr; } .tiles .tile:nth-child(n+5) { display: none; } }
+
+/* tko što radi (investitori) */
+.roles { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1.5px solid var(--ink); }
+.roles > div { padding: 22px 24px 24px 0; display: grid; gap: 10px; align-content: start; min-width: 0; }
+.roles > div + div { padding-left: 24px; border-left: 1px solid var(--line); }
+.roles ul { margin: 0; padding-left: 18px; display: grid; gap: 6px; }
+@media (max-width: 960px) { .roles { grid-template-columns: 1fr; } .roles > div, .roles > div + div { padding: 20px 0; border-left: 0; border-bottom: 1px solid var(--line); } }
+
+/* osoba (O nama) — mjesto za fotografiju */
+.person-photo { aspect-ratio: 4 / 5; border: 1.5px dashed var(--line-strong); background: var(--tint); display: grid; place-items: center; text-align: center; padding: 24px; font: 500 .9rem var(--display); color: var(--muted); }
+
+/* fiksni red za poziv na mobitelu */
+.callbar { display: none; }
+@media (max-width: 960px) {
+  .callbar { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; position: fixed; left: 0; right: 0; bottom: 0; z-index: 40; background: rgba(251,251,250,.96); border-top: 1px solid var(--line); padding: 8px max(12px, env(safe-area-inset-left, 0px)) calc(8px + env(safe-area-inset-bottom, 0px)); backdrop-filter: blur(6px); }
+  .callbar .btn { padding: 11px 10px; font-size: .95rem; }
+  body { padding-bottom: 68px; }
+}
+@media (max-width: 600px) {
+  main section { padding-block: 44px; }
+  .hero { padding-block: 32px 44px; }
+  .page-head { padding-block: 32px 32px; }
+  .head { margin-bottom: 24px; }
+}
