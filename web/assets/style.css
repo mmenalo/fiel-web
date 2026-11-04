@@ -265,3 +265,10 @@ main section.tight { padding-top: 0; }
   .page-head { padding-block: 32px 32px; }
   .head { margin-bottom: 24px; }
 }
+
+/* crteži umjesto fotografija */
+.ill { margin: 0 0 8px; min-width: 0; }
+.ill svg, .ill-fig svg { display: block; width: 100%; height: auto; }
+.ill-fig { margin: 0; display: grid; gap: 10px; min-width: 0; }
+.ill-fig figcaption { font: 500 .72rem var(--mono); letter-spacing: .06em; color: var(--muted); text-transform: uppercase; }
+.feed svg { display: block; width: 100%; height: auto; }

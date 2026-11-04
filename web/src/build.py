@@ -12,6 +12,8 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 OUT = os.path.dirname(HERE)
 sys.path.insert(0, os.path.join(OUT, "..", "dizajn", "src"))
 from logo import logo, mark  # noqa: E402
+sys.path.insert(0, HERE)
+import ilustracije as ill  # noqa: E402
 
 NAV = [
     ("pametna-kuca", "Pametna kuća"),
@@ -66,7 +68,7 @@ PHONE_CALL = """<figure class="demo">
     <div class="mob" role="img" aria-label="Primjer poziva s portafona na mobitelu: slika s ulaza i tipke Javi se i Otključaj">
       <div class="screen">
         <div class="call"><b>Zvoni: ulazna vrata</b><small>Kuća · upravo sada</small></div>
-        <div class="feed"><img src="assets/foto/10-kuca-u-sumrak.jpg" alt="" loading="lazy"><span>ULAZ · UŽIVO</span></div>
+        <div class="feed">""" + ill.ulaz() + """<span>ULAZ · UŽIVO</span></div>
         <div class="call-btns"><span>Javi se</span><span class="go">Otključaj</span></div>
         <div class="tiles">
           <div class="tile"><small>Kamera dvorište</small><strong>Mirno</strong></div>
@@ -137,7 +139,7 @@ def page(slug, title, desc, body, full=True):
 <link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500&family=Source+Sans+3:wght@400;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/style.css">"""
     body_html = f"""<a class="skip" href="#sadrzaj">Preskoči na sadržaj</a>
-<div class="proto">Pregled nove stranice · tekstovi označeni žuto čekaju potvrdu · fotografije su privremene (Unsplash)</div>
+<div class="proto">Pregled nove stranice · tekstovi označeni žuto čekaju potvrdu · crteži stoje dok ne snimimo vlastite fotografije</div>
 <header class="site-header">
   <div class="wrap bar">
     <a class="brand" href="index.html">{LOGO}</a>
@@ -149,7 +151,7 @@ def page(slug, title, desc, body, full=True):
   </div>
 </header>
 <main id="sadrzaj">
-{body.replace("%%PLAN%%", PLAN).replace("%%CONTACT%%", CONTACT).replace("%%TABLET%%", TABLET).replace("%%PHONE_CALL%%", PHONE_CALL).replace("%%PHONE_HOME%%", PHONE_HOME)}
+{body.replace("%%PLAN%%", PLAN).replace("%%CONTACT%%", CONTACT).replace("%%TABLET%%", TABLET).replace("%%PHONE_CALL%%", PHONE_CALL).replace("%%PHONE_HOME%%", PHONE_HOME).replace("%%ILL_ZGRADA%%", ill.zgrada()).replace("%%ILL_KUCA%%", ill.kuca()).replace("%%ILL_POSLOVNI%%", ill.poslovni()).replace("%%ILL_PRESJEK%%", ill.zgrada_presjek())}
 </main>
 <footer class="site-footer">
   <div class="wrap">
