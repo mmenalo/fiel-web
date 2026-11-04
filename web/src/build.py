@@ -139,7 +139,7 @@ def page(slug, title, desc, body, full=True):
 <link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500&family=Source+Sans+3:wght@400;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/style.css">"""
     body_html = f"""<a class="skip" href="#sadrzaj">Preskoči na sadržaj</a>
-<div class="proto">Pregled nove stranice · tekstovi označeni žuto čekaju potvrdu · crteži stoje dok ne snimimo vlastite fotografije</div>
+<div class="proto">Pregled nove stranice · tekstovi označeni žuto čekaju potvrdu · slike su privremene, prije objave provjeriti prava ili zamijeniti vlastitima</div>
 <header class="site-header">
   <div class="wrap bar">
     <a class="brand" href="index.html">{LOGO}</a>
