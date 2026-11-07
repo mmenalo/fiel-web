@@ -93,7 +93,7 @@ PARTICLES = """
 THREE_FX = """
 (function(){
   if(!window.THREE||matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  var mob=innerWidth<700, N=mob?2600:6500;
+  var mob=innerWidth<700, N=mob?4200:10000;
   var r=new THREE.WebGLRenderer({canvas:document.getElementById('fx'),alpha:true,antialias:false});
   r.setPixelRatio(Math.min(devicePixelRatio,mob?1.5:2));
   var sc=new THREE.Scene(), cam=new THREE.PerspectiveCamera(50,1,.1,100); cam.position.z=7;
@@ -108,6 +108,98 @@ THREE_FX = """
     for(var k=0;k<=20;k++){var u=k/20;pts.push([1-u, 1.1-2.6*u*u*.4-1.5*u ,0]);}
     for(var j=0;j<=20;j++){var v=j/20;pts.push([0-v,-1.5+1.5*v+ (1.1-.6-(-1.5))*0 ,0]);}
     return pts;})();
+
+  var P=[];
+    function seg(a,b,w,c){P.push({w:w,c:c,f:function(){var t=Math.random();return [a[0]+(b[0]-a[0])*t+R()*.012,a[1]+(b[1]-a[1])*t+R()*.012,a[2]+(b[2]-a[2])*t+R()*.012];}});}
+    function L(a,b){return Math.hypot(b[0]-a[0],b[1]-a[1],b[2]-a[2]);}
+    function line(a,b,d,c){seg(a,b,L(a,b)*d,c);}
+    function box(x0,x1,y0,y1,z0,z1,d,c){var v=[[x0,y0,z0],[x1,y0,z0],[x1,y0,z1],[x0,y0,z1],[x0,y1,z0],[x1,y1,z0],[x1,y1,z1],[x0,y1,z1]];
+      [[0,1],[1,2],[2,3],[3,0],[4,5],[5,6],[6,7],[7,4],[0,4],[1,5],[2,6],[3,7]].forEach(function(e){line(v[e[0]],v[e[1]],d,c);});}
+    function rect(x0,x1,y0,y1,z,d,c){line([x0,y0,z],[x1,y0,z],d,c);line([x1,y0,z],[x1,y1,z],d,c);line([x1,y1,z],[x0,y1,z],d,c);line([x0,y1,z],[x0,y0,z],d,c);}
+    function ring(cx,cy,z,r,w,c){P.push({w:w,c:c,f:function(){var a=Math.random()*6.283;return [cx+Math.cos(a)*r,cy+Math.sin(a)*r,z+R()*.01];}});}
+    function area(w,c,f){P.push({w:w,c:c,f:f});}
+    function rnd(a,b){return a+Math.random()*(b-a);}
+    function done(){var tot=0;P.forEach(function(p){tot+=p.w;});var acc=0;P.forEach(function(p){acc+=p.w/tot;p.e=acc;});var o=P;P=[];return o;}
+  var COMP={};
+  COMP.villa=function(){var G=-1.2;
+    /* prizemlje, kat na prepust, ravni krov */
+    box(-2.2,.4,G,-.35,-1.6,-.2,1,'w');
+    box(-1.5,1.35,-.35,.42,-1.85,-.5,1,'w');
+    box(-1.62,1.48,.42,.52,-1.97,-.4,.7,'w');
+    /* staklene stijene sa svjetlom */
+    area(2.4,'g',function(){return [rnd(-2.05,.25),rnd(G+.05,-.42),-.2-Math.random()*.6];});
+    area(1.8,'g',function(){return [rnd(-1.35,1.2),rnd(-.28,.36),-.5-Math.random()*.6];});
+    for(var x=-2.05;x<.3;x+=.47)line([x,G,-.2],[x,-.35,-.2],.5,'w');
+    for(var x2=-1.35;x2<1.25;x2+=.43)line([x2,-.35,-.5],[x2,.42,-.5],.5,'w');
+    /* balkon ograda (staklo) */
+    line([-1.5,-.12,-.5+.001],[1.35,-.12,-.5],.4,'w');
+    /* bazen */
+    var px0=.75,px1=2.65,pz0=-1.5,pz1=.05;
+    box(px0,px1,G-.06,G,pz0,pz1,.9,'w');
+    area(3.4,'b',function(){var x=rnd(px0+.05,px1-.05),z=rnd(pz0+.05,pz1-.05);return [x,G-.03+Math.sin(x*7+z*5)*.015,z];});
+    /* drvena terasa uz bazen */
+    for(var k=0;k<6;k++)line([.45,G+.01,-1.5+k*.3],[.72,G+.01,-1.5+k*.3],.4,'s');
+    /* dvorište: trava, staza i ograda */
+    area(3,'n',function(){var x,z;do{x=rnd(-3,3);z=rnd(-2.2,2.1);}while((x>-2.25&&x<.45&&z>-1.65&&z<-.15)||(x>.7&&x<2.7&&z>-1.55&&z<.1)||(z>.45&&z<1.75&&x>-2.2&&x<1.4));return [x,G,z];});
+    line([-2.2,G,.45],[1.4,G,.45],.35,'s');line([-2.2,G,1.75],[1.4,G,1.75],.35,'s');
+    line([-3,G+.2,2.1],[-.6,G+.2,2.1],.3,'s');line([.9,G+.2,2.1],[3,G+.2,2.1],.3,'s');
+    [-3,-1.8,-.6,.9,2,3].forEach(function(x){line([x,G,2.1],[x,G+.2,2.1],.4,'s');});
+    /* stabla */
+    [[-2.7,-1.9,.42],[2.85,-1.9,.38],[-2.75,.9,.34],[2.8,1.2,.3]].forEach(function(t){
+      line([t[0],G,t[1]],[t[0],G+.5,t[1]],.5,'s');
+      area(t[2]*2.6,'t',function(){var y=1-2*Math.random(),r=Math.sqrt(1-y*y),a=Math.random()*6.283,s=t[2]*(.85+Math.random()*.15);return [t[0]+Math.cos(a)*r*s,G+.5+t[2]+y*s,t[1]+Math.sin(a)*r*s];});});
+    /* auti */
+    function car(cx,cz,len,wid,sp){var x0=cx-len/2;
+      function X(u){return x0+u*len;}
+      function belt(u){return G+.24-.07*u-(u>.9?(u-.9)*.6:0)-(u<.06?(.06-u)*.8:0);}
+      function roof(u){return G+.24+sp*Math.sin(Math.PI*(u-.3)/.42);}
+      [-1,1].forEach(function(sd){var z=cz+sd*wid/2;
+        area(.55,'c',function(){var u=Math.random();return [X(u),G+.07,z];});
+        area(.7,'c',function(){var u=Math.random();return [X(u),belt(u),z];});
+        area(.45,'c',function(){var u=rnd(.3,.72);return [X(u),roof(u),z*0.82+cz*0.18];});
+        [.18,.82].forEach(function(u){area(.32,'w',function(){var a=Math.random()*6.283;return [X(u)+Math.cos(a)*.1,G+.1+Math.sin(a)*.1,z];});});
+        area(.05,'g',function(){return [X(1)-.01,G+.17+R()*.02,z-sd*.05+R()*.03];});
+        area(.05,'r',function(){return [X(0)+.01,G+.2+R()*.02,z-sd*.05+R()*.03];});});
+      area(.35,'c',function(){var u=rnd(.32,.7);return [X(u),roof(u),rnd(cz-wid*.41,cz+wid*.41)];});
+      area(.2,'c',function(){return [X(1),rnd(G+.07,belt(1)),rnd(cz-wid/2,cz+wid/2)];});
+      area(.2,'c',function(){return [X(0),rnd(G+.07,belt(0)),rnd(cz-wid/2,cz+wid/2)];});}
+    car(-1.35,1.1,1.2,.5,.12);car(.55,1.12,1.25,.52,.16);return done();};
+  COMP.blind=function(){var W=1.45,top=1.45,bot=-1.6,down=-.15;
+    box(-W-.12,W+.12,top,top+.38,-.2,.2,1.2,'w');
+    area(.9,'s',function(){return [rnd(-W-.12,W+.12),rnd(top,top+.38),.2];});
+    [-1,1].forEach(function(sd){line([sd*W,top,.05],[sd*W,bot,.05],.9,'w');line([sd*(W+.1),top,.05],[sd*(W+.1),bot,.05],.9,'w');line([sd*W,bot,.05],[sd*(W+.1),bot,.05],.9,'w');});
+    for(var y=top-.02;y>down;y-=.13){line([-W,y,.05],[W,y,.05],1,'c');line([-W,y-.045,.07],[W,y-.045,.07],.45,'s');}
+    line([-W,down,.06],[W,down,.06],1.4,'w');line([-.25,down-.03,.08],[.25,down-.03,.08],1.2,'g');
+    rect(-W,W,bot,down,-.08,.8,'w');line([0,bot,-.08],[0,down,-.08],.8,'w');
+    area(3.2,'g',function(){return [rnd(-W+.04,W-.04),rnd(bot+.04,down-.04),-.1-Math.random()*.5];});
+    line([-W-.25,bot,.25],[W+.25,bot,.25],.9,'w');line([-W-.25,bot,.25],[-W-.25,bot,-.1],.9,'w');line([W+.25,bot,.25],[W+.25,bot,-.1],.9,'w');
+    return done();};
+  COMP.door=function(){var W=.95,H=1.95,z=0;
+    rect(-W-.12,W+.12,-H,H+.12,z,1,'w');rect(-W,W,-H,H,z+.03,1,'c');
+    rect(-W+.22,W-.22,.25,H-.25,z+.05,.7,'s');rect(-W+.22,W-.22,-H+.25,-.25,z+.05,.7,'s');
+    area(1.6,'g',function(){return [rnd(-W+.3,-W+.48),rnd(-H+.35,H-.35),z+.04];});
+    var lx=W-.32;
+    rect(lx-.17,lx+.17,-.15,.62,z+.12,1.6,'w');
+    area(.6,'d',function(){return [rnd(lx-.15,lx+.15),rnd(-.13,.6),z+.11];});
+    for(var r=0;r<4;r++)for(var c=0;c<3;c++){(function(cx,cy){area(.07,'g',function(){var a=Math.random()*6.283,q=Math.random()*.025;return [cx+Math.cos(a)*q,cy+Math.sin(a)*q,z+.13];});})(lx-.09+c*.09,.5-r*.1);}
+    ring(lx,-.42,z+.12,.07,.35,'w');line([lx,-.42,z+.16],[lx-.42,-.42,z+.16],.9,'w');line([lx-.42,-.42,z+.16],[lx-.42,-.38,z+.12],.5,'w');
+    ring(lx,.72,z+.13,.035,.15,'b');
+    return done();};
+  COMP.lamp=function(){var top=1.75;
+    line([-1.3,top,0],[1.3,top,0],.5,'s');
+    [[0,.55,1.25],[.0,.15,.85],[0,-.2,.5]].forEach(function(q){var y=q[1],r=q[2];
+      [[-1,0],[.5,.87],[.5,-.87]].forEach(function(d){line([d[0]*r,top,d[1]*r],[d[0]*r,y,d[1]*r],.15,'s');});
+      P.push({w:r*3.2,c:'g',f:function(){var a=Math.random()*6.283;return [Math.cos(a)*r,y+R()*.015,Math.sin(a)*r];}});
+      P.push({w:r*1.2,c:'w',f:function(){var a=Math.random()*6.283;return [Math.cos(a)*(r+.03),y+.03,Math.sin(a)*(r+.03)];}});});
+    area(2.6,'g',function(){var h=Math.random(),a=Math.random()*6.283,rr=(.2+h*1.2)*Math.sqrt(Math.random());return [Math.cos(a)*rr,-.25-h*1.25,Math.sin(a)*rr];});
+    var ty=-1.5;rect(-1.5,1.5,ty,ty,0,0,'w');
+    box(-1.5,1.5,ty-.06,ty,-.7,.7,1,'w');[[-1.35,-.55],[1.35,-.55],[-1.35,.55],[1.35,.55]].forEach(function(l){line([l[0],ty-.06,l[1]],[l[0],-2.3,l[1]],.6,'w');});
+    area(1.4,'g',function(){var a=Math.random()*6.283,rr=1.2*Math.sqrt(Math.random());return [Math.cos(a)*rr,ty+.01,Math.sin(a)*rr*.55];});
+    return done();};
+  var CC={};function compInit(name){var D=COMP[name](),pos=new Float32Array(N*3),col=new Float32Array(N*3),j=0,sc=name==='villa'?.82:.95,dy=name==='villa'?.2:0;
+    for(var i=0;i<N;i++){var u=(i+.5)/N;while(D[j].e<u&&j<D.length-1)j++;var p=D[j].f(),c=VC[D[j].c];pos.set([p[0]*sc,p[1]*sc+dy,p[2]*sc],i*3);col.set([c.r,c.g,c.b],i*3);}
+    CC[name]={p:pos,c:col};return CC[name];}
+  var VC={w:new THREE.Color('#e3ebf7'),g:new THREE.Color('#f3c66b'),b:new THREE.Color('#3f9bff'),n:new THREE.Color('#4f7a63'),t:new THREE.Color('#8fc6a0'),s:new THREE.Color('#8f9fb6'),c:new THREE.Color('#d6dde8'),r:new THREE.Color('#ff4b4b'),d:new THREE.Color('#2c3a52')};
   var shapes={
     sphere:function(i){var y=1-2*(i+.5)/N,rr=Math.sqrt(1-y*y),a=i*2.39996;return [Math.cos(a)*rr*2.7,y*2.7,Math.sin(a)*rr*2.7];},
     dust:function(){return [R()*9,R()*5,R()*4-1];},
@@ -123,22 +215,22 @@ THREE_FX = """
       var k=i%2?1:-1;return [Math.cos(a)*1.9, k*Math.abs(Math.sin(a))*.9,0];}
   };
   var g=new THREE.BufferGeometry(),pos=new Float32Array(N*3),col=new Float32Array(N*3),tgt=new Float32Array(N*3),c1=new THREE.Color('#f3c66b'),c2=new THREE.Color('#9fb3d1');
-  for(var i=0;i<N;i++){var d=shapes.dust(i);pos.set(d,i*3);var c=Math.random()<.2?c1:c2;col.set([c.r,c.g,c.b],i*3);}
+  var base=new Float32Array(N*3),ctg=new Float32Array(N*3);for(var i=0;i<N;i++){var d=shapes.dust(i);pos.set(d,i*3);var c=Math.random()<.2?c1:c2;base.set([c.r,c.g,c.b],i*3);}col.set(base);ctg.set(base);
   g.setAttribute('position',new THREE.BufferAttribute(pos,3));g.setAttribute('color',new THREE.BufferAttribute(col,3));
   var m=new THREE.PointsMaterial({size:mob?.03:.022,vertexColors:true,transparent:true,opacity:.9,blending:THREE.AdditiveBlending,depthWrite:false});
   var pts=new THREE.Points(g,m);sc.add(pts);
   var offX=0,goalX=0,cur='';
-  function shape(name,x){if(name===cur&&x===goalX)return;cur=name;goalX=x;var f=shapes[name];for(var i=0;i<N;i++)tgt.set(f(i),i*3);}
+  function shape(name,x){if(name===cur&&x===goalX)return;cur=name;goalX=x;if(COMP[name]){var C=CC[name]||compInit(name);tgt.set(C.p);ctg.set(C.c);return;}var f=shapes[name];for(var i=0;i<N;i++)tgt.set(f(i),i*3);ctg.set(base);}
   window.fielShape=shape;
   var secs=[].slice.call(document.querySelectorAll('[data-shape]'));
   function pick(){var best=null,bv=0;secs.forEach(function(s){var b=s.getBoundingClientRect(),v=Math.min(b.bottom,innerHeight)-Math.max(b.top,0);if(v>bv){bv=v;best=s;}});
     if(best&&!best.dataset.locked){var x=mob?0:parseFloat(best.dataset.x||0);shape(best.dataset.shape,x);}}
   addEventListener('scroll',pick,{passive:true});pick();
   var mx=0,my=0;addEventListener('pointermove',function(e){mx=e.clientX/innerWidth-.5;my=e.clientY/innerHeight-.5;});
-  var t=0;(function f(){t+=.003;var p=g.attributes.position.array;
-    for(var i=0;i<N*3;i++){p[i]+=(tgt[i]-p[i])*.045;}
-    g.attributes.position.needsUpdate=true;offX+=(goalX-offX)*.05;
-    pts.position.x=offX;pts.rotation.y=t*1.2+mx*.5;pts.rotation.x=my*.3+Math.sin(t)*.08;
+  var t=0,ry=0,rx=0;(function f(){t+=.003;var p=g.attributes.position.array;
+    var cc=g.attributes.color.array;for(var i=0;i<N*3;i++){p[i]+=(tgt[i]-p[i])*.045;cc[i]+=(ctg[i]-cc[i])*.05;}
+    g.attributes.position.needsUpdate=true;g.attributes.color.needsUpdate=true;offX+=(goalX-offX)*.05;
+    pts.position.x=offX;var V=!!COMP[cur];ry+=((V?(cur==='villa'?-.55:-.35)+Math.sin(t*2)*.4:t*1.2)+mx*.5-ry)*.04;rx+=((cur==='villa'?.42:cur==='lamp'?.32:V?.08:0)+my*.3+Math.sin(t)*.08-rx)*.04;pts.rotation.y=ry;pts.rotation.x=rx;
     r.render(sc,cam);requestAnimationFrame(f);})();
 })();
 (function(){
@@ -294,18 +386,18 @@ def page3():
     html = html.replace('<section><div class="wrap"><span class="label">Zašto lokalno</span>','<section data-shape="dust"><div class="wrap"><span class="label">Zašto lokalno</span>')
     html = html.replace('class="manifest "','class="manifest reveal"')
     html = html.replace('<div class="card">','<div class="card up">')
-    sol = """<section class="sol" data-shape="bulb" data-x="-2.6"><div class="wrap"><div><span class="label">Rješenja</span><h2 style="margin-top:14px">Jedan sustav <em>za cijeli objekt</em></h2>
+    sol = """<section class="sol" data-shape="lamp" data-x="-2.6"><div class="wrap"><div><span class="label">Rješenja</span><h2 style="margin-top:14px">Jedan sustav <em>za cijeli objekt</em></h2>
 <p style="color:var(--muted);margin-top:16px;max-width:28em">Prijeđite mišem ili dodirnite karticu.</p></div>
 <div class="sol-list">
-<button data-s="bulb" class="act"><b>Rasvjeta</b><span>Scene, raspored po dobu dana i prisutnost.</span></button>
+<button data-s="lamp" class="act"><b>Rasvjeta</b><span>Scene, raspored po dobu dana i prisutnost.</span></button>
 <button data-s="wave"><b>Grijanje i hlađenje</b><span>Temperatura po prostorijama i raspored po danima.</span></button>
-<button data-s="curtain"><b>Rolete</b><span>Prema suncu, dobu dana ili jednim dodirom.</span></button>
-<button data-s="shield"><b>Alarm i brave</b><span>Jedan dodir: sve zaključano, alarm uključen.</span></button>
+<button data-s="blind"><b>Rolete</b><span>Prema suncu, dobu dana ili jednim dodirom.</span></button>
+<button data-s="door"><b>Alarm i brave</b><span>Jedan dodir: sve zaključano, alarm uključen.</span></button>
 <button data-s="eye"><b>Kamere i portafon</b><span>Slika s ulaza i kamera na zaslonu i mobitelu.</span></button>
 <button data-s="house"><b>Cijela kuća</b><span>Sve na jednom zaslonu, radi i bez interneta.</span></button>
 </div></div></section>"""
-    html = html.replace('<section class="band">', sol + '\n<section class="band" data-shape="house" data-x="2.8">')
-    html = html.replace('<section class="contact" id="kontakt">','<section class="contact" id="kontakt" data-shape="house" data-x="3.3">')
+    html = html.replace('<section class="band">', sol + '\n<section class="band" data-shape="villa" data-x="2.6">')
+    html = html.replace('<section class="contact" id="kontakt">','<section class="contact" id="kontakt" data-shape="villa" data-x="2.9">')
     html = html.replace('© 2026 Fiel d.o.o. · Rušiščak 5b, Zagreb','© 2026 Fiel d.o.o. · Rušiščak 5b, Zagreb · <span class="clock">ZAGREB, SADA <span id="sat"></span></span>')
     html = html.replace('<script>','<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script><script>')
     html = html.replace('</script></body>', THREE_FX + '</script></body>')
