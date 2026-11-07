@@ -919,7 +919,7 @@ function dustNow(){if(window.fielTabDust)window.fielTabDust();}setTimeout(dustNo
     area(2.5,'d',function(){return [rnd(-w+.02,w-.02),rnd(-h+.02,h-.02),0];});
     area(.6,'g',function(){return [rnd(xs[0]+.02,xs[1]-.04),rnd(yr[1]+.03,yr[0]-.03),0];});
     return done();};
-  var CC={};function compInit(name){var D=COMP[name](),pos=new Float32Array(N*3),col=new Float32Array(N*3),j=0,sc=name==='villa'?.82:name==='tablet'?1:.95,dy=name==='villa'?.2:0;
+  var CC={};function compInit(name){var D=COMP[name](),pos=new Float32Array(N*3),col=new Float32Array(N*3),j=0,sc=name==='villa'?.82:name==='tablet'?1:name==='cam'?.66:.95,dy=name==='villa'?.2:0;
     for(var i=0;i<N;i++){var u=(i+.5)/N;while(D[j].e<u&&j<D.length-1)j++;var p=D[j].f(),c=VC[D[j].c];pos.set([p[0]*sc,p[1]*sc+dy,p[2]*sc],i*3);col.set([c.r,c.g,c.b],i*3);}
     CC[name]={p:pos,c:col};return CC[name];}
   var VC={w:new THREE.Color('#e3ebf7'),g:new THREE.Color('#f3c66b'),b:new THREE.Color('#3f9bff'),n:new THREE.Color('#4f7a63'),t:new THREE.Color('#8fc6a0'),s:new THREE.Color('#8f9fb6'),c:new THREE.Color('#d6dde8'),r:new THREE.Color('#ff4b4b'),d:new THREE.Color('#2c3a52'),o:new THREE.Color('#ff8a3d'),p:new THREE.Color('#a99bff'),h:new THREE.Color('#ff4f2e')};
