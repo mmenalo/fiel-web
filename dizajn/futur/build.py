@@ -90,6 +90,91 @@ PARTICLES = """
 })();
 """
 
+THREE_FX = """
+(function(){
+  if(!window.THREE||matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var mob=innerWidth<700, N=mob?2600:6500;
+  var r=new THREE.WebGLRenderer({canvas:document.getElementById('fx'),alpha:true,antialias:false});
+  r.setPixelRatio(Math.min(devicePixelRatio,mob?1.5:2));
+  var sc=new THREE.Scene(), cam=new THREE.PerspectiveCamera(50,1,.1,100); cam.position.z=7;
+  function size(){r.setSize(innerWidth,innerHeight,false);cam.aspect=innerWidth/innerHeight;cam.updateProjectionMatrix();}
+  size(); addEventListener('resize',size);
+  function R(){return Math.random()*2-1}
+  function edges(E,i){var e=E[i%E.length],t=Math.random();return [e[0]+(e[3]-e[0])*t+R()*.02,e[1]+(e[4]-e[1])*t+R()*.02,e[2]+(e[5]-e[2])*t+R()*.02];}
+  var HOUSE=(function(){var b=[[-1,-1,-1],[1,-1,-1],[1,-1,1],[-1,-1,1],[-1,.5,-1],[1,.5,-1],[1,.5,1],[-1,.5,1]],E=[],P=[[0,1],[1,2],[2,3],[3,0],[4,5],[5,6],[6,7],[7,4],[0,4],[1,5],[2,6],[3,7]];
+    P.forEach(function(q){E.push(b[q[0]].concat(b[q[1]]))});
+    [[-1,.5,-1,0,1.4,-1],[1,.5,-1,0,1.4,-1],[-1,.5,1,0,1.4,1],[1,.5,1,0,1.4,1],[0,1.4,-1,0,1.4,1]].forEach(function(e){E.push(e)});return E;})();
+  var SHIELD=(function(){var E=[],pts=[];for(var a=0;a<=20;a++){var t=a/20;pts.push([-1+2*t,1.1-.15*Math.sin(t*Math.PI),0]);}
+    for(var k=0;k<=20;k++){var u=k/20;pts.push([1-u, 1.1-2.6*u*u*.4-1.5*u ,0]);}
+    for(var j=0;j<=20;j++){var v=j/20;pts.push([0-v,-1.5+1.5*v+ (1.1-.6-(-1.5))*0 ,0]);}
+    return pts;})();
+  var shapes={
+    sphere:function(i){var y=1-2*(i+.5)/N,rr=Math.sqrt(1-y*y),a=i*2.39996;return [Math.cos(a)*rr*2.7,y*2.7,Math.sin(a)*rr*2.7];},
+    dust:function(){return [R()*9,R()*5,R()*4-1];},
+    house:function(i){return edges(HOUSE,i).map(function(v){return v*1.15});},
+    bulb:function(i){if(i%4){var y=1-2*Math.random(),rr=Math.sqrt(1-y*y),a=Math.random()*6.283;return [Math.cos(a)*rr*1.2,y*1.2+.5,Math.sin(a)*rr*1.2];}
+      var a2=Math.random()*6.283,h=Math.random();return [Math.cos(a2)*.5,-.9-h*.9,Math.sin(a2)*.5];},
+    wave:function(i){var x=R()*3,z=R()*2;return [x,Math.sin(x*2.2)*.45*Math.cos(z*1.5),z];},
+    curtain:function(i){var c=i%14,x=-1.8+c*.28,y=R()*1.7;return [x+Math.sin(y*3+c)*.06,y,Math.sin(c*1.3)*.25];},
+    shield:function(i){var k=i%3,sd=i%2?1:-1,u=Math.random(),x,y;
+      if(k===0){x=R()*1.2;y=1.2;}else if(u<.4){x=sd*1.2;y=1.2-u/.4;}else{var v=(u-.4)/.6;x=sd*1.2*(1-v*v);y=.2-1.8*v;}
+      return [x+R()*.025,y+R()*.025,R()*.06];},
+    eye:function(i){var a=Math.random()*6.283;if(i%3===0){var rr=.45*Math.sqrt(Math.random());return [Math.cos(a)*rr,Math.sin(a)*rr,0];}
+      var k=i%2?1:-1;return [Math.cos(a)*1.9, k*Math.abs(Math.sin(a))*.9,0];}
+  };
+  var g=new THREE.BufferGeometry(),pos=new Float32Array(N*3),col=new Float32Array(N*3),tgt=new Float32Array(N*3),c1=new THREE.Color('#f3c66b'),c2=new THREE.Color('#9fb3d1');
+  for(var i=0;i<N;i++){var d=shapes.dust(i);pos.set(d,i*3);var c=Math.random()<.2?c1:c2;col.set([c.r,c.g,c.b],i*3);}
+  g.setAttribute('position',new THREE.BufferAttribute(pos,3));g.setAttribute('color',new THREE.BufferAttribute(col,3));
+  var m=new THREE.PointsMaterial({size:mob?.03:.022,vertexColors:true,transparent:true,opacity:.9,blending:THREE.AdditiveBlending,depthWrite:false});
+  var pts=new THREE.Points(g,m);sc.add(pts);
+  var offX=0,goalX=0,cur='';
+  function shape(name,x){if(name===cur&&x===goalX)return;cur=name;goalX=x;var f=shapes[name];for(var i=0;i<N;i++)tgt.set(f(i),i*3);}
+  window.fielShape=shape;
+  var secs=[].slice.call(document.querySelectorAll('[data-shape]'));
+  function pick(){var best=null,bv=0;secs.forEach(function(s){var b=s.getBoundingClientRect(),v=Math.min(b.bottom,innerHeight)-Math.max(b.top,0);if(v>bv){bv=v;best=s;}});
+    if(best&&!best.dataset.locked){var x=mob?0:parseFloat(best.dataset.x||0);shape(best.dataset.shape,x);}}
+  addEventListener('scroll',pick,{passive:true});pick();
+  var mx=0,my=0;addEventListener('pointermove',function(e){mx=e.clientX/innerWidth-.5;my=e.clientY/innerHeight-.5;});
+  var t=0;(function f(){t+=.003;var p=g.attributes.position.array;
+    for(var i=0;i<N*3;i++){p[i]+=(tgt[i]-p[i])*.045;}
+    g.attributes.position.needsUpdate=true;offX+=(goalX-offX)*.05;
+    pts.position.x=offX;pts.rotation.y=t*1.2+mx*.5;pts.rotation.x=my*.3+Math.sin(t)*.08;
+    r.render(sc,cam);requestAnimationFrame(f);})();
+})();
+(function(){
+  var app=document.getElementById('app');if(app&&matchMedia('(pointer:fine)').matches){var w=app.parentElement;w.style.perspective='1200px';
+    addEventListener('pointermove',function(e){var x=e.clientX/innerWidth-.5,y=e.clientY/innerHeight-.5;app.style.transform='rotateY('+(x*10)+'deg) rotateX('+(-y*8)+'deg)';});}
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}})},{threshold:.15});
+  [].forEach.call(document.querySelectorAll('.up'),function(el,i){el.style.transitionDelay=(i%4*80)+'ms';io.observe(el);});
+  var sol=document.querySelector('.sol');if(sol){var cards=[].slice.call(sol.querySelectorAll('[data-s]'));
+    function act(c){cards.forEach(function(k){k.classList.toggle('act',k===c)});sol.dataset.shape=c.dataset.s;sol.dataset.locked='';if(window.fielShape)window.fielShape(c.dataset.s,innerWidth<700?0:-2.6);}
+    cards.forEach(function(c){c.addEventListener('mouseenter',function(){act(c)});c.addEventListener('click',function(){act(c)});c.addEventListener('focus',function(){act(c)});});}
+  var top=document.querySelector('.top');addEventListener('scroll',function(){top.classList.toggle('scrolled',scrollY>40)},{passive:true});
+  var clk=document.getElementById('sat');if(clk){(function u(){clk.textContent=new Date().toLocaleTimeString('hr-HR');setTimeout(u,1000)})();}
+})();
+"""
+
+FX_CSS = """
+#fx{position:fixed;inset:0;width:100vw;height:100vh;z-index:0;pointer-events:none}
+.fx main,.fx footer,.fx .top{position:relative;z-index:1}.fx .top{position:sticky}
+.fx section,.fx .hero{background:transparent}.fx .band{background:rgba(14,24,40,.55)}
+.fx .card{background:rgba(17,29,48,.72);backdrop-filter:blur(6px)}
+.app{transition:transform .25s ease-out;transform-style:preserve-3d}
+.top.scrolled{background:rgba(8,15,26,.7)}
+.up{opacity:0;transform:translateY(28px);transition:opacity .8s,transform .8s}.up.in{opacity:1;transform:none}
+.fx h1 em{background:linear-gradient(90deg,#f3c66b,#d9ad52,#fff1cf,#d9ad52);background-size:300% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:sheen 6s linear infinite}
+@keyframes sheen{to{background-position:-300% 0}}
+.sol .wrap{display:grid;grid-template-columns:.9fr 1.1fr;gap:48px;align-items:start}
+.sol-list{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.sol-list [data-s]{cursor:pointer;text-align:left;font:inherit;color:inherit;background:rgba(17,29,48,.6);border:1px solid var(--line);border-radius:18px;padding:22px;display:grid;gap:8px;transition:background .3s,border-color .3s,transform .3s}
+.sol-list [data-s].act{background:linear-gradient(160deg,rgba(217,173,82,.22),rgba(17,29,48,.7));border-color:rgba(217,173,82,.6);transform:translateY(-3px)}
+.sol-list b{font:500 1.1rem Jost,sans-serif;color:var(--ink)}.sol-list span{color:var(--muted);font-size:.95rem}
+.clock{font:500 .8rem "IBM Plex Mono",monospace;color:var(--muted);letter-spacing:.08em}
+.glow-beam{position:absolute;width:900px;height:900px;left:-300px;top:-400px;background:radial-gradient(closest-side,rgba(66,92,122,.45),transparent);filter:blur(40px);pointer-events:none;z-index:0}
+@media (max-width:960px){.sol .wrap{grid-template-columns:1fr}.sol-list{grid-template-columns:1fr}}
+@media (prefers-reduced-motion:reduce){.up{opacity:1;transform:none}.fx h1 em{animation:none}}
+"""
+
 CSS = """
 *{box-sizing:border-box}html{scroll-behavior:smooth}
 body{margin:0;font:400 17px/1.6 "Source Sans 3",system-ui,sans-serif;background:var(--bg);color:var(--text)}
@@ -200,7 +285,33 @@ def page(theme, name, ghost=False, particles=False, dark_band=False):
 <link href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,300;0,400;0,500;1,500&family=Source+Sans+3:wght@400;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
 <style>{CSS}</style></head><body class="{theme}">{body}</body></html>"""
 
+
+def page3():
+    html = page("dark", "Varijanta 3: Puni efekt", ghost=True)
+    html = html.replace('<body class="dark">','<body class="dark fx"><canvas id="fx" aria-hidden="true"></canvas>')
+    html = html.replace('</style>', FX_CSS + '</style>')
+    html = html.replace('<div class="hero">','<div class="hero" data-shape="sphere" data-x="2.1"><div class="glow-beam" aria-hidden="true"></div>')
+    html = html.replace('<section><div class="wrap"><span class="label">Zašto lokalno</span>','<section data-shape="dust"><div class="wrap"><span class="label">Zašto lokalno</span>')
+    html = html.replace('class="manifest "','class="manifest reveal"')
+    html = html.replace('<div class="card">','<div class="card up">')
+    sol = """<section class="sol" data-shape="bulb" data-x="-2.6"><div class="wrap"><div><span class="label">Rješenja</span><h2 style="margin-top:14px">Jedan sustav <em>za cijeli objekt</em></h2>
+<p style="color:var(--muted);margin-top:16px;max-width:28em">Prijeđite mišem ili dodirnite karticu.</p></div>
+<div class="sol-list">
+<button data-s="bulb" class="act"><b>Rasvjeta</b><span>Scene, raspored po dobu dana i prisutnost.</span></button>
+<button data-s="wave"><b>Grijanje i hlađenje</b><span>Temperatura po prostorijama i raspored po danima.</span></button>
+<button data-s="curtain"><b>Rolete</b><span>Prema suncu, dobu dana ili jednim dodirom.</span></button>
+<button data-s="shield"><b>Alarm i brave</b><span>Jedan dodir: sve zaključano, alarm uključen.</span></button>
+<button data-s="eye"><b>Kamere i portafon</b><span>Slika s ulaza i kamera na zaslonu i mobitelu.</span></button>
+<button data-s="house"><b>Cijela kuća</b><span>Sve na jednom zaslonu, radi i bez interneta.</span></button>
+</div></div></section>"""
+    html = html.replace('<section class="band">', sol + '\n<section class="band" data-shape="house" data-x="2.8">')
+    html = html.replace('<section class="contact" id="kontakt">','<section class="contact" id="kontakt" data-shape="house" data-x="3.3">')
+    html = html.replace('© 2026 Fiel d.o.o. · Rušiščak 5b, Zagreb','© 2026 Fiel d.o.o. · Rušiščak 5b, Zagreb · <span class="clock">ZAGREB, SADA <span id="sat"></span></span>')
+    html = html.replace('<script>','<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script><script>')
+    html = html.replace('</script></body>', THREE_FX + '</script></body>')
+    return html
+
 open(os.path.join(OUT, "varijanta-1.html"), "w").write(page("dark", "Varijanta 1: Noćni tlocrt", ghost=True))
 open(os.path.join(OUT, "varijanta-2.html"), "w").write(page("light", "Varijanta 2: Svijetla s tamnim vrhom", dark_band=True))
-open(os.path.join(OUT, "varijanta-3.html"), "w").write(page("dark", "Varijanta 3: Puni efekt", ghost=True, particles=True))
+open(os.path.join(OUT, "varijanta-3.html"), "w").write(page3())
 print("ok")
