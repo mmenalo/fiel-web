@@ -1,0 +1,15 @@
+<!doctype html><html><head><meta charset="utf-8"><style>html,body{margin:0;height:100%;background:#0b1120}#h{width:100%;height:100%}kuca3d-card{display:block;width:100%;height:100%}</style>
+<script type="importmap">{"imports":{"three":"./_t/build/three.module.js"}}</script></head><body><div id="h"></div>
+<script type="module">
+import './kuca3d-card.js';import {pripremi,okolis} from './okolis.js';
+import {GLTFExporter} from './_t/examples/jsm/exporters/GLTFExporter.js';
+const CFG=await fetch('kuca3d-config.json').then(r=>r.json());
+Object.assign(CFG,{height:innerHeight,lawn:true,quality:'high'});
+const S={};const set=(id,state,a={})=>S[id]={entity_id:id,state,attributes:{friendly_name:id,...a}};
+set('sun.sun','below_horizon');
+for(const r of Object.values(CFG.rooms)){[].concat(r.light||[]).forEach(l=>set(l,'on',{brightness:255}));if(r.temp)set(r.temp,'21.5');}
+for(const w of Object.values(CFG.windows)){if(w.cover)set(w.cover,'open',{current_position:100});if(w.open)set(w.open,'off');}
+const card=document.createElement('kuca3d-card');pripremi(card);card.setConfig(CFG);card._floor='both';document.getElementById('h').appendChild(card);
+card.hass={states:{...S},callService(){}};window.card=card;okolis(card);
+window.GLTFExporter=GLTFExporter;
+</script></body></html>

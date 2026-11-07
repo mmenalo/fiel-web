@@ -210,10 +210,25 @@ THREE_FX = """
     /* topli zrak koji se diže */
     for(var j=0;j<5;j++){(function(j){var bx=-1.3+j*.65;area(1.1,j%2?'o':'h',function(){var h=Math.random(),y=y1+.15+h*1.5;return [bx+Math.sin(h*7+j)*.18,y,Math.cos(h*5+j)*.12];});})(j);}
     return done();};
-  var CC={};function compInit(name){var D=COMP[name](),pos=new Float32Array(N*3),col=new Float32Array(N*3),j=0,sc=name==='villa'?.82:.95,dy=name==='villa'?.2:0;
+  COMP.tablet=function(){var w=.5,h=.325,r=.035;
+    function rr(x0,x1,y0,y1,d,c){var k=Math.min(r,(x1-x0)/4,(y1-y0)/4);line([x0+k,y0,0],[x1-k,y0,0],d,c);line([x0+k,y1,0],[x1-k,y1,0],d,c);line([x0,y0+k,0],[x0,y1-k,0],d,c);line([x1,y0+k,0],[x1,y1-k,0],d,c);
+      [[x0+k,y0+k,Math.PI],[x1-k,y0+k,1.5*Math.PI],[x1-k,y1-k,0],[x0+k,y1-k,.5*Math.PI]].forEach(function(q){P.push({w:k*1.6*d,c:c,f:function(){var a=q[2]+Math.random()*Math.PI/2;return [q[0]+Math.cos(a)*k,q[1]+Math.sin(a)*k,0];}});});}
+    rr(-w,w,-h,h,9,'w');rr(-w+.018,w-.018,-h+.018,h-.018,4,'s');
+    var X0=-w+.035,X1=w-.035,Yt=h-.075,Yb=-h+.035,g=.012;
+    for(var i=0;i<7;i++){var cw=(X1-X0)/7;rr(X0+i*cw+.008,X0+(i+1)*cw-.008,Yt-.005,Yt+.03,1.6,'p');}
+    var cols=[1.15,1,1,1],tot=4.15,xs=[X0];cols.forEach(function(c){xs.push(xs[xs.length-1]+(X1-X0)*c/tot);});
+    var y0=Yt-.03,yr=[y0,y0-(y0-Yb-.09)/2,Yb+.09,Yb];
+    rr(xs[0]+g/2,xs[1]-g/2,yr[2]+g/2,yr[0]-g/2,3,'p');
+    rr(xs[1]+g/2,xs[3]-g/2,yr[1]+g/2,yr[0]-g/2,3,'p');rr(xs[3]+g/2,xs[4]-g/2,yr[1]+g/2,yr[0]-g/2,3,'p');
+    for(var j=1;j<4;j++)rr(xs[j]+g/2,xs[j+1]-g/2,yr[2]+g/2,yr[1]-g/2,3,'p');
+    rr(xs[0]+g/2,xs[4]-g/2,yr[3]+g/2,yr[2]-g/2,3,'p');
+    area(2.5,'d',function(){return [rnd(-w+.02,w-.02),rnd(-h+.02,h-.02),0];});
+    area(.6,'g',function(){return [rnd(xs[0]+.02,xs[1]-.04),rnd(yr[1]+.03,yr[0]-.03),0];});
+    return done();};
+  var CC={};function compInit(name){var D=COMP[name](),pos=new Float32Array(N*3),col=new Float32Array(N*3),j=0,sc=name==='villa'?.82:name==='tablet'?1:.95,dy=name==='villa'?.2:0;
     for(var i=0;i<N;i++){var u=(i+.5)/N;while(D[j].e<u&&j<D.length-1)j++;var p=D[j].f(),c=VC[D[j].c];pos.set([p[0]*sc,p[1]*sc+dy,p[2]*sc],i*3);col.set([c.r,c.g,c.b],i*3);}
     CC[name]={p:pos,c:col};return CC[name];}
-  var VC={w:new THREE.Color('#e3ebf7'),g:new THREE.Color('#f3c66b'),b:new THREE.Color('#3f9bff'),n:new THREE.Color('#4f7a63'),t:new THREE.Color('#8fc6a0'),s:new THREE.Color('#8f9fb6'),c:new THREE.Color('#d6dde8'),r:new THREE.Color('#ff4b4b'),d:new THREE.Color('#2c3a52'),o:new THREE.Color('#ff8a3d'),h:new THREE.Color('#ff4f2e')};
+  var VC={w:new THREE.Color('#e3ebf7'),g:new THREE.Color('#f3c66b'),b:new THREE.Color('#3f9bff'),n:new THREE.Color('#4f7a63'),t:new THREE.Color('#8fc6a0'),s:new THREE.Color('#8f9fb6'),c:new THREE.Color('#d6dde8'),r:new THREE.Color('#ff4b4b'),d:new THREE.Color('#2c3a52'),o:new THREE.Color('#ff8a3d'),p:new THREE.Color('#a99bff'),h:new THREE.Color('#ff4f2e')};
   var shapes={
     sphere:function(i){var y=1-2*(i+.5)/N,rr=Math.sqrt(1-y*y),a=i*2.39996;return [Math.cos(a)*rr*2.7,y*2.7,Math.sin(a)*rr*2.7];},
     dust:function(){return [R()*9,R()*5,R()*4-1];},
@@ -234,7 +249,7 @@ THREE_FX = """
   var m=new THREE.PointsMaterial({size:mob?.03:.022,vertexColors:true,transparent:true,opacity:.9,blending:THREE.AdditiveBlending,depthWrite:false});
   var pts=new THREE.Points(g,m);sc.add(pts);
   var offX=0,goalX=0,cur='';
-  function shape(name,x){if(name===cur&&x===goalX)return;cur=name;goalX=x;if(COMP[name]){var C=CC[name]||compInit(name);tgt.set(C.p);ctg.set(C.c);return;}var f=shapes[name];for(var i=0;i<N;i++)tgt.set(f(i),i*3);ctg.set(base);}
+  function shape(name,x){if(name===cur&&x===goalX)return;cur=name;goalX=x;if(COMP[name]){var C=CC[name]||compInit(name);if(name!=='tablet')tgt.set(C.p);ctg.set(C.c);return;}var f=shapes[name];for(var i=0;i<N;i++)tgt.set(f(i),i*3);ctg.set(base);}
   window.fielShape=shape;
   var secs=[].slice.call(document.querySelectorAll('[data-shape]'));
   function pick(){var best=null,bv=0;secs.forEach(function(s){var b=s.getBoundingClientRect(),v=Math.min(b.bottom,innerHeight)-Math.max(b.top,0);if(v>bv){bv=v;best=s;}});
@@ -242,9 +257,10 @@ THREE_FX = """
   addEventListener('scroll',pick,{passive:true});pick();
   var mx=0,my=0;addEventListener('pointermove',function(e){mx=e.clientX/innerWidth-.5;my=e.clientY/innerHeight-.5;});
   var t=0,ry=0,rx=0;(function f(){t+=.003;var p=g.attributes.position.array;
+    if(cur==='tablet'&&CC.tablet){var te=document.getElementById('tabwrap');if(te){var tr=te.getBoundingClientRect(),hh=Math.tan(25*Math.PI/180)*7,hw=hh*cam.aspect,tcx=((tr.left+tr.width/2)/innerWidth*2-1)*hw,tcy=-((tr.top+tr.height/2)/innerHeight*2-1)*hh,tsw=tr.width/innerWidth*2*hw*1.04,TBp=CC.tablet.p;for(var q=0;q<N;q++){tgt[q*3]=TBp[q*3]*tsw+tcx;tgt[q*3+1]=TBp[q*3+1]*tsw+tcy;tgt[q*3+2]=0;}}}
     var cc=g.attributes.color.array;for(var i=0;i<N*3;i++){p[i]+=(tgt[i]-p[i])*.045;cc[i]+=(ctg[i]-cc[i])*.05;}
     g.attributes.position.needsUpdate=true;g.attributes.color.needsUpdate=true;offX+=(goalX-offX)*.05;
-    pts.position.x=offX;var V=!!COMP[cur];ry+=((V?(cur==='villa'?-.55:-.35)+Math.sin(t*2)*.4:t*1.2)+mx*.5-ry)*.04;rx+=((cur==='villa'?.42:cur==='lamp'?.32:cur==='heat'?.28:V?.08:0)+my*.3+Math.sin(t)*.08-rx)*.04;pts.rotation.y=ry;pts.rotation.x=rx;
+    pts.position.x=offX;var V=!!COMP[cur],TBm=cur==='tablet';if(TBm){ry+=(0-ry)*.08;rx+=(0-rx)*.08;}else{ry+=((V?(cur==='villa'?-.55:-.35)+Math.sin(t*2)*.4:t*1.2)+mx*.5-ry)*.04;rx+=((cur==='villa'?.42:cur==='lamp'?.32:cur==='heat'?.28:V?.08:0)+my*.3+Math.sin(t)*.08-rx)*.04;}pts.rotation.y=ry;pts.rotation.x=rx;
     r.render(sc,cam);requestAnimationFrame(f);})();
 })();
 (function(){
@@ -415,16 +431,17 @@ def page(theme, name, ghost=False, particles=False, dark_band=False):
 
 def page3():
     html = page("dark", "Varijanta 3: Puni efekt", ghost=True)
-    html = html.replace(APP, '<div class="hero-side" aria-hidden="true"></div>')
+    html = html.replace(APP, '<div class="tab-col"><div class="tab-wrap" id="tabwrap"><div class="tab" id="tablet" aria-label="Demo zidnog zaslona"><div class="tb-in"><nav class="tb-nav"></nav><div class="tb-body"></div><div class="tb-pop" hidden></div></div></div></div><p class="tab-hint">Zidni zaslon u kući · sve se može kliknuti</p></div>')
+    html = html.replace('.hero .wrap{display:grid;grid-template-columns:1fr 1.05fr;', '.hero .wrap{display:grid;grid-template-columns:.82fr 1.18fr;')
     html = html.replace(LOGO_DARK, '<img class="logo logo-img" src="fiel-logo.svg" alt="Fiel d.o.o." width="1222" height="600">', 1)
-    html = html.replace('</style>', '.top .logo-img{height:68px;width:auto;display:block}.top .wrap{height:86px}@media (max-width:560px){.top .logo-img{height:50px}.top .wrap{height:70px}}</style>', 1)
+    html = html.replace('</style>', '.fx .top,.fx .top.scrolled{z-index:50;background:#070d17;backdrop-filter:none;-webkit-backdrop-filter:none;box-shadow:0 10px 30px -12px rgba(0,0,0,.8)}.top .logo-img{height:68px;width:auto;display:block}.top .wrap{height:86px}@media (max-width:560px){.top .logo-img{height:50px}.top .wrap{height:70px}}</style>', 1)
     html = html.replace('<a class="btn" href="#">Za investitore</a>', '<a class="btn" href="#demo-sekcija">Isprobajte demo ↓</a>', 1)
     html = html.replace('<section><div class="wrap"><span class="label">Zašto lokalno</span>', DEMO + '<section><div class="wrap"><span class="label">Zašto lokalno</span>', 1)
     html = html.replace('</style>', DEMO_CSS + '</style>', 1)
     html = html.replace('</body>', '<script>' + DEMO_JS + '</script></body>')
     html = html.replace('<body class="dark">','<body class="dark fx"><canvas id="fx" aria-hidden="true"></canvas>')
     html = html.replace('</style>', FX_CSS + '</style>')
-    html = html.replace('<div class="hero">','<div class="hero" data-shape="sphere" data-x="2.1"><div class="glow-beam" aria-hidden="true"></div>')
+    html = html.replace('<div class="hero">','<div class="hero" data-shape="tablet" data-x="0"><div class="glow-beam" aria-hidden="true"></div>')
     html = html.replace('<section><div class="wrap"><span class="label">Zašto lokalno</span>','<section data-shape="dust"><div class="wrap"><span class="label">Zašto lokalno</span>')
     html = html.replace('class="manifest "','class="manifest reveal"')
     html = html.replace('<div class="card">','<div class="card up">')
