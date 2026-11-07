@@ -1,0 +1,124 @@
+{
+ "rooms": {
+  "dnevni": {
+   "light": "light.dnevni",
+   "temp": "sensor.dnevni_temperatura"
+  },
+  "blagovaonica": {
+   "light": "light.blagovaonica"
+  },
+  "kuhinja": {
+   "light": "light.kuhinja"
+  },
+  "holl": {
+   "light": "light.holl"
+  },
+  "kupaonica": {
+   "light": "light.kupaonica",
+   "temp": "sensor.kupaonica_temperatura"
+  },
+  "ured": {
+   "light": "light.ured",
+   "temp": "sensor.ured_temperatura"
+  },
+  "toni": {
+   "light": "light.toni",
+   "temp": "sensor.toni_temperatura"
+  },
+  "ana": {
+   "light": "light.ana",
+   "temp": "sensor.ana_temperatura"
+  },
+  "mz": {
+   "light": "light.mz",
+   "temp": "sensor.mz_temperatura"
+  },
+  "jopa": {
+   "light": "light.jopa",
+   "temp": "sensor.jopa_temperatura"
+  },
+  "kupaonica_kat": {
+   "light": "light.kupaonica_kat",
+   "temp": "sensor.kupaonica_kat_temperatura"
+  },
+  "hodnik": {
+   "light": "light.hodnik"
+  }
+ },
+ "windows": {
+  "dnevni_l": {
+   "cover": "cover.dnevni_l"
+  },
+  "dnevni_d": {
+   "cover": "cover.dnevni_d",
+   "open": "binary_sensor.dnevni_d_prozor",
+   "slide": "left"
+  },
+  "kuhinja": {
+   "cover": "cover.kuhinja",
+   "open": "binary_sensor.kuhinja_prozor"
+  },
+  "toni": {
+   "cover": "cover.toni",
+   "open": "binary_sensor.toni_prozor"
+  },
+  "ana": {
+   "cover": "cover.ana",
+   "open": "binary_sensor.ana_prozor"
+  },
+  "mz": {
+   "cover": "cover.mz",
+   "open": "binary_sensor.mz_prozor"
+  },
+  "balkon": {
+   "cover": "cover.balkon",
+   "open": "binary_sensor.balkon_prozor"
+  },
+  "jopa": {
+   "open": "binary_sensor.jopa_prozor"
+  },
+  "kupaonica_kat": {
+   "open": "binary_sensor.kupaonica_kat_prozor"
+  },
+  "kupaonica": {
+   "open": "binary_sensor.kupaonica_prozor"
+  }
+ },
+ "strips": {
+  "tv": {
+   "light": "light.traka_tv"
+  },
+  "mz_krevet": {
+   "light": "light.traka_mz_krevet"
+  },
+  "ormar": {
+   "light": "light.traka_ormar"
+  }
+ },
+ "doors": {
+  "ulaz": {
+   "open": "binary_sensor.vrata_ulaz"
+  }
+ },
+ "cameras": {},
+ "curtains": {
+  "dnevni": {
+   "cover": "cover.zavjesa_dnevni"
+  }
+ },
+ "floor": "both",
+ "mode": "auto",
+ "cut_walls": false,
+ "sun_entity": "sun.sun",
+ "fixed": true,
+ "lawn": false,
+ "show_bar": true,
+ "show_info": false,
+ "show_labels": true,
+ "elevation": 46,
+ "azimuth": -24,
+ "zoom": 0.93,
+ "quality": "auto",
+ "transparent": false,
+ "height": null
+}

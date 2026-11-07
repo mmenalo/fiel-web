@@ -64,6 +64,96 @@ footer .big{font:500 clamp(6rem,22vw,16rem)/0.8 Jost,sans-serif;letter-spacing:.
 @media (max-width:960px){.top nav{display:none}.cta{margin-left:auto}.hero .wrap,.contact .wrap{grid-template-columns:1fr;gap:40px}.grid4{grid-template-columns:1fr 1fr}.hero{padding:40px 0 64px}section{padding:64px 0}}
 @media (max-width:560px){.grid4{grid-template-columns:1fr}.facts{grid-template-columns:repeat(3,1fr);gap:12px}.facts b{font-size:1.1rem}.scenes{grid-template-columns:repeat(3,1fr)}.btn{width:100%}.top .logo{height:36px}.cta{padding:9px 10px 9px 16px;font-size:.88rem}}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.reveal span{opacity:1}}
+.top .logo-img{height:62px;width:auto;display:block}@media (max-width:560px){.top .logo-img{height:44px}}.demo-sec .head{display:flex;justify-content:space-between;align-items:end;gap:30px;flex-wrap:wrap}
+.demo-sec .head p{color:var(--muted);max-width:30em}
+.demo-stage{display:grid;grid-template-columns:1fr 340px;gap:28px;align-items:center;margin-top:40px}
+.house{position:relative;height:640px;border-radius:28px;background:radial-gradient(60% 60% at 50% 55%,rgba(66,92,122,.28),transparent 70%);overflow:hidden}
+.house kuca3d-card{display:block;width:100%;height:100%}
+.house-load{position:absolute;inset:0;display:grid;place-items:center;font:500 .8rem "IBM Plex Mono",monospace;letter-spacing:.12em;color:var(--muted)}
+.house.ready .house-load{display:none}.house.fail .house-load::after{content:" · 3D prikaz nije dostupan u ovom pregledniku"}
+.house-hint{position:absolute;left:18px;bottom:16px;font:500 .72rem "IBM Plex Mono",monospace;letter-spacing:.1em;color:rgba(233,238,245,.55);pointer-events:none;text-transform:uppercase}
+/* mobitel */
+.ph{--p1:#6d5dfc;--p2:#a855f7;position:relative;width:340px;height:690px;border-radius:46px;padding:12px;background:#05070c;box-shadow:0 0 0 1.5px rgba(190,205,228,.18),0 50px 100px -40px rgba(0,0,0,.9),0 0 80px -20px rgba(124,92,255,.45);justify-self:center}
+.ph-in{position:relative;height:100%;border-radius:36px;overflow:hidden;background:radial-gradient(120% 60% at 0% 0%,#3b2a8c 0%,transparent 55%),radial-gradient(90% 50% at 100% 30%,#5b2a86 0%,transparent 60%),linear-gradient(180deg,#141633,#0c0e1f 60%,#0a0c18);color:#eef0ff;font:400 14px/1.35 Jost,system-ui,sans-serif}
+.ph-notch{position:absolute;left:50%;top:9px;transform:translateX(-50%);width:96px;height:26px;border-radius:20px;background:#000;z-index:3}
+.ph-screen{position:absolute;inset:0 0 70px 0;overflow-y:auto;padding:44px 14px 18px;display:grid;gap:10px;align-content:start;scrollbar-width:none}
+.ph-screen::-webkit-scrollbar{display:none}
+.ph svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.ph button{font:inherit;color:inherit;cursor:pointer;border:0;background:none;padding:0}
+.ph small{display:block;font-size:.72rem;color:rgba(238,240,255,.6)}
+.ph-nav{position:absolute;left:8px;right:8px;bottom:8px;height:58px;border-radius:24px;background:rgba(14,16,34,.85);backdrop-filter:blur(10px);display:grid;grid-template-columns:repeat(5,1fr);border:1px solid rgba(255,255,255,.06)}
+.ph-nav button{display:grid;place-items:center;gap:1px;font:500 .55rem Jost,sans-serif;letter-spacing:.08em;text-transform:uppercase;color:rgba(238,240,255,.55);border-radius:18px;margin:5px 2px}
+.ph-nav button.on{background:linear-gradient(135deg,var(--p1),var(--p2));color:#fff}
+.ph-h{display:flex;align-items:center;gap:8px}.ph-h b{font:500 1.15rem Jost,sans-serif;letter-spacing:.1em;text-transform:uppercase}
+.ph-h>div{flex:1}.ph-t{font-size:.8rem;color:rgba(238,240,255,.7)}
+.ph-back{width:30px;height:30px;border-radius:10px;background:rgba(255,255,255,.07)!important;display:grid;place-items:center}
+.ph-hero{padding:20px 4px 4px;position:relative}.ph-hero b{display:block;font:500 1.5rem/1.1 Jost,sans-serif;letter-spacing:.06em;text-transform:uppercase;margin-top:4px}
+.ph-wx{position:absolute;right:4px;top:22px;display:grid;justify-items:end;font:300 1.6rem Jost,sans-serif}.ph-wx svg{width:26px;height:26px;color:#f3c66b}
+.ph-card{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);border-radius:18px;padding:12px;display:grid;gap:6px;align-content:start}
+.ph-card b{font:500 1.05rem Jost,sans-serif}.ph-card.armed{background:linear-gradient(135deg,rgba(220,60,90,.35),rgba(255,255,255,.05));border-color:rgba(255,100,130,.4)}
+.ph-2{display:grid;grid-template-columns:1fr 1fr;gap:10px}.ph-3{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.ph-3 button{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08)!important;border-radius:16px;padding:10px;text-align:left}
+.ph-3 b{display:block;font:400 1.25rem Jost,sans-serif}.ph-3 i{font-style:normal;font-size:.7rem;color:rgba(238,240,255,.6)}
+.ph-pill{justify-self:start;padding:6px 12px!important;border-radius:999px;background:linear-gradient(135deg,var(--p1),var(--p2))!important;font:500 .78rem Jost,sans-serif!important}
+.ph-pill.on{background:rgba(255,255,255,.12)!important}
+.ph-warn{display:flex;gap:10px;align-items:center;text-align:left;padding:12px;border-radius:18px;background:linear-gradient(135deg,rgba(243,170,60,.35),rgba(243,170,60,.1))!important;border:1px solid rgba(243,198,107,.55)!important;color:#ffe2a8}
+.ph-warn small{color:#f3c66b;letter-spacing:.12em;text-transform:uppercase}
+.ph-ok{display:flex;gap:10px;align-items:center;padding:11px 12px;border-radius:18px;background:rgba(60,190,120,.14);border:1px solid rgba(60,190,120,.35);font-size:.85rem}.ph-ok svg{color:#5fd39a}
+.ph-lbl{font:500 .68rem Jost,sans-serif;letter-spacing:.16em;text-transform:uppercase;color:rgba(238,240,255,.6);margin-top:4px}
+.ph-scenes{display:grid;grid-auto-flow:column;grid-auto-columns:1fr;gap:7px}
+.ph-scenes button{display:grid;justify-items:center;gap:4px;padding:10px 2px;border-radius:16px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08)!important;font-size:.7rem}
+.ph-scenes button.on{background:linear-gradient(135deg,var(--p1),var(--p2));border-color:transparent!important}
+.ph-chips{display:flex;gap:7px;overflow-x:auto;scrollbar-width:none;margin:0 -14px;padding:0 14px}.ph-chips::-webkit-scrollbar{display:none}
+.ph-chips button{flex:none;padding:8px 13px;border-radius:999px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1)!important;font-size:.8rem;text-align:left}
+.ph-chips button.on{background:linear-gradient(135deg,var(--p1),var(--p2));border-color:transparent!important}
+.ph-row,.ph-lr{display:grid;grid-template-columns:auto 1fr auto;gap:10px;align-items:center}
+.ph-lr{padding:7px 0;border-top:1px solid rgba(255,255,255,.06)}.ph-lr:first-child{border-top:0}
+.ph-lr input{grid-column:1/-1;margin:2px 0 0}
+.ph-li{width:30px;height:30px;border-radius:10px;display:grid;place-items:center;background:rgba(255,255,255,.07);color:rgba(238,240,255,.6)}
+.ph-li.big{width:38px;height:38px;border-radius:12px}
+.ph-lr.on .ph-li,.ph-li.lit{background:rgba(243,198,107,.2);color:#f3c66b}
+.ph-ln{display:grid;font-size:.88rem}.ph-ln b{font-size:.95rem}
+.sw{width:44px;height:26px;border-radius:99px;background:rgba(255,255,255,.15)!important;position:relative;transition:background .25s}
+.sw i{position:absolute;left:3px;top:3px;width:20px;height:20px;border-radius:50%;background:#fff;transition:transform .25s}
+.sw.on{background:linear-gradient(135deg,#f6a93b,#f3c66b)!important}.sw.on i{transform:translateX(18px)}
+.ph input[type=range]{width:100%;accent-color:#a77bff;height:22px}
+.ph-cvh{display:flex;justify-content:space-between;align-items:center}.ph-cvh span{font-size:.9rem}.ph-cvh b{font:300 1.6rem Jost,sans-serif}.ph-cvh b small{display:inline}
+.ph-b3{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:6px}
+.ph-b3 button{display:grid;justify-items:center;gap:2px;padding:8px 0;border-radius:12px;background:rgba(255,255,255,.07);font-size:.72rem}
+.ph-b3 button:active,.ph-scenes button:active,.ph-tiles button:active{transform:scale(.96)}
+.ph-th{grid-template-columns:1fr auto;align-items:center}.ph-th b{font:300 2.2rem Jost,sans-serif}
+.ph-pm{display:flex;gap:6px;align-items:center}.ph-pm button{width:36px;height:36px;border-radius:12px;background:rgba(255,255,255,.1);font-size:1.2rem}
+.ph-fl{display:grid;gap:2px;text-align:left;padding:12px;border-radius:18px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08)!important}
+.ph-fl.lit{background:linear-gradient(135deg,rgba(109,93,252,.5),rgba(168,85,247,.35))}.ph-fl b{font:500 1rem Jost,sans-serif}.ph-fl i{font-style:normal;font-size:.72rem;color:#f3c66b}
+.ph-np{justify-items:center;text-align:center;padding:16px}
+.ph-disc{width:150px;height:150px;border-radius:50%;margin:8px 0;background:conic-gradient(from 0deg,#6d5dfc,#a855f7,#f3c66b,#ff6b9a,#6d5dfc);position:relative;box-shadow:0 20px 50px -20px rgba(168,85,247,.8)}
+.ph-disc i{position:absolute;inset:38%;border-radius:50%;background:#0c0e1f}.ph-disc.spin{animation:spin 6s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}
+.ph-prog{width:100%;height:5px;border-radius:9px;background:rgba(255,255,255,.12);overflow:hidden}.ph-prog i{display:block;height:100%;background:linear-gradient(90deg,var(--p1),var(--p2));transition:width 1s}
+.ph-mc{display:flex;gap:16px;align-items:center;margin:6px 0}.ph-mc button{width:42px;height:42px;border-radius:50%;background:rgba(255,255,255,.08);display:grid;place-items:center}
+.ph-mc button.big{width:60px;height:60px;background:linear-gradient(135deg,var(--p1),var(--p2))}
+.ph-vol{display:grid;grid-template-columns:auto 1fr auto;gap:8px;align-items:center;width:100%;font-size:.75rem}
+.ph-tiles{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.ph-tiles button{min-height:118px;display:grid;align-content:space-between;text-align:left;padding:14px;border-radius:20px;background:linear-gradient(160deg,rgba(109,93,252,.32),rgba(255,255,255,.04));border:1px solid rgba(160,140,255,.25)!important}
+.ph-tiles svg{color:#c4b5ff;width:24px;height:24px}.ph-tiles b{font:500 .95rem Jost,sans-serif}
+.ph-heat{grid-template-columns:auto 1fr auto;align-items:center}.ph-heat.lit .ph-li{background:linear-gradient(135deg,#ff6a3d,#f3a03b);color:#fff}
+.ph-thg{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.ph-tc{padding:10px;border-radius:16px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);display:grid;gap:4px}
+.ph-tc.warm{background:linear-gradient(160deg,rgba(255,106,61,.35),rgba(255,255,255,.04));border-color:rgba(255,140,90,.4)}
+.ph-tc b{font:300 1.5rem Jost,sans-serif}.ph-tc .ph-pm button{width:28px;height:28px;border-radius:9px}.ph-tc .ph-pm span{font-size:.75rem;flex:1;text-align:center}
+.ph-feed{position:relative;border-radius:18px;overflow:hidden;aspect-ratio:16/10;background:#0d1420}.ph-feed svg{width:100%;height:100%;display:block;stroke:none}
+.ph-feed svg *{stroke-width:inherit}
+.ph-feed .live{position:absolute;left:10px;top:10px;font:500 .62rem Jost,sans-serif;letter-spacing:.1em;background:#e5484d;padding:3px 8px;border-radius:99px}
+.ph-feed .demo{position:absolute;right:10px;top:10px;font-size:.62rem;background:rgba(0,0,0,.5);padding:3px 8px;border-radius:99px}
+.ph-feed .ts{position:absolute;left:10px;bottom:8px;font:500 .62rem "IBM Plex Mono",monospace;color:rgba(255,255,255,.75)}
+.ph-feed::after{content:"";position:absolute;inset:0;background:repeating-linear-gradient(0deg,rgba(255,255,255,.025) 0 1px,transparent 1px 3px);pointer-events:none}
+.ph-seg{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;padding:4px;border-radius:16px;background:rgba(255,255,255,.06)}
+.ph-seg button{padding:10px 0;border-radius:12px;font-size:.82rem}.ph-seg button.on{background:linear-gradient(135deg,var(--p1),var(--p2))}
+.ph-wr{display:flex;justify-content:space-between;align-items:center;width:100%;padding:9px 0;border-top:1px solid rgba(255,255,255,.06);font-size:.88rem}.ph-wr:first-child{border-top:0}
+.ph-wr em{font-style:normal;font-size:.7rem;padding:3px 9px;border-radius:99px;background:rgba(60,190,120,.18);color:#7fe0ae}.ph-wr em.bad{background:rgba(243,170,60,.2);color:#f3c66b}
+.ph-wz{padding:6px 0}.ph-big b{font:300 2.6rem Jost,sans-serif}.ph-big b small{display:inline;font-size:1rem}
+.ph-warn.static{cursor:default}
+@media (max-width:960px){.demo-stage{grid-template-columns:1fr;gap:14px}.house{height:min(72vw,440px)}.ph{height:590px}}
+@media (max-width:400px){.ph{width:100%;max-width:340px;height:640px;border-radius:40px;padding:10px}.ph-in{border-radius:32px}}
 
 #fx{position:fixed;inset:0;width:100vw;height:100vh;z-index:0;pointer-events:none}
 .fx main,.fx footer,.fx .top{position:relative;z-index:1}.fx .top{position:sticky}
@@ -83,7 +173,7 @@ footer .big{font:500 clamp(6rem,22vw,16rem)/0.8 Jost,sans-serif;letter-spacing:.
 .glow-beam{position:absolute;width:900px;height:900px;left:-300px;top:-400px;background:radial-gradient(closest-side,rgba(66,92,122,.45),transparent);filter:blur(40px);pointer-events:none;z-index:0}
 @media (max-width:960px){.sol .wrap{grid-template-columns:1fr}.sol-list{grid-template-columns:1fr}}
 @media (prefers-reduced-motion:reduce){.up{opacity:1;transform:none}.fx h1 em{animation:none}}
-</style></head><body class="dark fx"><canvas id="fx" aria-hidden="true"></canvas><header class="top"><div class="wrap"><a href="#"><svg class="logo" viewBox="20 4 284 124" role="img" aria-label="Fiel d.o.o." xmlns="http://www.w3.org/2000/svg"><g fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M57.0 27.3L54.1 10.5M54.0 28.1L50.4 18.7M51.1 29.5L42.3 15.0M48.6 31.4L41.9 24.0M46.4 33.7L32.9 23.5M44.8 36.4L35.8 32.0M43.6 39.4L27.3 34.8M43.1 42.5L33.1 41.6M43.1 45.7L26.2 47.4M43.7 48.8L34.1 51.6M44.9 51.8L29.7 59.5M46.6 54.4L38.7 60.6M48.8 56.7L37.5 69.5M51.3 58.6L46.2 67.2M54.2 60.0L48.4 75.9" stroke="#d9ad52" stroke-width="2.6"/><circle cx="60" cy="44" r="10.5" stroke="#eef2f7" stroke-width="6.5"/><path d="M70.5 40C78 34 86 33 96 33L124 32C134 31 140 33 146 38L154 44H162L168 52L176 60" stroke="#eef2f7" stroke-width="6.5"/><path d="M78 120V62H108M78 91H104M126 62V120M180 62H148V120H180M148 91H176" stroke="#eef2f7" stroke-width="9" stroke-linecap="butt" stroke-linejoin="miter"/><path d="M206 54V120H240" stroke="#8fa1ba" stroke-width="9" stroke-linecap="butt" stroke-linejoin="miter"/><path d="M206 54L250 29L294 54V120" stroke="#8fa1ba" stroke-width="4.5"/></g></svg></a>
+</style></head><body class="dark fx"><canvas id="fx" aria-hidden="true"></canvas><header class="top"><div class="wrap"><a href="#"><img class="logo logo-img" src="fiel-logo.png" alt="Fiel d.o.o." width="420" height="203"></a>
 <nav><a href="#">Pametna kuća</a><a href="#">Video nadzor i portafoni</a><a href="#">Za investitore</a><a href="#">Kako radimo</a><a href="#">O nama</a></nav>
 <a class="cta" href="#kontakt">Besplatan dolazak <i>↗</i></a></div></header>
 <main>
@@ -92,17 +182,18 @@ footer .big{font:500 clamp(6rem,22vw,16rem)/0.8 Jost,sans-serif;letter-spacing:.
 <span class="label">Zagreb i okolica</span>
 <h1 style="margin-top:18px">Pametna kuća koja radi <em>i kad internet ne radi.</em></h1>
 <p class="lead">Projektiramo i ugrađujemo pametne instalacije, video nadzor i portafone za stambene zgrade, kuće i poslovne prostore. Sustav radi u vašem objektu, bez mjesečne pretplate.</p>
-<div class="row"><a class="btn gold" href="#kontakt">Dogovorite besplatan dolazak</a><a class="btn" href="#">Za investitore</a></div>
+<div class="row"><a class="btn gold" href="#kontakt">Dogovorite besplatan dolazak</a><a class="btn" href="#demo-sekcija">Isprobajte demo ↓</a></div>
 <div class="facts"><div><b>2 god.</b><small>jamstvo</small></div><div><b>0 €</b><small>pretplate</small></div><div><b>1 ekipa</b><small>ugradnja i održavanje</small></div></div>
-</div><div class="app" id="app">
-  <div class="app-top"><div><b id="pozdrav">Dobra večer</b><small id="brojac">3 od 6 prostorija upaljeno</small></div><span class="pill">21,5 °C</span></div>
-  <div class="plan"><svg class="plan-svg" viewBox="0 0 600 420" aria-label="Tlocrt stana: kliknite prostoriju da upalite svjetlo"><defs><radialGradient id="sjaj" cx="50%" cy="50%" r="65%"><stop offset="0" stop-color="#f3c66b" stop-opacity=".95"/><stop offset=".55" stop-color="#d9ad52" stop-opacity=".35"/><stop offset="1" stop-color="#d9ad52" stop-opacity="0"/></radialGradient></defs><g class="room" data-room="boravak" tabindex="0" role="button" aria-pressed="false" aria-label="Dnevni boravak: svjetlo"><rect class="floor" x="20" y="20" width="300" height="220"/><rect class="glow" x="20" y="20" width="300" height="220" fill="url(#sjaj)"/><text x="34" y="44">DNEVNI BORAVAK</text><circle class="bulb" cx="170.0" cy="130.0" r="5"/></g><g class="room" data-room="kuhinja" tabindex="0" role="button" aria-pressed="false" aria-label="Kuhinja: svjetlo"><rect class="floor" x="320" y="20" width="140" height="220"/><rect class="glow" x="320" y="20" width="140" height="220" fill="url(#sjaj)"/><text x="334" y="44">KUHINJA</text><circle class="bulb" cx="390.0" cy="130.0" r="5"/></g><g class="room" data-room="terasa" tabindex="0" role="button" aria-pressed="false" aria-label="Terasa: svjetlo"><rect class="floor" x="460" y="20" width="120" height="220"/><rect class="glow" x="460" y="20" width="120" height="220" fill="url(#sjaj)"/><text x="474" y="44">TERASA</text><circle class="bulb" cx="520.0" cy="130.0" r="5"/></g><g class="room" data-room="spavaca" tabindex="0" role="button" aria-pressed="false" aria-label="Spavaća: svjetlo"><rect class="floor" x="20" y="240" width="220" height="160"/><rect class="glow" x="20" y="240" width="220" height="160" fill="url(#sjaj)"/><text x="34" y="264">SPAVAĆA</text><circle class="bulb" cx="130.0" cy="320.0" r="5"/></g><g class="room" data-room="ulaz" tabindex="0" role="button" aria-pressed="false" aria-label="Ulaz: svjetlo"><rect class="floor" x="240" y="240" width="140" height="160"/><rect class="glow" x="240" y="240" width="140" height="160" fill="url(#sjaj)"/><text x="254" y="264">ULAZ</text><circle class="bulb" cx="310.0" cy="320.0" r="5"/></g><g class="room" data-room="kupaonica" tabindex="0" role="button" aria-pressed="false" aria-label="Kupaonica: svjetlo"><rect class="floor" x="380" y="240" width="200" height="160"/><rect class="glow" x="380" y="240" width="200" height="160" fill="url(#sjaj)"/><text x="394" y="264">KUPAONICA</text><circle class="bulb" cx="480.0" cy="320.0" r="5"/></g><g class="furn"><rect x="50" y="170" width="170" height="44" rx="6"/><rect x="50" y="130" width="40" height="40" rx="6"/><rect x="230" y="90" width="64" height="40" rx="4"/><rect x="336" y="40" width="108" height="30"/><rect x="350" y="120" width="80" height="70" rx="35"/><rect x="40" y="280" width="120" height="100" rx="6"/><rect x="480" y="60" width="80" height="50" rx="4"/><rect x="420" y="330" width="130" height="50" rx="20"/><rect x="400" y="262" width="40" height="40" rx="20"/></g><g class="walls"><path d="M20 20H580V400H20Z"/><path d="M320 20V110M320 160V240M460 20V240M20 240H120M170 240H300M340 240H580M240 240V400M380 240V300M380 350V400"/></g><path class="door-out" d="M290 400H330"/></svg></div>
-  <div class="scenes" role="group" aria-label="Scene">
-    <button data-scene="dan">Dan</button><button data-scene="vecer" class="on">Večer</button><button data-scene="film">Film</button><button data-scene="noc">Laku noć</button><button data-scene="odlazak">Odlazak</button>
-  </div>
-  <div class="chips"><span id="alarm"><i></i>Alarm isključen</span><span><i class="ok"></i>Radi lokalno</span></div>
-  <p class="hint">Kliknite prostoriju ili scenu</p>
-</div></div></div>
+</div><div class="hero-side" aria-hidden="true"></div></div></div>
+<section class="demo-sec" id="demo-sekcija" data-shape="dust"><div class="wrap">
+<div class="head"><div><span class="label">Isprobajte</span><h2 style="margin-top:14px">Upravljajte kućom <em>s mobitela</em></h2></div>
+<p>Ovo je 3D model kuće koju smo opremili i aplikacija kakvu dobiju naši klijenti. Upalite svjetlo, spustite žaluzine ili odaberite scenu i pogledajte što se događa u kući. Možete kliknuti i sobu u modelu. Demo radi samo u vašem pregledniku.</p></div>
+<div class="demo-stage" id="demo">
+<div class="house"><div class="house-load">UČITAVAM 3D MODEL</div><span class="house-hint">Kliknite sobu · Prizemlje / Kat gore desno</span></div>
+<div class="ph" aria-label="Demo aplikacije"><div class="ph-in"><div class="ph-notch"></div><div class="ph-screen" aria-live="polite"></div>
+<nav class="ph-nav"><button data-tab="home"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11l9-7 9 7v9h-6v-6H9v6H3z"/></svg>Početna</button><button data-tab="rooms"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM13 13h7v7h-7z"/></svg>Prostorije</button><button data-tab="light"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.5 10.9V16h7v-2.1A6 6 0 0 0 12 3z"/></svg>Rasvjeta</button><button data-tab="music"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18V5l11-2v13M9 18a3 3 0 1 1-6 0 3 3 0 0 1 6 0zM20 16a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/></svg>Glazba</button><button data-tab="more"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5h2v2H5zM11 5h2v2h-2zM17 5h2v2h-2zM5 11h2v2H5zM11 11h2v2h-2zM17 11h2v2h-2zM5 17h2v2H5zM11 17h2v2h-2zM17 17h2v2h-2z"/></svg>Više</button></nav></div></div>
+</div></div>
+<script type="application/json" id="kuca3d-cfg">{"rooms": {"dnevni": {"light": "light.dnevni", "temp": "sensor.dnevni_temperatura"}, "blagovaonica": {"light": "light.blagovaonica"}, "kuhinja": {"light": "light.kuhinja"}, "holl": {"light": "light.holl"}, "kupaonica": {"light": "light.kupaonica", "temp": "sensor.kupaonica_temperatura"}, "ured": {"light": "light.ured", "temp": "sensor.ured_temperatura"}, "toni": {"light": "light.toni", "temp": "sensor.toni_temperatura"}, "ana": {"light": "light.ana", "temp": "sensor.ana_temperatura"}, "mz": {"light": "light.mz", "temp": "sensor.mz_temperatura"}, "jopa": {"light": "light.jopa", "temp": "sensor.jopa_temperatura"}, "kupaonica_kat": {"light": "light.kupaonica_kat", "temp": "sensor.kupaonica_kat_temperatura"}, "hodnik": {"light": "light.hodnik"}}, "windows": {"dnevni_l": {"cover": "cover.dnevni_l"}, "dnevni_d": {"cover": "cover.dnevni_d", "open": "binary_sensor.dnevni_d_prozor", "slide": "left"}, "kuhinja": {"cover": "cover.kuhinja", "open": "binary_sensor.kuhinja_prozor"}, "toni": {"cover": "cover.toni", "open": "binary_sensor.toni_prozor"}, "ana": {"cover": "cover.ana", "open": "binary_sensor.ana_prozor"}, "mz": {"cover": "cover.mz", "open": "binary_sensor.mz_prozor"}, "balkon": {"cover": "cover.balkon", "open": "binary_sensor.balkon_prozor"}, "jopa": {"open": "binary_sensor.jopa_prozor"}, "kupaonica_kat": {"open": "binary_sensor.kupaonica_kat_prozor"}, "kupaonica": {"open": "binary_sensor.kupaonica_prozor"}}, "strips": {"tv": {"light": "light.traka_tv"}, "mz_krevet": {"light": "light.traka_mz_krevet"}, "ormar": {"light": "light.traka_ormar"}}, "doors": {"ulaz": {"open": "binary_sensor.vrata_ulaz"}}, "cameras": {}, "curtains": {"dnevni": {"cover": "cover.zavjesa_dnevni"}}, "floor": "both", "mode": "auto", "cut_walls": false, "sun_entity": "sun.sun", "fixed": true, "lawn": false, "show_bar": true, "show_info": false, "show_labels": true, "elevation": 46, "azimuth": -24, "zoom": 1.3, "quality": "auto", "transparent": true, "height": null}</script></section>
 <section data-shape="dust"><div class="wrap"><span class="label">Zašto lokalno</span>
 <p class="manifest reveal" style="margin-top:18px">Pametna kuća ne smije stati kad padne internet ili kad proizvođač promijeni uvjete. Zato sve radi na uređaju u vašem objektu.</p>
 <div class="grid4">
@@ -111,24 +202,24 @@ footer .big{font:500 clamp(6rem,22vw,16rem)/0.8 Jost,sans-serif;letter-spacing:.
 <div class="card up"><div class="icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M8 12h8M12 8v8"/><circle cx="12" cy="12" r="9"/></svg></div><h3>Bez vezanosti</h3><p>Opremu različitih proizvođača možete kombinirati i mijenjati.</p></div>
 <div class="card up"><div class="icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 11l9-7 9 7v9H3z"/><rect x="9" y="13" width="6" height="7"/></svg></div><h3>Podaci kod vas</h3><p>Snimke kamera i podaci spremaju se u objektu.</p></div>
 </div></div></section>
-<section class="sol" data-shape="bulb" data-x="-2.6"><div class="wrap"><div><span class="label">Rješenja</span><h2 style="margin-top:14px">Jedan sustav <em>za cijeli objekt</em></h2>
+<section class="sol" data-shape="lamp" data-x="-2.6"><div class="wrap"><div><span class="label">Rješenja</span><h2 style="margin-top:14px">Jedan sustav <em>za cijeli objekt</em></h2>
 <p style="color:var(--muted);margin-top:16px;max-width:28em">Prijeđite mišem ili dodirnite karticu.</p></div>
 <div class="sol-list">
-<button data-s="bulb" class="act"><b>Rasvjeta</b><span>Scene, raspored po dobu dana i prisutnost.</span></button>
+<button data-s="lamp" class="act"><b>Rasvjeta</b><span>Scene, raspored po dobu dana i prisutnost.</span></button>
 <button data-s="wave"><b>Grijanje i hlađenje</b><span>Temperatura po prostorijama i raspored po danima.</span></button>
-<button data-s="curtain"><b>Rolete</b><span>Prema suncu, dobu dana ili jednim dodirom.</span></button>
-<button data-s="shield"><b>Alarm i brave</b><span>Jedan dodir: sve zaključano, alarm uključen.</span></button>
+<button data-s="blind"><b>Rolete</b><span>Prema suncu, dobu dana ili jednim dodirom.</span></button>
+<button data-s="door"><b>Alarm i brave</b><span>Jedan dodir: sve zaključano, alarm uključen.</span></button>
 <button data-s="eye"><b>Kamere i portafon</b><span>Slika s ulaza i kamera na zaslonu i mobitelu.</span></button>
 <button data-s="house"><b>Cijela kuća</b><span>Sve na jednom zaslonu, radi i bez interneta.</span></button>
 </div></div></section>
-<section class="band" data-shape="house" data-x="2.8"><div class="wrap"><span class="label">Kako radimo</span><h2 style="margin-top:14px">Od prvog razgovora <em>do predaje</em></h2>
+<section class="band" data-shape="villa" data-x="2.6"><div class="wrap"><span class="label">Kako radimo</span><h2 style="margin-top:14px">Od prvog razgovora <em>do predaje</em></h2>
 <div class="grid4">
 <div class="card up"><span class="n">01</span><h3>Dolazak</h3><p>Pogledamo objekt i dogovorimo što vam treba. Besplatno.</p></div>
 <div class="card up"><span class="n">02</span><h3>Projekt i ponuda</h3><p>Točna ponuda s popisom opreme i radova.</p></div>
 <div class="card up"><span class="n">03</span><h3>Ugradnja</h3><p>Ugradimo, povežemo i podesimo sustav.</p></div>
 <div class="card up"><span class="n">04</span><h3>Predaja i podrška</h3><p>Pokažemo kako se koristi i ostajemo dostupni.</p></div>
 </div></div></section>
-<section class="contact" id="kontakt" data-shape="house" data-x="3.3"><div class="wrap"><div><span class="label">Kontakt</span><h2 style="margin-top:14px">Recite nam <em>što planirate</em></h2><a class="phone" href="tel:+38598802490">+385 98 802 490</a></div>
+<section class="contact" id="kontakt" data-shape="villa" data-x="2.9"><div class="wrap"><div><span class="label">Kontakt</span><h2 style="margin-top:14px">Recite nam <em>što planirate</em></h2><a class="phone" href="tel:+38598802490">+385 98 802 490</a></div>
 <div class="row" style="display:flex;gap:12px;flex-wrap:wrap"><a class="btn gold" href="tel:+38598802490">Nazovite</a><a class="btn" href="#">Pošaljite upit</a></div></div></section>
 </main>
 <footer><div class="wrap">© 2026 Fiel d.o.o. · Rušiščak 5b, Zagreb · <span class="clock">ZAGREB, SADA <span id="sat"></span></span><div class="big" aria-hidden="true">FIEL</div></div></footer>
@@ -157,10 +248,218 @@ footer .big{font:500 clamp(6rem,22vw,16rem)/0.8 Jost,sans-serif;letter-spacing:.
       var k=Math.round(p*sp.length);sp.forEach(function(s,i){s.classList.toggle('lit',i<k)});}
     addEventListener('scroll',onS,{passive:true});onS();}
 })();
+</script><script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script><script>(function(){
+var root=document.getElementById('demo'); if(!root) return;
+var scr=root.querySelector('.ph-screen'), nav=root.querySelector('.ph-nav'), host=root.querySelector('.house');
+var CFG=JSON.parse(document.getElementById('kuca3d-cfg').textContent);
+
+/* ---------- stanje (sve u pregledniku) ---------- */
+var S={}, card=null;
+function set(id,state,attr){var o=S[id]||{attributes:{}};S[id]={entity_id:id,state:state,attributes:Object.assign({},o.attributes,{friendly_name:id},attr||{}),last_changed:new Date().toISOString()};}
+var LIGHTS=[
+ ['light.dnevni','Strop dnevni','p','dnevni',1,0],['light.blagovaonica','Blagovaonica','p','dnevni',1,0],['light.traka_tv','TV traka','p','dnevni',1,1],
+ ['light.kuhinja','Kuhinja','p','kuhinja',0,0],['light.traka_ormar','Traka ormar','p','kuhinja',0,1],['light.holl','Ulaz','p','holl',0,0],
+ ['light.kupaonica','Kupaonica','p','kup',0,0],['light.ured','Ured','p','ured',1,0],
+ ['light.hodnik','Hodnik','k','hodnik',0,0],['light.toni','Soba 1','k','toni',1,0],['light.ana','Soba 2','k','ana',1,0],
+ ['light.mz','Spavaća soba','k','mz',1,0],['light.traka_mz_krevet','Traka uz krevet','k','mz',1,1],['light.jopa','Soba 3','k','jopa',1,0],
+ ['light.kupaonica_kat','Kupaonica kat','k','kup',0,0]];
+var LN={};LIGHTS.forEach(function(l){LN[l[0]]=l;});
+var COVERS=[['cover.dnevni_l','Dnevni boravak lijeva'],['cover.dnevni_d','Dnevni boravak desna'],['cover.kuhinja','Kuhinja'],['cover.toni','Soba 1'],['cover.ana','Soba 2'],['cover.mz','Spavaća soba'],['cover.balkon','Balkon']];
+var WIN=[['binary_sensor.vrata_ulaz','Ulazna vrata'],['binary_sensor.dnevni_d_prozor','Terasa'],['binary_sensor.kuhinja_prozor','Kuhinja'],['binary_sensor.toni_prozor','Soba 1'],['binary_sensor.ana_prozor','Soba 2'],['binary_sensor.mz_prozor','Spavaća soba'],['binary_sensor.balkon_prozor','Balkon'],['binary_sensor.jopa_prozor','Soba 3'],['binary_sensor.kupaonica_kat_prozor','Kupaonica kat'],['binary_sensor.kupaonica_prozor','Kupaonica']];
+var ROOMS=[
+ {k:'dnevni',n:'Dnevni boravak',l:['light.dnevni','light.blagovaonica','light.traka_tv'],c:'cover.dnevni_l',t:'dnevni'},
+ {k:'kuhinja',n:'Kuhinja',l:['light.kuhinja','light.traka_ormar'],c:'cover.kuhinja',t:'dnevni'},
+ {k:'ured',n:'Ured',l:['light.ured'],t:'ured'},
+ {k:'toni',n:'Soba 1',l:['light.toni'],c:'cover.toni',t:'toni'},
+ {k:'ana',n:'Soba 2',l:['light.ana'],c:'cover.ana',t:'ana'},
+ {k:'mz',n:'Spavaća soba',l:['light.mz','light.traka_mz_krevet'],c:'cover.mz',t:'mz'},
+ {k:'jopa',n:'Soba 3',l:['light.jopa'],t:'jopa'},
+ {k:'kup',n:'Kupaonice',l:['light.kupaonica','light.kupaonica_kat'],t:'kupaonica'}];
+var TN={dnevni:'Dnevni boravak',kupaonica:'Kupaonica',ured:'Ured',toni:'Soba 1',ana:'Soba 2',mz:'Spavaća soba',jopa:'Soba 3',kupaonica_kat:'Kupaonica kat'};
+var CUR={dnevni:22.0,kupaonica:22.6,ured:21.4,toni:21.2,ana:22.2,mz:22.8,jopa:20.9,kupaonica_kat:22.3},TGT={dnevni:22,kupaonica:23,ured:21.5,toni:21.5,ana:21.5,mz:21,jopa:21.5,kupaonica_kat:23};
+var heat=true, alarm='off', scene='', sun='below_horizon', room='dnevni', tab='home', sub='', zone=0, play=false, vol=42, water=-1, wleft=0, cam=0;
+
+function on(id){return S[id]&&S[id].state==='on';}
+function pct(id){return S[id]&&S[id].attributes.brightness?Math.round(S[id].attributes.brightness/2.55):0;}
+function light(id,v,p,rgb){var a={brightness:v?Math.round((p||pct(id)||100)*2.55):0};if(rgb)a.rgb_color=rgb,a.color_mode='rgb';else if(v){a.rgb_color=null;a.color_mode='brightness';}set(id,v?'on':'off',a);}
+function pos(id){return S[id]?S[id].attributes.current_position:0;}
+var MV={};
+function moveCover(id,to){clearInterval(MV[id]);if(to==null)return;MV[id]=setInterval(function(){var p=pos(id),d=to>p?5:-5;if(Math.abs(to-p)<=5){p=to;clearInterval(MV[id]);}else p+=d;set(id,p>0?'open':'closed',{current_position:p});push();},70);}
+function temps(){for(var k in CUR){var d=heat?(TGT[k]-CUR[k])*.02:(19-CUR[k])*.01;CUR[k]=Math.round((CUR[k]+d)*100)/100;set('sensor.'+k+'_temperatura',CUR[k].toFixed(1),{unit_of_measurement:'°C'});}}
+
+function init(){
+ set('sun.sun',sun);
+ LIGHTS.forEach(function(l){light(l[0],false);});
+ COVERS.forEach(function(c){set(c[0],'open',{current_position:100});});
+ set('cover.zavjesa_dnevni','open',{current_position:30});
+ WIN.forEach(function(w){set(w[0],'off');});
+ temps(); applyScene('vecer',true);
+}
+
+/* ---------- scene ---------- */
+function applyScene(k,quiet){scene=k;
+ var L={},C={};
+ if(k==='dan'){sun='above_horizon';COVERS.forEach(function(c){C[c[0]]=100;});}
+ if(k==='vecer'){sun='below_horizon';L={'light.dnevni':70,'light.blagovaonica':80,'light.kuhinja':100,'light.holl':100,'light.hodnik':60,'light.traka_tv':40,'light.ana':50};C={'cover.toni':0,'cover.mz':0};}
+ if(k==='film'){sun='below_horizon';L={'light.traka_tv':[25,[110,80,255]]};C={'cover.dnevni_l':0,'cover.dnevni_d':0,'cover.kuhinja':0};}
+ if(k==='tv'){sun='below_horizon';L={'light.dnevni':25,'light.traka_tv':60};}
+ if(k==='rom'){sun='below_horizon';L={'light.dnevni':[20],'light.traka_tv':[50,[255,70,120]],'light.blagovaonica':[30,[255,150,90]]};}
+ if(k==='max'){LIGHTS.forEach(function(l){L[l[0]]=100;});}
+ if(k==='noc'){sun='below_horizon';COVERS.forEach(function(c){C[c[0]]=0;});alarm='night';}
+ if(k==='van'){COVERS.forEach(function(c){C[c[0]]=0;});alarm='on';}
+ if(k!=='noc'&&k!=='van'&&k!=='max'&&alarm!=='off'&&k!=='dan'){}
+ set('sun.sun',sun);
+ LIGHTS.forEach(function(l){var v=L[l[0]];if(v==null){light(l[0],false);return;}var p=v.length?v[0]:v,rgb=v.length?v[1]:null;light(l[0],true,p,rgb);});
+ for(var id in C)moveCover(id,C[id]);
+ if(!quiet)push();
+}
+
+/* ---------- veza s 3D kućom ---------- */
+function callService(domain,service,data){
+ [].concat(data.entity_id||[]).forEach(function(id){
+  if(domain==='light'){var v=service==='turn_off'?false:service==='toggle'?!on(id):true;light(id,v,data.brightness_pct,data.rgb_color);scene='';}
+  if(domain==='cover'){if(service==='open_cover')moveCover(id,100);else if(service==='close_cover')moveCover(id,0);else if(service==='stop_cover')moveCover(id,null);else if(data.position!=null)moveCover(id,data.position);}
+ });push();}
+var raf=0;
+function push(noRender){if(card)card.hass={states:Object.assign({},S),callService:callService};if(!noRender&&!raf)raf=requestAnimationFrame(function(){raf=0;render();});}
+
+/* ---------- ikone ---------- */
+var IP={home:'M3 11l9-7 9 7v9h-6v-6H9v6H3z',grid:'M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM13 13h7v7h-7z',bulb:'M9 18h6M10 21h4M12 3a6 6 0 0 0-3.5 10.9V16h7v-2.1A6 6 0 0 0 12 3z',
+ music:'M9 18V5l11-2v13M9 18a3 3 0 1 1-6 0 3 3 0 0 1 6 0zM20 16a3 3 0 1 1-6 0 3 3 0 0 1 6 0z',dots:'M5 5h2v2H5zM11 5h2v2h-2zM17 5h2v2h-2zM5 11h2v2H5zM11 11h2v2h-2zM17 11h2v2h-2zM5 17h2v2H5zM11 17h2v2h-2zM17 17h2v2h-2z',
+ blind:'M4 4h16M5 4v4h14V4M5 8v3h14V8M5 11v3h14v-3M12 14v4',therm:'M14 14.8V5a2 2 0 0 0-4 0v9.8a4 4 0 1 0 4 0z',cam:'M3 7h12v10H3zM15 10l6-3v10l-6-3',
+ shield:'M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z',drop:'M12 3s6 7 6 11a6 6 0 0 1-12 0c0-4 6-11 6-11z',bolt:'M13 2L4 14h7l-1 8 9-12h-7z',
+ sun:'M12 7a5 5 0 1 0 0 10 5 5 0 0 0 0-10zM12 1v3M12 20v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M1 12h3M20 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1',
+ moon:'M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8z',film:'M3 5h18v14H3zM7 5v14M17 5v14M3 9h4M3 15h4M17 9h4M17 15h4',heart:'M12 21s-8-5.2-8-11a4.5 4.5 0 0 1 8-2.8A4.5 4.5 0 0 1 20 10c0 5.8-8 11-8 11z',
+ tv:'M3 6h18v12H3zM8 21h8',up:'M12 19V5M5 12l7-7 7 7',down:'M12 5v14M5 12l7 7 7-7',stop:'M7 7h10v10H7z',play:'M7 4l13 8-13 8z',pause:'M7 4h4v16H7zM13 4h4v16h-4z',
+ prev:'M19 5L9 12l10 7zM5 5v14',next:'M5 5l10 7-10 7zM19 5v14',back:'M15 18l-6-6 6-6',door:'M6 3h12v18H6zM14 12h1',lock:'M6 11h12v10H6zM8 11V7a4 4 0 0 1 8 0v4',
+ key:'M15 7a4 4 0 1 1-3.9 5H3v3h3v-3',power:'M12 3v9M6.3 6.3a8 8 0 1 0 11.4 0',vacation:'M3 21h18M5 21V10l7-5 7 5v11',phone:'M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z',
+ star:'M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9z'};
+function I(n){return '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="'+IP[n]+'"/></svg>';}
+function sw(id,state,label){return '<button class="sw'+(state?' on':'')+'" data-act="'+id+'" role="switch" aria-checked="'+state+'" aria-label="'+label+'"><i></i></button>';}
+function hhmm(){var d=new Date();return d.toLocaleTimeString('hr-HR',{hour:'2-digit',minute:'2-digit'});}
+function head(t,sm,back){return '<div class="ph-h">'+(back?'<button class="ph-back" data-go="more" aria-label="Natrag">'+I('back')+'</button>':'')+'<div><b>'+t+'</b><small>'+sm+'</small></div><span class="ph-t">'+hhmm()+'</span></div>';}
+function nOn(f){return LIGHTS.filter(function(l){return (!f||l[2]===f)&&on(l[0]);}).length;}
+function openWins(){return WIN.filter(function(w){return on(w[0]);});}
+function watts(){var w=140;LIGHTS.forEach(function(l){if(on(l[0]))w+=Math.round(6+pct(l[0])*.14);});if(heat)w+=620;if(play)w+=25;if(water>=0)w+=90;return w;}
+function fmt(n,d){return n.toFixed(d==null?1:d).replace('.',',');}
+function alarmTxt(){return alarm==='on'?'Uključen':alarm==='night'?'Noćni način':'Isključen';}
+function scenes(list){return '<div class="ph-scenes">'+list.map(function(s){return '<button data-scene="'+s[0]+'" class="'+(scene===s[0]?'on':'')+'">'+I(s[2])+'<span>'+s[1]+'</span></button>';}).join('')+'</div>';}
+function coverRow(id,name){var p=pos(id);return '<div class="ph-cv"><div class="ph-cvh"><span>'+name+'<small>'+(p===0?'zatvoreno':p===100?'otvoreno':'otvoreno '+p+' %')+'</small></span><b>'+p+'<small>%</small></b></div><div class="ph-b3"><button data-cover="'+id+'" data-to="100">'+I('up')+'Gore</button><button data-cover="'+id+'" data-to="stop">'+I('stop')+'Stop</button><button data-cover="'+id+'" data-to="0">'+I('down')+'Dolje</button></div></div>';}
+function lightRow(l){var o=on(l[0]);return '<div class="ph-lr'+(o?' on':'')+'"><span class="ph-li">'+I('bulb')+'</span><span class="ph-ln">'+l[1]+(o&&l[4]?'<small>'+pct(l[0])+' %</small>':'')+'</span>'+sw('L:'+l[0],o,l[1])+(o&&l[4]?'<input type="range" min="5" max="100" value="'+pct(l[0])+'" data-dim="'+l[0]+'" aria-label="Jačina: '+l[1]+'">':'')+'</div>';}
+
+/* ---------- ekrani ---------- */
+var V={};
+V.home=function(){var h=new Date().getHours(),g=h<10?'Dobro jutro':h<18?'Dobar dan':'Dobra večer',ow=openWins(),cl=COVERS.filter(function(c){return pos(c[0])<100;}).length;
+ return '<div class="ph-hero"><small>Zagreb · '+new Date().toLocaleDateString('hr-HR',{weekday:'long',day:'numeric',month:'long'})+'</small><b>'+g+',<br>dobrodošli</b><span class="ph-wx">'+I(sun==='above_horizon'?'sun':'moon')+'5°<small>djelomično oblačno</small></span></div>'+
+ (ow.length?'<button class="ph-warn" data-go="security">'+I('door')+'<span><small>Pažnja</small>'+ow[0][1]+(ow[0][0].indexOf('vrata')>-1?' otvorena':' otvoren prozor')+(ow.length>1?' i još '+(ow.length-1):'')+'</span></button>':'<div class="ph-ok">'+I('shield')+'Svi prozori i vrata zatvoreni</div>')+
+ '<div class="ph-2"><div class="ph-card'+(alarm!=='off'?' armed':'')+'"><small>Alarm</small><b>'+alarmTxt()+'</b><button class="ph-pill" data-act="alarm">'+(alarm==='off'?'Uključi':'Isključi')+'</button></div>'+
+ '<div class="ph-card"><small>Rasvjeta</small><b>'+nOn()+' upaljeno</b><button class="ph-pill" data-act="alloff">Ugasi sve</button></div></div>'+
+ '<div class="ph-lbl">Scene</div>'+scenes([['dan','Dan','sun'],['vecer','Večer','bulb'],['film','Film','film'],['noc','Laku noć','moon'],['van','Odlazak','lock']])+
+ '<div class="ph-3"><button data-go="climate"><small>Dnevni</small><b>'+fmt(CUR.dnevni)+'°</b></button><button data-go="blinds"><small>Žaluzine</small><b>'+cl+'/'+COVERS.length+'</b><i>spuštene</i></button><button data-go="energy"><small>Potrošnja</small><b>'+fmt(watts()/1000,2)+'</b><i>kW</i></button></div>';};
+V.rooms=function(){var R=ROOMS.filter(function(r){return r.k===room;})[0],lo=R.l.some(on);
+ return head('Prostorije',R.n)+'<div class="ph-chips">'+ROOMS.map(function(r){return '<button data-room="'+r.k+'" class="'+(r.k===room?'on':'')+'">'+r.n+'</button>';}).join('')+'</div>'+
+ '<div class="ph-card wide"><div class="ph-row"><span class="ph-li big'+(lo?' lit':'')+'">'+I('bulb')+'</span><span class="ph-ln"><b>Svjetla</b><small>'+(lo?R.l.filter(on).length+' od '+R.l.length+' upaljeno':'ugašeno')+'</small></span>'+sw('R:'+R.k,lo,'Sva svjetla u prostoriji')+'</div>'+(R.l.length>1?R.l.map(function(id){return lightRow(LN[id]);}).join(''):'')+'</div>'+
+ (R.c?'<div class="ph-card wide">'+coverRow(R.c,'Žaluzina')+'</div>':'')+
+ '<div class="ph-card wide ph-th"><div><small>Termostat</small><b>'+fmt(CUR[R.t])+'°</b><small>cilj '+fmt(TGT[R.t])+'°'+(heat?'':' · grijanje isključeno')+'</small></div><div class="ph-pm"><button data-tgt="'+R.t+'" data-d="-0.5" aria-label="Snizi">−</button><button data-tgt="'+R.t+'" data-d="0.5" aria-label="Povisi">+</button></div></div>';};
+V.light=function(){var fl=function(f,n){var c=nOn(f);return '<button class="ph-fl'+(c?' lit':'')+'" data-act="floor:'+f+'"><small>'+(c?'Ugasi':'Upali')+'</small><b>'+n+'</b><i>'+c+' upaljeno</i></button>';};
+ return head('Rasvjeta',nOn()+' od '+LIGHTS.length+' upaljeno')+'<div class="ph-2">'+fl('p','Prizemlje')+fl('k','Kat')+'</div>'+
+ scenes([['max','Maks','sun'],['tv','TV','tv'],['film','Film','film'],['rom','Romantika','heart']])+
+ '<div class="ph-lbl">Prizemlje</div><div class="ph-card wide">'+LIGHTS.filter(function(l){return l[2]==='p';}).map(lightRow).join('')+'</div>'+
+ '<div class="ph-lbl">Kat</div><div class="ph-card wide">'+LIGHTS.filter(function(l){return l[2]==='k';}).map(lightRow).join('')+'</div>';};
+var ZONES=[['Dnevni','Miruje'],['Ured','Miruje'],['Konoba','Miruje']],TR=[['Večernji jazz','Playlista · Dnevni'],['Lounge za večeru','Playlista · Blagovaonica'],['Jutarnje vijesti','Radio']],tr=0;
+V.music=function(){return head('Glazba','Odaberite gdje svira')+'<div class="ph-chips">'+ZONES.map(function(z,i){return '<button data-zone="'+i+'" class="'+(zone===i?'on':'')+'">'+z[0]+'<small>'+(zone===i&&play?'svira':'miruje')+'</small></button>';}).join('')+'</div>'+
+ '<div class="ph-card wide ph-np"><small>Sada svira · '+ZONES[zone][0]+'</small><div class="ph-disc'+(play?' spin':'')+'"><i></i></div><b>'+TR[tr][0]+'</b><small>'+TR[tr][1]+'</small><div class="ph-prog"><i style="width:'+(play?62:35)+'%"></i></div>'+
+ '<div class="ph-mc"><button data-act="prev" aria-label="Prethodna">'+I('prev')+'</button><button class="big" data-act="play" aria-label="'+(play?'Pauza':'Pusti')+'">'+I(play?'pause':'play')+'</button><button data-act="next" aria-label="Sljedeća">'+I('next')+'</button></div>'+
+ '<label class="ph-vol"><span>Glasnoća</span><input type="range" min="0" max="100" value="'+vol+'" data-vol aria-label="Glasnoća"><b>'+vol+' %</b></label></div>';};
+var TILES=[['blinds','Žaluzine','blind',function(){return COVERS.filter(function(c){return pos(c[0])>0;}).length+' od '+COVERS.length+' otvoreno';}],
+ ['climate','Klima i grijanje','therm',function(){return heat?'grijanje radi':'isključeno';}],['cams','Kamere i portafon','cam',function(){return '3 kamere';}],
+ ['security','Sigurnost','shield',function(){return alarmTxt().toLowerCase()+' · '+(openWins().length?openWins().length+' otvoreno':'sve zatvoreno');}],
+ ['water','Navodnjavanje','drop',function(){return water>=0?'radi zona '+(water+1):'sve zone miruju';}],['energy','Energija','bolt',function(){return fmt(watts()/1000,2)+' kW sada';}]];
+V.more=function(){return head('Više','Svi sustavi u kući')+'<div class="ph-tiles">'+TILES.map(function(t){return '<button data-go="'+t[0]+'">'+I(t[2])+'<b>'+t[1]+'</b><small>'+t[3]()+'</small></button>';}).join('')+'</div>';};
+V.blinds=function(){return head('Žaluzine',COVERS.filter(function(c){return pos(c[0])>0;}).length+' od '+COVERS.length+' otvoreno',1)+
+ '<div class="ph-2"><button class="ph-fl" data-act="cov:100">'+I('up')+'<b>Otvori sve</b></button><button class="ph-fl" data-act="cov:0">'+I('down')+'<b>Zatvori sve</b></button></div>'+
+ '<div class="ph-card wide"><div class="ph-cvh"><span>Zavjesa · dnevni<small>'+pos('cover.zavjesa_dnevni')+' % otvoreno</small></span></div><input type="range" min="0" max="100" value="'+pos('cover.zavjesa_dnevni')+'" data-curtain aria-label="Zavjesa"></div>'+
+ COVERS.map(function(c){return '<div class="ph-card wide">'+coverRow(c[0],c[1])+'</div>';}).join('');};
+V.climate=function(){return head('Klima i grijanje',heat?'Grijanje radi po rasporedu':'Grijanje isključeno',1)+
+ '<div class="ph-card wide ph-heat'+(heat?' lit':'')+'"><span class="ph-li big">'+I('therm')+'</span><span class="ph-ln"><b>Grijanje '+(heat?'uključeno':'isključeno')+'</b><small>vani 5,6 °C</small></span>'+sw('heat',heat,'Grijanje')+'</div>'+
+ '<div class="ph-lbl">Termostati</div><div class="ph-thg">'+Object.keys(TN).map(function(k){var w=heat&&CUR[k]<TGT[k]-.1;return '<div class="ph-tc'+(w?' warm':'')+'"><small>'+TN[k]+'</small><b>'+fmt(CUR[k])+'°</b><div class="ph-pm"><button data-tgt="'+k+'" data-d="-0.5" aria-label="Snizi">−</button><span>'+fmt(TGT[k])+'°</span><button data-tgt="'+k+'" data-d="0.5" aria-label="Povisi">+</button></div></div>';}).join('')+'</div>';};
+var CAMS=['Ulaz','Dvorište','Parking'];
+V.cams=function(){return head('Kamere i portafon',CAMS[cam],1)+'<div class="ph-feed c'+cam+'"><span class="live">● UŽIVO</span><span class="demo">demo prikaz</span>'+feedSvg(cam)+'<span class="ts" id="ph-ts"></span></div>'+
+ '<div class="ph-chips">'+CAMS.map(function(c,i){return '<button data-cam="'+i+'" class="'+(cam===i?'on':'')+'">'+c+'</button>';}).join('')+'</div>'+
+ '<div class="ph-card wide"><div class="ph-row"><span class="ph-li big">'+I('phone')+'</span><span class="ph-ln"><b>Portafon · ulaz</b><small>'+(on('binary_sensor.vrata_ulaz')?'vrata otvorena':'nema poziva')+'</small></span><button class="ph-pill" data-act="opendoor">Otvori vrata</button></div></div>';};
+V.security=function(){var ow=openWins();return head('Sigurnost',ow.length?ow.length+' otvoreno':'Sve zatvoreno',1)+
+ '<div class="ph-seg">'+[['off','Isključen'],['on','Uključen'],['night','Noćni']].map(function(a){return '<button data-alarm="'+a[0]+'" class="'+(alarm===a[0]?'on':'')+'">'+a[1]+'</button>';}).join('')+'</div>'+
+ (alarm!=='off'&&ow.length?'<div class="ph-warn static">'+I('shield')+'<span><small>Alarm</small>Zone s otvorenim prozorima su isključene iz zaštite</span></div>':'')+
+ '<div class="ph-lbl">Prozori i vrata · dodirnite za simulaciju</div><div class="ph-card wide">'+WIN.map(function(w){var o=on(w[0]);return '<button class="ph-wr" data-win="'+w[0]+'"><span>'+w[1]+'</span><em class="'+(o?'bad':'')+'">'+(o?'otvoreno':'zatvoreno')+'</em></button>';}).join('')+'</div>';};
+var WZ=['Travnjak ispred','Travnjak iza','Živica','Vrt','Kap po kap · stabla'];
+V.water=function(){return head('Navodnjavanje',water>=0?'Radi: '+WZ[water]:'Sve zone miruju',1)+'<div class="ph-card wide">'+WZ.map(function(z,i){var r=water===i;return '<div class="ph-row ph-wz"><span class="ph-li'+(r?' lit':'')+'">'+I('drop')+'</span><span class="ph-ln">'+z+'<small>'+(r?Math.floor(wleft/60)+':'+('0'+wleft%60).slice(-2)+' preostalo':'10 min')+'</small></span><button class="ph-pill'+(r?' on':'')+'" data-water="'+i+'">'+(r?'Zaustavi':'Pokreni')+'</button></div>';}).join('')+'</div>';};
+V.energy=function(){var w=watts(),lw=0;LIGHTS.forEach(function(l){if(on(l[0]))lw+=Math.round(6+pct(l[0])*.14);});
+ return head('Energija','Potrošnja kuće',1)+'<div class="ph-card wide ph-big"><small>Sada</small><b>'+w+'<small> W</small></b><div class="ph-prog"><i style="width:'+Math.min(100,w/55)+'%"></i></div><small>ograničenje priključka 5,5 kW</small></div>'+
+ '<div class="ph-card wide">'+[['Grijanje',heat?620:0],['Rasvjeta',lw],['Navodnjavanje',water>=0?90:0],['Glazba',play?25:0],['Ostalo',140]].map(function(r){return '<div class="ph-wr"><span>'+r[0]+'</span><em>'+r[1]+' W</em></div>';}).join('')+'</div>';};
+function feedSvg(i){var tint=['#f3c66b','#9fd1ff','#c8b6ff'][i];
+ return '<svg viewBox="0 0 320 180" preserveAspectRatio="xMidYMid slice"><defs><radialGradient id="lmp'+i+'" cx="'+(i===1?'30%':'78%')+'" cy="22%" r="40%"><stop offset="0" stop-color="'+tint+'" stop-opacity=".55"/><stop offset="1" stop-color="'+tint+'" stop-opacity="0"/></radialGradient></defs>'+
+ '<rect width="320" height="180" fill="#0d1420"/><rect width="320" height="180" fill="url(#lmp'+i+')"/>'+
+ (i===0?'<path d="M0 130 L320 110 L320 180 L0 180Z" fill="#1b2433"/><path d="M40 70h80v60H40z" fill="#141c2a" stroke="#2f3d52"/><path d="M60 92h18v38H60z" fill="#2a2f3a"/><path d="M180 60v70M240 55v62" stroke="#2f3d52" stroke-width="3"/><circle cx="250" cy="40" r="5" fill="'+tint+'"/>':
+  i===1?'<path d="M0 120 C80 110 200 125 320 112 L320 180 L0 180Z" fill="#14231b"/><circle cx="70" cy="85" r="34" fill="#16261d"/><path d="M70 119v20" stroke="#223" stroke-width="5"/><path d="M180 128h110v-6H180z" fill="#2a4a6a"/><circle cx="96" cy="40" r="5" fill="'+tint+'"/>':
+  '<path d="M0 140 L320 140 L320 180 L0 180Z" fill="#1a1f2a"/><path d="M60 140c0-18 10-26 30-28l20-14h50l22 14c18 2 26 10 26 28z" fill="#232c3c" stroke="#3a4a63"/><circle cx="95" cy="142" r="12" fill="#0b0f16"/><circle cx="185" cy="142" r="12" fill="#0b0f16"/><path d="M228 126h6" stroke="'+tint+'" stroke-width="4"/>')+
+ '<rect width="320" height="180" fill="url(#noise)" opacity=".0"/></svg>';}
+
+function render(){
+ var v=sub||tab;scr.innerHTML=V[v]();scr.dataset.v=v;
+ [].forEach.call(nav.querySelectorAll('button'),function(b){b.classList.toggle('on',b.dataset.tab===tab);});
+}
+function go(t){if(['home','rooms','light','music','more'].indexOf(t)>-1){tab=t;sub='';}else{tab='more';sub=t;}scr.scrollTop=0;render();}
+
+/* ---------- događaji ---------- */
+nav.addEventListener('click',function(e){var b=e.target.closest('button');if(b)go(b.dataset.tab);});
+scr.addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;var d=b.dataset;
+ if(d.go){go(d.go);return;}
+ if(d.scene){applyScene(d.scene);return;}
+ if(d.room){room=d.room;render();return;}
+ if(d.zone){zone=+d.zone;render();return;}
+ if(d.cam){cam=+d.cam;render();return;}
+ if(d.alarm){alarm=d.alarm;render();return;}
+ if(d.win){set(d.win,on(d.win)?'off':'on');push();return;}
+ if(d.cover){moveCover(d.cover,d.to==='stop'?null:+d.to);scene='';render();return;}
+ if(d.tgt){TGT[d.tgt]=Math.min(28,Math.max(16,TGT[d.tgt]+ +d.d));render();return;}
+ if(d.water){var i=+d.water;water=water===i?-1:i;wleft=600;render();return;}
+ var a=d.act;if(!a)return;
+ if(a.indexOf('L:')===0){var id=a.slice(2);light(id,!on(id),null,LN[id][5]&&!on(id)?S[id].attributes.rgb_color:null);scene='';push();return;}
+ if(a.indexOf('R:')===0){var R=ROOMS.filter(function(r){return r.k===a.slice(2);})[0],v=!R.l.some(on);R.l.forEach(function(id){light(id,v);});scene='';push();return;}
+ if(a.indexOf('floor:')===0){var f=a.slice(6),v2=!nOn(f);LIGHTS.forEach(function(l){if(l[2]===f)light(l[0],v2);});scene='';push();return;}
+ if(a.indexOf('cov:')===0){var to=+a.slice(4);COVERS.forEach(function(c){moveCover(c[0],to);});return;}
+ if(a==='alloff'){LIGHTS.forEach(function(l){light(l[0],false);});scene='';push();return;}
+ if(a==='alarm'){alarm=alarm==='off'?'on':'off';render();return;}
+ if(a==='heat'){heat=!heat;render();return;}
+ if(a==='play'){play=!play;render();return;}
+ if(a==='next'||a==='prev'){tr=(tr+(a==='next'?1:TR.length-1))%TR.length;render();return;}
+ if(a==='opendoor'){set('binary_sensor.vrata_ulaz','on');light('light.holl',true);push();setTimeout(function(){set('binary_sensor.vrata_ulaz','off');push();},5000);return;}
+});
+scr.addEventListener('input',function(e){var t=e.target;
+ if(t.dataset.dim){var id=t.dataset.dim;light(id,true,+t.value,S[id].attributes.rgb_color);var s=t.parentNode.querySelector('.ph-ln small');if(s)s.textContent=t.value+' %';push(true);}
+ if(t.hasAttribute('data-vol')){vol=+t.value;t.nextElementSibling.textContent=vol+' %';}
+ if(t.hasAttribute('data-curtain')){set('cover.zavjesa_dnevni',+t.value>0?'open':'closed',{current_position:+t.value});var s2=t.parentNode.querySelector('small');if(s2)s2.textContent=t.value+' % otvoreno';push(true);}
+});
+scr.addEventListener('change',function(e){if(e.target.type==='range')render();});
+
+/* sat, temperature, navodnjavanje, kamera */
+setInterval(function(){if(water>=0){wleft-=1;if(wleft<=0){water=water<WZ.length-1?water+1:-1;wleft=600;}}
+ var ts=document.getElementById('ph-ts');if(ts)ts.textContent=new Date().toLocaleString('hr-HR');
+ if(sub==='water'||(sub==='cams'&&!ts))render();},1000);
+setInterval(function(){temps();push(true);var a=document.activeElement;if(!(a&&a.type==='range'&&scr.contains(a)))render();},8000);
+
+/* ---------- 3D kuća se učitava tek kad se približi ---------- */
+function load(){
+ import('./kuca3d/kuca3d-card.js').then(function(){CFG.height=host.clientHeight;card=document.createElement('kuca3d-card');card.setConfig(CFG);addEventListener('resize',function(){if(card._config&&card._resize){card._config.height=host.clientHeight;card._resize();}});host.appendChild(card);push(true);host.classList.add('ready');})
+ .catch(function(){host.classList.add('fail');});}
+if('IntersectionObserver' in window){var io=new IntersectionObserver(function(es){if(es[0].isIntersecting){io.disconnect();load();}},{rootMargin:'400px'});io.observe(host);}else load();
+
+init();render();
+})();
 
 (function(){
   if(!window.THREE||matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  var mob=innerWidth<700, N=mob?2600:6500;
+  var mob=innerWidth<700, N=mob?4200:10000;
   var r=new THREE.WebGLRenderer({canvas:document.getElementById('fx'),alpha:true,antialias:false});
   r.setPixelRatio(Math.min(devicePixelRatio,mob?1.5:2));
   var sc=new THREE.Scene(), cam=new THREE.PerspectiveCamera(50,1,.1,100); cam.position.z=7;
@@ -175,6 +474,98 @@ footer .big{font:500 clamp(6rem,22vw,16rem)/0.8 Jost,sans-serif;letter-spacing:.
     for(var k=0;k<=20;k++){var u=k/20;pts.push([1-u, 1.1-2.6*u*u*.4-1.5*u ,0]);}
     for(var j=0;j<=20;j++){var v=j/20;pts.push([0-v,-1.5+1.5*v+ (1.1-.6-(-1.5))*0 ,0]);}
     return pts;})();
+
+  var P=[];
+    function seg(a,b,w,c){P.push({w:w,c:c,f:function(){var t=Math.random();return [a[0]+(b[0]-a[0])*t+R()*.012,a[1]+(b[1]-a[1])*t+R()*.012,a[2]+(b[2]-a[2])*t+R()*.012];}});}
+    function L(a,b){return Math.hypot(b[0]-a[0],b[1]-a[1],b[2]-a[2]);}
+    function line(a,b,d,c){seg(a,b,L(a,b)*d,c);}
+    function box(x0,x1,y0,y1,z0,z1,d,c){var v=[[x0,y0,z0],[x1,y0,z0],[x1,y0,z1],[x0,y0,z1],[x0,y1,z0],[x1,y1,z0],[x1,y1,z1],[x0,y1,z1]];
+      [[0,1],[1,2],[2,3],[3,0],[4,5],[5,6],[6,7],[7,4],[0,4],[1,5],[2,6],[3,7]].forEach(function(e){line(v[e[0]],v[e[1]],d,c);});}
+    function rect(x0,x1,y0,y1,z,d,c){line([x0,y0,z],[x1,y0,z],d,c);line([x1,y0,z],[x1,y1,z],d,c);line([x1,y1,z],[x0,y1,z],d,c);line([x0,y1,z],[x0,y0,z],d,c);}
+    function ring(cx,cy,z,r,w,c){P.push({w:w,c:c,f:function(){var a=Math.random()*6.283;return [cx+Math.cos(a)*r,cy+Math.sin(a)*r,z+R()*.01];}});}
+    function area(w,c,f){P.push({w:w,c:c,f:f});}
+    function rnd(a,b){return a+Math.random()*(b-a);}
+    function done(){var tot=0;P.forEach(function(p){tot+=p.w;});var acc=0;P.forEach(function(p){acc+=p.w/tot;p.e=acc;});var o=P;P=[];return o;}
+  var COMP={};
+  COMP.villa=function(){var G=-1.2;
+    /* prizemlje, kat na prepust, ravni krov */
+    box(-2.2,.4,G,-.35,-1.6,-.2,1,'w');
+    box(-1.5,1.35,-.35,.42,-1.85,-.5,1,'w');
+    box(-1.62,1.48,.42,.52,-1.97,-.4,.7,'w');
+    /* staklene stijene sa svjetlom */
+    area(2.4,'g',function(){return [rnd(-2.05,.25),rnd(G+.05,-.42),-.2-Math.random()*.6];});
+    area(1.8,'g',function(){return [rnd(-1.35,1.2),rnd(-.28,.36),-.5-Math.random()*.6];});
+    for(var x=-2.05;x<.3;x+=.47)line([x,G,-.2],[x,-.35,-.2],.5,'w');
+    for(var x2=-1.35;x2<1.25;x2+=.43)line([x2,-.35,-.5],[x2,.42,-.5],.5,'w');
+    /* balkon ograda (staklo) */
+    line([-1.5,-.12,-.5+.001],[1.35,-.12,-.5],.4,'w');
+    /* bazen */
+    var px0=.75,px1=2.65,pz0=-1.5,pz1=.05;
+    box(px0,px1,G-.06,G,pz0,pz1,.9,'w');
+    area(3.4,'b',function(){var x=rnd(px0+.05,px1-.05),z=rnd(pz0+.05,pz1-.05);return [x,G-.03+Math.sin(x*7+z*5)*.015,z];});
+    /* drvena terasa uz bazen */
+    for(var k=0;k<6;k++)line([.45,G+.01,-1.5+k*.3],[.72,G+.01,-1.5+k*.3],.4,'s');
+    /* dvorište: trava, staza i ograda */
+    area(3,'n',function(){var x,z;do{x=rnd(-3,3);z=rnd(-2.2,2.1);}while((x>-2.25&&x<.45&&z>-1.65&&z<-.15)||(x>.7&&x<2.7&&z>-1.55&&z<.1)||(z>.45&&z<1.75&&x>-2.2&&x<1.4));return [x,G,z];});
+    line([-2.2,G,.45],[1.4,G,.45],.35,'s');line([-2.2,G,1.75],[1.4,G,1.75],.35,'s');
+    line([-3,G+.2,2.1],[-.6,G+.2,2.1],.3,'s');line([.9,G+.2,2.1],[3,G+.2,2.1],.3,'s');
+    [-3,-1.8,-.6,.9,2,3].forEach(function(x){line([x,G,2.1],[x,G+.2,2.1],.4,'s');});
+    /* stabla */
+    [[-2.7,-1.9,.42],[2.85,-1.9,.38],[-2.75,.9,.34],[2.8,1.2,.3]].forEach(function(t){
+      line([t[0],G,t[1]],[t[0],G+.5,t[1]],.5,'s');
+      area(t[2]*2.6,'t',function(){var y=1-2*Math.random(),r=Math.sqrt(1-y*y),a=Math.random()*6.283,s=t[2]*(.85+Math.random()*.15);return [t[0]+Math.cos(a)*r*s,G+.5+t[2]+y*s,t[1]+Math.sin(a)*r*s];});});
+    /* auti */
+    function car(cx,cz,len,wid,sp){var x0=cx-len/2;
+      function X(u){return x0+u*len;}
+      function belt(u){return G+.24-.07*u-(u>.9?(u-.9)*.6:0)-(u<.06?(.06-u)*.8:0);}
+      function roof(u){return G+.24+sp*Math.sin(Math.PI*(u-.3)/.42);}
+      [-1,1].forEach(function(sd){var z=cz+sd*wid/2;
+        area(.55,'c',function(){var u=Math.random();return [X(u),G+.07,z];});
+        area(.7,'c',function(){var u=Math.random();return [X(u),belt(u),z];});
+        area(.45,'c',function(){var u=rnd(.3,.72);return [X(u),roof(u),z*0.82+cz*0.18];});
+        [.18,.82].forEach(function(u){area(.32,'w',function(){var a=Math.random()*6.283;return [X(u)+Math.cos(a)*.1,G+.1+Math.sin(a)*.1,z];});});
+        area(.05,'g',function(){return [X(1)-.01,G+.17+R()*.02,z-sd*.05+R()*.03];});
+        area(.05,'r',function(){return [X(0)+.01,G+.2+R()*.02,z-sd*.05+R()*.03];});});
+      area(.35,'c',function(){var u=rnd(.32,.7);return [X(u),roof(u),rnd(cz-wid*.41,cz+wid*.41)];});
+      area(.2,'c',function(){return [X(1),rnd(G+.07,belt(1)),rnd(cz-wid/2,cz+wid/2)];});
+      area(.2,'c',function(){return [X(0),rnd(G+.07,belt(0)),rnd(cz-wid/2,cz+wid/2)];});}
+    car(-1.35,1.1,1.2,.5,.12);car(.55,1.12,1.25,.52,.16);return done();};
+  COMP.blind=function(){var W=1.45,top=1.45,bot=-1.6,down=-.15;
+    box(-W-.12,W+.12,top,top+.38,-.2,.2,1.2,'w');
+    area(.9,'s',function(){return [rnd(-W-.12,W+.12),rnd(top,top+.38),.2];});
+    [-1,1].forEach(function(sd){line([sd*W,top,.05],[sd*W,bot,.05],.9,'w');line([sd*(W+.1),top,.05],[sd*(W+.1),bot,.05],.9,'w');line([sd*W,bot,.05],[sd*(W+.1),bot,.05],.9,'w');});
+    for(var y=top-.02;y>down;y-=.13){line([-W,y,.05],[W,y,.05],1,'c');line([-W,y-.045,.07],[W,y-.045,.07],.45,'s');}
+    line([-W,down,.06],[W,down,.06],1.4,'w');line([-.25,down-.03,.08],[.25,down-.03,.08],1.2,'g');
+    rect(-W,W,bot,down,-.08,.8,'w');line([0,bot,-.08],[0,down,-.08],.8,'w');
+    area(3.2,'g',function(){return [rnd(-W+.04,W-.04),rnd(bot+.04,down-.04),-.1-Math.random()*.5];});
+    line([-W-.25,bot,.25],[W+.25,bot,.25],.9,'w');line([-W-.25,bot,.25],[-W-.25,bot,-.1],.9,'w');line([W+.25,bot,.25],[W+.25,bot,-.1],.9,'w');
+    return done();};
+  COMP.door=function(){var W=.95,H=1.95,z=0;
+    rect(-W-.12,W+.12,-H,H+.12,z,1,'w');rect(-W,W,-H,H,z+.03,1,'c');
+    rect(-W+.22,W-.22,.25,H-.25,z+.05,.7,'s');rect(-W+.22,W-.22,-H+.25,-.25,z+.05,.7,'s');
+    area(1.6,'g',function(){return [rnd(-W+.3,-W+.48),rnd(-H+.35,H-.35),z+.04];});
+    var lx=W-.32;
+    rect(lx-.17,lx+.17,-.15,.62,z+.12,1.6,'w');
+    area(.6,'d',function(){return [rnd(lx-.15,lx+.15),rnd(-.13,.6),z+.11];});
+    for(var r=0;r<4;r++)for(var c=0;c<3;c++){(function(cx,cy){area(.07,'g',function(){var a=Math.random()*6.283,q=Math.random()*.025;return [cx+Math.cos(a)*q,cy+Math.sin(a)*q,z+.13];});})(lx-.09+c*.09,.5-r*.1);}
+    ring(lx,-.42,z+.12,.07,.35,'w');line([lx,-.42,z+.16],[lx-.42,-.42,z+.16],.9,'w');line([lx-.42,-.42,z+.16],[lx-.42,-.38,z+.12],.5,'w');
+    ring(lx,.72,z+.13,.035,.15,'b');
+    return done();};
+  COMP.lamp=function(){var top=1.75;
+    line([-1.3,top,0],[1.3,top,0],.5,'s');
+    [[0,.55,1.25],[.0,.15,.85],[0,-.2,.5]].forEach(function(q){var y=q[1],r=q[2];
+      [[-1,0],[.5,.87],[.5,-.87]].forEach(function(d){line([d[0]*r,top,d[1]*r],[d[0]*r,y,d[1]*r],.15,'s');});
+      P.push({w:r*3.2,c:'g',f:function(){var a=Math.random()*6.283;return [Math.cos(a)*r,y+R()*.015,Math.sin(a)*r];}});
+      P.push({w:r*1.2,c:'w',f:function(){var a=Math.random()*6.283;return [Math.cos(a)*(r+.03),y+.03,Math.sin(a)*(r+.03)];}});});
+    area(2.6,'g',function(){var h=Math.random(),a=Math.random()*6.283,rr=(.2+h*1.2)*Math.sqrt(Math.random());return [Math.cos(a)*rr,-.25-h*1.25,Math.sin(a)*rr];});
+    var ty=-1.5;rect(-1.5,1.5,ty,ty,0,0,'w');
+    box(-1.5,1.5,ty-.06,ty,-.7,.7,1,'w');[[-1.35,-.55],[1.35,-.55],[-1.35,.55],[1.35,.55]].forEach(function(l){line([l[0],ty-.06,l[1]],[l[0],-2.3,l[1]],.6,'w');});
+    area(1.4,'g',function(){var a=Math.random()*6.283,rr=1.2*Math.sqrt(Math.random());return [Math.cos(a)*rr,ty+.01,Math.sin(a)*rr*.55];});
+    return done();};
+  var CC={};function compInit(name){var D=COMP[name](),pos=new Float32Array(N*3),col=new Float32Array(N*3),j=0,sc=name==='villa'?.82:.95,dy=name==='villa'?.2:0;
+    for(var i=0;i<N;i++){var u=(i+.5)/N;while(D[j].e<u&&j<D.length-1)j++;var p=D[j].f(),c=VC[D[j].c];pos.set([p[0]*sc,p[1]*sc+dy,p[2]*sc],i*3);col.set([c.r,c.g,c.b],i*3);}
+    CC[name]={p:pos,c:col};return CC[name];}
+  var VC={w:new THREE.Color('#e3ebf7'),g:new THREE.Color('#f3c66b'),b:new THREE.Color('#3f9bff'),n:new THREE.Color('#4f7a63'),t:new THREE.Color('#8fc6a0'),s:new THREE.Color('#8f9fb6'),c:new THREE.Color('#d6dde8'),r:new THREE.Color('#ff4b4b'),d:new THREE.Color('#2c3a52')};
   var shapes={
     sphere:function(i){var y=1-2*(i+.5)/N,rr=Math.sqrt(1-y*y),a=i*2.39996;return [Math.cos(a)*rr*2.7,y*2.7,Math.sin(a)*rr*2.7];},
     dust:function(){return [R()*9,R()*5,R()*4-1];},
@@ -190,22 +581,22 @@ footer .big{font:500 clamp(6rem,22vw,16rem)/0.8 Jost,sans-serif;letter-spacing:.
       var k=i%2?1:-1;return [Math.cos(a)*1.9, k*Math.abs(Math.sin(a))*.9,0];}
   };
   var g=new THREE.BufferGeometry(),pos=new Float32Array(N*3),col=new Float32Array(N*3),tgt=new Float32Array(N*3),c1=new THREE.Color('#f3c66b'),c2=new THREE.Color('#9fb3d1');
-  for(var i=0;i<N;i++){var d=shapes.dust(i);pos.set(d,i*3);var c=Math.random()<.2?c1:c2;col.set([c.r,c.g,c.b],i*3);}
+  var base=new Float32Array(N*3),ctg=new Float32Array(N*3);for(var i=0;i<N;i++){var d=shapes.dust(i);pos.set(d,i*3);var c=Math.random()<.2?c1:c2;base.set([c.r,c.g,c.b],i*3);}col.set(base);ctg.set(base);
   g.setAttribute('position',new THREE.BufferAttribute(pos,3));g.setAttribute('color',new THREE.BufferAttribute(col,3));
   var m=new THREE.PointsMaterial({size:mob?.03:.022,vertexColors:true,transparent:true,opacity:.9,blending:THREE.AdditiveBlending,depthWrite:false});
   var pts=new THREE.Points(g,m);sc.add(pts);
   var offX=0,goalX=0,cur='';
-  function shape(name,x){if(name===cur&&x===goalX)return;cur=name;goalX=x;var f=shapes[name];for(var i=0;i<N;i++)tgt.set(f(i),i*3);}
+  function shape(name,x){if(name===cur&&x===goalX)return;cur=name;goalX=x;if(COMP[name]){var C=CC[name]||compInit(name);tgt.set(C.p);ctg.set(C.c);return;}var f=shapes[name];for(var i=0;i<N;i++)tgt.set(f(i),i*3);ctg.set(base);}
   window.fielShape=shape;
   var secs=[].slice.call(document.querySelectorAll('[data-shape]'));
   function pick(){var best=null,bv=0;secs.forEach(function(s){var b=s.getBoundingClientRect(),v=Math.min(b.bottom,innerHeight)-Math.max(b.top,0);if(v>bv){bv=v;best=s;}});
     if(best&&!best.dataset.locked){var x=mob?0:parseFloat(best.dataset.x||0);shape(best.dataset.shape,x);}}
   addEventListener('scroll',pick,{passive:true});pick();
   var mx=0,my=0;addEventListener('pointermove',function(e){mx=e.clientX/innerWidth-.5;my=e.clientY/innerHeight-.5;});
-  var t=0;(function f(){t+=.003;var p=g.attributes.position.array;
-    for(var i=0;i<N*3;i++){p[i]+=(tgt[i]-p[i])*.045;}
-    g.attributes.position.needsUpdate=true;offX+=(goalX-offX)*.05;
-    pts.position.x=offX;pts.rotation.y=t*1.2+mx*.5;pts.rotation.x=my*.3+Math.sin(t)*.08;
+  var t=0,ry=0,rx=0;(function f(){t+=.003;var p=g.attributes.position.array;
+    var cc=g.attributes.color.array;for(var i=0;i<N*3;i++){p[i]+=(tgt[i]-p[i])*.045;cc[i]+=(ctg[i]-cc[i])*.05;}
+    g.attributes.position.needsUpdate=true;g.attributes.color.needsUpdate=true;offX+=(goalX-offX)*.05;
+    pts.position.x=offX;var V=!!COMP[cur];ry+=((V?(cur==='villa'?-.55:-.35)+Math.sin(t*2)*.4:t*1.2)+mx*.5-ry)*.04;rx+=((cur==='villa'?.42:cur==='lamp'?.32:V?.08:0)+my*.3+Math.sin(t)*.08-rx)*.04;pts.rotation.y=ry;pts.rotation.x=rx;
     r.render(sc,cam);requestAnimationFrame(f);})();
 })();
 (function(){

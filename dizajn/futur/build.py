@@ -1,6 +1,6 @@
 """Tri futuristične varijante početne (po uzoru na principe leoautomize.tech, u Fielovim bojama).
 Pokretanje: python3 dizajn/futur/build.py  → dizajn/futur/out/"""
-import os, sys
+import os, sys, json
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, os.path.join(HERE, "..", "src"))
 from logo import logo  # noqa: E402
@@ -332,6 +332,27 @@ footer .big{font:500 clamp(6rem,22vw,16rem)/0.8 Jost,sans-serif;letter-spacing:.
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.reveal span{opacity:1}}
 """
 
+
+DEMO_CSS = open(os.path.join(HERE, "demo.css")).read()
+DEMO_JS = open(os.path.join(HERE, "demo.js")).read()
+_cfg = json.load(open(os.path.join(OUT, "kuca3d", "kuca3d-config.json")))
+_cfg.update({"transparent": True, "show_labels": True, "show_bar": True, "show_info": False, "zoom": 1.3})
+NAVB = [("home", "home", "Početna"), ("rooms", "grid", "Prostorije"), ("light", "bulb", "Rasvjeta"), ("music", "music", "Glazba"), ("more", "dots", "Više")]
+_IC = {"home": "M3 11l9-7 9 7v9h-6v-6H9v6H3z", "grid": "M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM13 13h7v7h-7z",
+       "bulb": "M9 18h6M10 21h4M12 3a6 6 0 0 0-3.5 10.9V16h7v-2.1A6 6 0 0 0 12 3z",
+       "music": "M9 18V5l11-2v13M9 18a3 3 0 1 1-6 0 3 3 0 0 1 6 0zM20 16a3 3 0 1 1-6 0 3 3 0 0 1 6 0z",
+       "dots": "M5 5h2v2H5zM11 5h2v2h-2zM17 5h2v2h-2zM5 11h2v2H5zM11 11h2v2h-2zM17 11h2v2h-2zM5 17h2v2H5zM11 17h2v2h-2zM17 17h2v2h-2z"}
+DEMO = f"""<section class="demo-sec" id="demo-sekcija" data-shape="dust"><div class="wrap">
+<div class="head"><div><span class="label">Isprobajte</span><h2 style="margin-top:14px">Upravljajte kućom <em>s mobitela</em></h2></div>
+<p>Ovo je 3D model kuće koju smo opremili i aplikacija kakvu dobiju naši klijenti. Upalite svjetlo, spustite žaluzine ili odaberite scenu i pogledajte što se događa u kući. Možete kliknuti i sobu u modelu. Demo radi samo u vašem pregledniku.</p></div>
+<div class="demo-stage" id="demo">
+<div class="house"><div class="house-load">UČITAVAM 3D MODEL</div><span class="house-hint">Kliknite sobu · Prizemlje / Kat gore desno</span></div>
+<div class="ph" aria-label="Demo aplikacije"><div class="ph-in"><div class="ph-notch"></div><div class="ph-screen" aria-live="polite"></div>
+<nav class="ph-nav">{''.join(f'<button data-tab="{k}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="{_IC[i]}"/></svg>{n}</button>' for k, i, n in NAVB)}</nav></div></div>
+</div></div>
+<script type="application/json" id="kuca3d-cfg">{json.dumps(_cfg)}</script></section>
+"""
+
 ICONS = {"net": '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 9a15 15 0 0 1 20 0M5.5 12.5a10 10 0 0 1 13 0M9 16a5 5 0 0 1 6 0"/><path d="M3 3l18 18"/></svg>',
          "sub": '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 10h18M7 15h4"/><path d="M3 21L21 3"/></svg>',
          "free": '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M8 12h8M12 8v8"/><circle cx="12" cy="12" r="9"/></svg>',
@@ -380,6 +401,13 @@ def page(theme, name, ghost=False, particles=False, dark_band=False):
 
 def page3():
     html = page("dark", "Varijanta 3: Puni efekt", ghost=True)
+    html = html.replace(APP, '<div class="hero-side" aria-hidden="true"></div>')
+    html = html.replace(LOGO_DARK, '<img class="logo logo-img" src="fiel-logo.png" alt="Fiel d.o.o." width="420" height="203">', 1)
+    html = html.replace('</style>', '.top .logo-img{height:62px;width:auto;display:block}@media (max-width:560px){.top .logo-img{height:44px}}</style>', 1)
+    html = html.replace('<a class="btn" href="#">Za investitore</a>', '<a class="btn" href="#demo-sekcija">Isprobajte demo ↓</a>', 1)
+    html = html.replace('<section><div class="wrap"><span class="label">Zašto lokalno</span>', DEMO + '<section><div class="wrap"><span class="label">Zašto lokalno</span>', 1)
+    html = html.replace('</style>', DEMO_CSS + '</style>', 1)
+    html = html.replace('</body>', '<script>' + DEMO_JS + '</script></body>')
     html = html.replace('<body class="dark">','<body class="dark fx"><canvas id="fx" aria-hidden="true"></canvas>')
     html = html.replace('</style>', FX_CSS + '</style>')
     html = html.replace('<div class="hero">','<div class="hero" data-shape="sphere" data-x="2.1"><div class="glow-beam" aria-hidden="true"></div>')

@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="hr"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Kuća 3D – simulacija</title>
+<style>
+html,body{margin:0;height:100%;background:#0b1120;color:#e9edf5;font-family:system-ui,sans-serif;overflow:hidden}
+#app{position:absolute;inset:0 0 64px 0}
+kuca3d-card{display:block;width:100%;height:100%}
+#bar{position:fixed;left:0;right:0;bottom:0;height:64px;display:flex;gap:8px;align-items:center;justify-content:center;flex-wrap:wrap;background:#121826;border-top:1px solid #222b3c}
+#bar button{padding:10px 16px;border:0;border-radius:10px;background:#2a3142;color:#fff;font-size:14px;cursor:pointer}
+#bar button.on{background:linear-gradient(135deg,#6366f1,#a855f7)}
+</style></head><body>
+<div id="app"></div>
+<div id="bar">
+  <button data-a="night">Noć / dan</button>
+  <button data-a="all">Sva svjetla</button>
+  <button data-a="off">Ugasi sve</button>
+  <button data-a="blinds">Žaluzine gore/dolje</button>
+  <button data-a="window">Otvori prozor</button>
+  <button data-a="party">Party boje</button>
+  <button data-a="auto">Auto demo</button>
+</div>
+<script type="module">
+import './kuca3d-card.js';
+const CONFIG = await fetch('kuca3d-config.json').then(r => r.json());
+
+/* lažni Home Assistant: stanja se drže u memoriji, callService ih mijenja */
+const S = {};
+const set = (id, state, attributes = {}) => { S[id] = { entity_id: id, state, attributes: { friendly_name: id, ...attributes }, last_changed: new Date().toISOString() }; };
+set('sun.sun', 'above_horizon');
+for (const [k, r] of Object.entries(CONFIG.rooms)) {
+  [].concat(r.light || []).forEach(l => set(l, 'off', { brightness: 0 }));
+  if (r.temp) set(r.temp, (20.5 + Math.random() * 2.5).toFixed(1), { unit_of_measurement: '°C' });
+}
+for (const w of Object.values(CONFIG.windows)) { if (w.cover) set(w.cover, 'open', { current_position: 100 }); if (w.open) set(w.open, 'off'); }
+for (const s of Object.values(CONFIG.strips || {})) set(s.light, 'off');
+for (const d of Object.values(CONFIG.doors || {})) set(d.open, 'off');
+for (const c of Object.values(CONFIG.curtains || {})) set(c.cover, 'open', { current_position: 30 });
+
+const card = document.createElement('kuca3d-card');
+card.setConfig(CONFIG);
+document.getElementById('app').appendChild(card);
+const push = () => { card.hass = { states: { ...S }, callService }; };
+function callService(domain, service, data) {
+  const ids = [].concat(data.entity_id || []);
+  for (const id of ids) {
+    const s = S[id]; if (!s) continue;
+    if (domain === 'light') set(id, service === 'turn_off' ? 'off' : service === 'toggle' ? (s.state === 'on' ? 'off' : 'on') : 'on', { brightness: 255, ...(data.rgb_color ? { rgb_color: data.rgb_color, color_mode: 'rgb' } : {}) });
+    if (domain === 'cover') { const p = service === 'open_cover' ? 100 : service === 'close_cover' ? 0 : (data.position ?? s.attributes.current_position); set(id, p > 0 ? 'open' : 'closed', { current_position: p }); }
+  }
+  push();
+}
+push();
+
+const lights = () => Object.keys(S).filter(e => e.startsWith('light.'));
+const covers = () => Object.keys(S).filter(e => e.startsWith('cover.'));
+const A = {
+  night: () => { set('sun.sun', S['sun.sun'].state === 'above_horizon' ? 'below_horizon' : 'above_horizon'); push(); },
+  all: () => { lights().forEach(l => set(l, 'on', { brightness: 255 })); push(); },
+  off: () => { lights().forEach(l => set(l, 'off')); push(); },
+  blinds: () => { const up = (S[covers()[0]] || {}).attributes?.current_position < 50; covers().forEach(c => set(c, up ? 'open' : 'closed', { current_position: up ? 100 : 0 })); push(); },
+  window: () => { const w = Object.values(CONFIG.windows).filter(w => w.open); const x = w[Math.floor(Math.random() * w.length)]; set(x.open, S[x.open].state === 'on' ? 'off' : 'on'); push(); },
+  party: () => { lights().forEach(l => set(l, 'on', { brightness: 255, color_mode: 'rgb', rgb_color: [Math.random() * 255 | 0, Math.random() * 255 | 0, Math.random() * 255 | 0] })); push(); },
+  auto: () => { if (window.__t) { clearInterval(window.__t); window.__t = 0; return; } window.__t = setInterval(() => { const l = lights(); const x = l[Math.random() * l.length | 0]; set(x, S[x].state === 'on' ? 'off' : 'on', { brightness: 255 }); push(); }, 900); }
+};
+document.getElementById('bar').addEventListener('click', e => { const a = e.target.dataset.a; if (A[a]) { A[a](); e.target.classList.toggle('on', a === 'auto' ? !!window.__t : false); } });
+window.demo = { S, set, push, A };
+</script>
+</body></html>
