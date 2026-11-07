@@ -1,0 +1,131 @@
+<!doctype html><html lang="hr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Varijanta 1: Noćni tlocrt | Fiel</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,300;0,400;0,500;1,500&family=Source+Sans+3:wght@400;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;font:400 17px/1.6 "Source Sans 3",system-ui,sans-serif;background:var(--bg);color:var(--text)}
+:root{--gold:#d9ad52;--gold2:#f3c66b}
+.dark{--bg:#080f1a;--bg2:#0e1828;--card:#111d30;--text:#e9eef5;--muted:rgba(233,238,245,.62);--line:rgba(190,205,228,.12);--line2:rgba(190,205,228,.22);--ink:#f4f6fa}
+.light{--bg:#fbfbfa;--bg2:#eef1f5;--card:#fff;--text:#33404f;--muted:#64717f;--line:#d9dfe7;--line2:#c3ccd8;--ink:#1f3550}
+h1,h2,h3{font-family:Jost,system-ui,sans-serif;color:var(--ink);margin:0;font-weight:300;letter-spacing:-.025em;text-wrap:balance}
+h1{font-size:clamp(2.4rem,6vw,4.6rem);line-height:1.02}h2{font-size:clamp(1.7rem,3.6vw,2.7rem);line-height:1.1}h3{font-weight:500;font-size:1.12rem;letter-spacing:0}
+em{font-style:italic;font-weight:500;color:var(--gold2)} .light em{color:#b5862a}
+p{margin:0}a{color:inherit}
+.wrap{max-width:1180px;margin:0 auto;padding:0 max(20px,env(safe-area-inset-left,0px))}
+.top{position:sticky;top:0;z-index:20;backdrop-filter:blur(12px);background:color-mix(in srgb,var(--bg) 75%,transparent);border-bottom:1px solid var(--line)}
+.top .wrap{display:flex;align-items:center;gap:28px;height:74px}.top .logo{height:42px;width:auto}
+.top nav{display:flex;gap:26px;margin-left:auto;font:400 .95rem Jost,sans-serif}.top nav a{text-decoration:none;color:var(--muted)}
+.cta{display:inline-flex;align-items:center;gap:10px;font:500 .95rem Jost,sans-serif;padding:11px 14px 11px 20px;border-radius:999px;border:1px solid var(--line2);text-decoration:none;color:var(--ink)}
+.cta i{width:26px;height:26px;border-radius:50%;background:var(--gold);display:grid;place-items:center;font-style:normal;color:#0b1220}
+.btn{display:inline-flex;align-items:center;justify-content:center;font:500 1rem Jost,sans-serif;padding:15px 26px;border-radius:999px;text-decoration:none;border:1px solid var(--line2);color:var(--ink)}
+.btn.gold{background:var(--gold);border-color:var(--gold);color:#0b1220;box-shadow:0 12px 40px -14px rgba(217,173,82,.75)}
+.hero{position:relative;padding:72px 0 88px;overflow:hidden}
+.hero .wrap{display:grid;grid-template-columns:1fr 1.05fr;gap:56px;align-items:center;position:relative;z-index:2}
+.hero p.lead{color:var(--muted);font-size:1.12rem;max-width:32em;margin-top:22px}
+.hero .row{display:flex;gap:12px;flex-wrap:wrap;margin-top:30px}
+.facts{display:grid;grid-template-columns:repeat(3,auto);gap:28px;margin-top:44px;justify-content:start}
+.facts b{display:block;font:400 1.35rem Jost,sans-serif;color:var(--ink)}.facts small{color:var(--muted);font-size:.85rem}
+.ghost{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);font:500 clamp(9rem,28vw,24rem) Jost,sans-serif;letter-spacing:.06em;color:var(--ink);opacity:.035;pointer-events:none;white-space:nowrap;z-index:1}
+#cestice{position:absolute;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}
+.label{font:500 .74rem "IBM Plex Mono",monospace;letter-spacing:.14em;text-transform:uppercase;color:var(--gold)}
+/* aplikacija */
+.app{background:linear-gradient(180deg,#0f1a2c,#0b1422);border:1px solid rgba(190,205,228,.16);border-radius:26px;padding:18px;color:#e9eef5;box-shadow:0 40px 90px -40px rgba(0,0,0,.8),0 0 0 8px rgba(255,255,255,.02);display:grid;gap:14px}
+.app-top{display:flex;justify-content:space-between;align-items:center}.app-top b{font:500 1.1rem Jost,sans-serif;display:block}.app-top small{color:rgba(233,238,245,.55);font-size:.8rem}
+.pill{font:400 .85rem Jost,sans-serif;padding:6px 12px;border-radius:999px;background:rgba(255,255,255,.06)}
+.plan-svg{display:block;width:100%;height:auto}
+.room{cursor:pointer;outline:none}.room .floor{fill:#0d1726;transition:fill .5s}.room:hover .floor,.room:focus-visible .floor{fill:#13213a}
+.room .glow{opacity:0;transition:opacity .6s}.room.on .glow{opacity:1}.app.dim .room.on .glow{opacity:.45}
+.room text{font:500 10px "IBM Plex Mono",monospace;letter-spacing:.08em;fill:rgba(233,238,245,.45)}.room.on text{fill:#fff7e6}
+.room .bulb{fill:#2a3a55;transition:fill .4s}.room.on .bulb{fill:#f3c66b}
+.furn rect{fill:none;stroke:rgba(190,205,228,.18);stroke-width:1.5}
+.walls path{fill:none;stroke:#8fa1ba;stroke-width:4;stroke-linecap:square}.door-out{stroke:#d9ad52;stroke-width:4}
+.scenes{display:grid;grid-template-columns:repeat(5,1fr);gap:6px}
+.scenes button{font:500 .82rem Jost,sans-serif;color:#e9eef5;background:rgba(255,255,255,.05);border:1px solid rgba(190,205,228,.12);border-radius:12px;padding:10px 4px;cursor:pointer}
+.scenes button.on{background:var(--gold);color:#0b1220;border-color:var(--gold)}
+.chips{display:flex;gap:14px;flex-wrap:wrap;font-size:.82rem;color:rgba(233,238,245,.7)}.chips i{display:inline-block;width:8px;height:8px;border-radius:50%;background:#5c6b80;margin-right:7px}
+.chips i.ok,.chips .armed i{background:#4fbf7f}.hint{font:400 .75rem "IBM Plex Mono",monospace;color:rgba(233,238,245,.4);text-align:center}
+/* sekcije */
+section{padding:96px 0;position:relative}
+.manifest{font:300 clamp(1.7rem,4vw,3rem)/1.25 Jost,sans-serif;max-width:22em;color:var(--ink);letter-spacing:-.02em}
+.reveal span{opacity:.18;transition:opacity .35s}.reveal span.lit{opacity:1}
+.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:44px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:26px;display:grid;gap:10px;align-content:start}
+.card p{color:var(--muted);font-size:.97rem}.card .n{font:300 2.4rem Jost,sans-serif;color:var(--gold)}
+.icon{width:38px;height:38px;border-radius:12px;border:1px solid var(--line2);display:grid;place-items:center;color:var(--gold)}
+.band{background:var(--bg2);border-block:1px solid var(--line)}
+.contact .wrap{display:grid;grid-template-columns:1.2fr .8fr;gap:40px;align-items:end}
+.phone{font:300 clamp(2rem,5vw,3.4rem) Jost,sans-serif;color:var(--ink);text-decoration:none;display:block;margin-top:18px}
+footer{padding:56px 0 30px;border-top:1px solid var(--line);color:var(--muted);font-size:.9rem;position:relative;overflow:hidden}
+footer .big{font:500 clamp(6rem,22vw,16rem)/0.8 Jost,sans-serif;letter-spacing:.05em;color:var(--ink);opacity:.05;margin-top:30px;white-space:nowrap}
+.light .hero.dark-band{background:#080f1a;--text:#e9eef5;--muted:rgba(233,238,245,.62);--ink:#f4f6fa;--line2:rgba(190,205,228,.22);color:#e9eef5}
+.light .hero.dark-band em{color:#f3c66b}
+.light .top{background:color-mix(in srgb,#fbfbfa 85%,transparent)}
+.light .card{border-radius:4px}.light .btn,.light .cta{border-radius:3px}.light .scenes button{border-radius:8px}
+@media (max-width:960px){.top nav{display:none}.cta{margin-left:auto}.hero .wrap,.contact .wrap{grid-template-columns:1fr;gap:40px}.grid4{grid-template-columns:1fr 1fr}.hero{padding:40px 0 64px}section{padding:64px 0}}
+@media (max-width:560px){.grid4{grid-template-columns:1fr}.facts{grid-template-columns:repeat(3,1fr);gap:12px}.facts b{font-size:1.1rem}.scenes{grid-template-columns:repeat(3,1fr)}.btn{width:100%}.top .logo{height:36px}.cta{padding:9px 10px 9px 16px;font-size:.88rem}}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.reveal span{opacity:1}}
+</style></head><body class="dark"><header class="top"><div class="wrap"><a href="#"><svg class="logo" viewBox="20 4 284 124" role="img" aria-label="Fiel d.o.o." xmlns="http://www.w3.org/2000/svg"><g fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M57.0 27.3L54.1 10.5M54.0 28.1L50.4 18.7M51.1 29.5L42.3 15.0M48.6 31.4L41.9 24.0M46.4 33.7L32.9 23.5M44.8 36.4L35.8 32.0M43.6 39.4L27.3 34.8M43.1 42.5L33.1 41.6M43.1 45.7L26.2 47.4M43.7 48.8L34.1 51.6M44.9 51.8L29.7 59.5M46.6 54.4L38.7 60.6M48.8 56.7L37.5 69.5M51.3 58.6L46.2 67.2M54.2 60.0L48.4 75.9" stroke="#d9ad52" stroke-width="2.6"/><circle cx="60" cy="44" r="10.5" stroke="#eef2f7" stroke-width="6.5"/><path d="M70.5 40C78 34 86 33 96 33L124 32C134 31 140 33 146 38L154 44H162L168 52L176 60" stroke="#eef2f7" stroke-width="6.5"/><path d="M78 120V62H108M78 91H104M126 62V120M180 62H148V120H180M148 91H176" stroke="#eef2f7" stroke-width="9" stroke-linecap="butt" stroke-linejoin="miter"/><path d="M206 54V120H240" stroke="#8fa1ba" stroke-width="9" stroke-linecap="butt" stroke-linejoin="miter"/><path d="M206 54L250 29L294 54V120" stroke="#8fa1ba" stroke-width="4.5"/></g></svg></a>
+<nav><a href="#">Pametna kuća</a><a href="#">Video nadzor i portafoni</a><a href="#">Za investitore</a><a href="#">Kako radimo</a><a href="#">O nama</a></nav>
+<a class="cta" href="#kontakt">Besplatan dolazak <i>↗</i></a></div></header>
+<main>
+<div class="hero"><div class="ghost" aria-hidden="true">FIEL</div>
+<div class="wrap"><div>
+<span class="label">Zagreb i okolica</span>
+<h1 style="margin-top:18px">Pametna kuća koja radi <em>i kad internet ne radi.</em></h1>
+<p class="lead">Projektiramo i ugrađujemo pametne instalacije, video nadzor i portafone za stambene zgrade, kuće i poslovne prostore. Sustav radi u vašem objektu, bez mjesečne pretplate.</p>
+<div class="row"><a class="btn gold" href="#kontakt">Dogovorite besplatan dolazak</a><a class="btn" href="#">Za investitore</a></div>
+<div class="facts"><div><b>2 god.</b><small>jamstvo</small></div><div><b>0 €</b><small>pretplate</small></div><div><b>1 ekipa</b><small>ugradnja i održavanje</small></div></div>
+</div><div class="app" id="app">
+  <div class="app-top"><div><b id="pozdrav">Dobra večer</b><small id="brojac">3 od 6 prostorija upaljeno</small></div><span class="pill">21,5 °C</span></div>
+  <div class="plan"><svg class="plan-svg" viewBox="0 0 600 420" aria-label="Tlocrt stana: kliknite prostoriju da upalite svjetlo"><defs><radialGradient id="sjaj" cx="50%" cy="50%" r="65%"><stop offset="0" stop-color="#f3c66b" stop-opacity=".95"/><stop offset=".55" stop-color="#d9ad52" stop-opacity=".35"/><stop offset="1" stop-color="#d9ad52" stop-opacity="0"/></radialGradient></defs><g class="room" data-room="boravak" tabindex="0" role="button" aria-pressed="false" aria-label="Dnevni boravak: svjetlo"><rect class="floor" x="20" y="20" width="300" height="220"/><rect class="glow" x="20" y="20" width="300" height="220" fill="url(#sjaj)"/><text x="34" y="44">DNEVNI BORAVAK</text><circle class="bulb" cx="170.0" cy="130.0" r="5"/></g><g class="room" data-room="kuhinja" tabindex="0" role="button" aria-pressed="false" aria-label="Kuhinja: svjetlo"><rect class="floor" x="320" y="20" width="140" height="220"/><rect class="glow" x="320" y="20" width="140" height="220" fill="url(#sjaj)"/><text x="334" y="44">KUHINJA</text><circle class="bulb" cx="390.0" cy="130.0" r="5"/></g><g class="room" data-room="terasa" tabindex="0" role="button" aria-pressed="false" aria-label="Terasa: svjetlo"><rect class="floor" x="460" y="20" width="120" height="220"/><rect class="glow" x="460" y="20" width="120" height="220" fill="url(#sjaj)"/><text x="474" y="44">TERASA</text><circle class="bulb" cx="520.0" cy="130.0" r="5"/></g><g class="room" data-room="spavaca" tabindex="0" role="button" aria-pressed="false" aria-label="Spavaća: svjetlo"><rect class="floor" x="20" y="240" width="220" height="160"/><rect class="glow" x="20" y="240" width="220" height="160" fill="url(#sjaj)"/><text x="34" y="264">SPAVAĆA</text><circle class="bulb" cx="130.0" cy="320.0" r="5"/></g><g class="room" data-room="ulaz" tabindex="0" role="button" aria-pressed="false" aria-label="Ulaz: svjetlo"><rect class="floor" x="240" y="240" width="140" height="160"/><rect class="glow" x="240" y="240" width="140" height="160" fill="url(#sjaj)"/><text x="254" y="264">ULAZ</text><circle class="bulb" cx="310.0" cy="320.0" r="5"/></g><g class="room" data-room="kupaonica" tabindex="0" role="button" aria-pressed="false" aria-label="Kupaonica: svjetlo"><rect class="floor" x="380" y="240" width="200" height="160"/><rect class="glow" x="380" y="240" width="200" height="160" fill="url(#sjaj)"/><text x="394" y="264">KUPAONICA</text><circle class="bulb" cx="480.0" cy="320.0" r="5"/></g><g class="furn"><rect x="50" y="170" width="170" height="44" rx="6"/><rect x="50" y="130" width="40" height="40" rx="6"/><rect x="230" y="90" width="64" height="40" rx="4"/><rect x="336" y="40" width="108" height="30"/><rect x="350" y="120" width="80" height="70" rx="35"/><rect x="40" y="280" width="120" height="100" rx="6"/><rect x="480" y="60" width="80" height="50" rx="4"/><rect x="420" y="330" width="130" height="50" rx="20"/><rect x="400" y="262" width="40" height="40" rx="20"/></g><g class="walls"><path d="M20 20H580V400H20Z"/><path d="M320 20V110M320 160V240M460 20V240M20 240H120M170 240H300M340 240H580M240 240V400M380 240V300M380 350V400"/></g><path class="door-out" d="M290 400H330"/></svg></div>
+  <div class="scenes" role="group" aria-label="Scene">
+    <button data-scene="dan">Dan</button><button data-scene="vecer" class="on">Večer</button><button data-scene="film">Film</button><button data-scene="noc">Laku noć</button><button data-scene="odlazak">Odlazak</button>
+  </div>
+  <div class="chips"><span id="alarm"><i></i>Alarm isključen</span><span><i class="ok"></i>Radi lokalno</span></div>
+  <p class="hint">Kliknite prostoriju ili scenu</p>
+</div></div></div>
+<section><div class="wrap"><span class="label">Zašto lokalno</span>
+<p class="manifest " style="margin-top:18px">Pametna kuća ne smije stati kad padne internet ili kad proizvođač promijeni uvjete. Zato sve radi na uređaju u vašem objektu.</p>
+<div class="grid4">
+<div class="card"><div class="icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 9a15 15 0 0 1 20 0M5.5 12.5a10 10 0 0 1 13 0M9 16a5 5 0 0 1 6 0"/><path d="M3 3l18 18"/></svg></div><h3>Radi bez interneta</h3><p>Rasvjeta, grijanje, alarm i brave rade i kad veza padne.</p></div>
+<div class="card"><div class="icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 10h18M7 15h4"/><path d="M3 21L21 3"/></svg></div><h3>Bez pretplate</h3><p>Za rad sustava ne plaćate ništa mjesečno.</p></div>
+<div class="card"><div class="icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M8 12h8M12 8v8"/><circle cx="12" cy="12" r="9"/></svg></div><h3>Bez vezanosti</h3><p>Opremu različitih proizvođača možete kombinirati i mijenjati.</p></div>
+<div class="card"><div class="icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 11l9-7 9 7v9H3z"/><rect x="9" y="13" width="6" height="7"/></svg></div><h3>Podaci kod vas</h3><p>Snimke kamera i podaci spremaju se u objektu.</p></div>
+</div></div></section>
+<section class="band"><div class="wrap"><span class="label">Kako radimo</span><h2 style="margin-top:14px">Od prvog razgovora <em>do predaje</em></h2>
+<div class="grid4">
+<div class="card"><span class="n">01</span><h3>Dolazak</h3><p>Pogledamo objekt i dogovorimo što vam treba. Besplatno.</p></div>
+<div class="card"><span class="n">02</span><h3>Projekt i ponuda</h3><p>Točna ponuda s popisom opreme i radova.</p></div>
+<div class="card"><span class="n">03</span><h3>Ugradnja</h3><p>Ugradimo, povežemo i podesimo sustav.</p></div>
+<div class="card"><span class="n">04</span><h3>Predaja i podrška</h3><p>Pokažemo kako se koristi i ostajemo dostupni.</p></div>
+</div></div></section>
+<section class="contact" id="kontakt"><div class="wrap"><div><span class="label">Kontakt</span><h2 style="margin-top:14px">Recite nam <em>što planirate</em></h2><a class="phone" href="tel:+38598802490">+385 98 802 490</a></div>
+<div class="row" style="display:flex;gap:12px;flex-wrap:wrap"><a class="btn gold" href="tel:+38598802490">Nazovite</a><a class="btn" href="#">Pošaljite upit</a></div></div></section>
+</main>
+<footer><div class="wrap">© 2026 Fiel d.o.o. · Rušiščak 5b, Zagreb<div class="big" aria-hidden="true">FIEL</div></div></footer>
+<script>
+(function(){
+  var app=document.getElementById('app'); if(!app) return;
+  var rooms=[].slice.call(app.querySelectorAll('.room'));
+  var S={dan:['boravak','kuhinja'],vecer:['boravak','kuhinja','ulaz'],film:['boravak'],noc:['ulaz'],odlazak:[]};
+  function count(){var n=rooms.filter(function(r){return r.classList.contains('on')}).length;
+    app.querySelector('#brojac').textContent=n+' od '+rooms.length+' prostorija upaljeno';}
+  function set(r,on){r.classList.toggle('on',on);r.setAttribute('aria-pressed',on);}
+  function scene(k){rooms.forEach(function(r){set(r,S[k].indexOf(r.dataset.room)>-1)});
+    app.classList.toggle('dim',k==='film');
+    var a=app.querySelector('#alarm');a.classList.toggle('armed',k==='odlazak'||k==='noc');
+    a.lastChild.textContent=(k==='odlazak'?'Alarm uključen':k==='noc'?'Alarm noćni način':'Alarm isključen');
+    app.querySelector('#pozdrav').textContent={dan:'Dobar dan',vecer:'Dobra večer',film:'Film',noc:'Laku noć',odlazak:'Kuća je zaključana'}[k];
+    [].forEach.call(app.querySelectorAll('[data-scene]'),function(b){b.classList.toggle('on',b.dataset.scene===k)});count();}
+  rooms.forEach(function(r){function t(){set(r,!r.classList.contains('on'));count();}
+    r.addEventListener('click',t);r.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();t();}});});
+  [].forEach.call(app.querySelectorAll('[data-scene]'),function(b){b.addEventListener('click',function(){scene(b.dataset.scene)})});
+  scene('vecer');
+  var reveal=document.querySelector('.reveal');
+  if(reveal){var w=reveal.textContent.trim().split(/\s+/);reveal.innerHTML=w.map(function(x){return '<span>'+x+'</span> '}).join('');
+    var sp=[].slice.call(reveal.querySelectorAll('span'));
+    function onS(){var r=reveal.getBoundingClientRect(),vh=innerHeight,p=Math.min(1,Math.max(0,(vh*.85-r.top)/(r.height+vh*.35)));
+      var k=Math.round(p*sp.length);sp.forEach(function(s,i){s.classList.toggle('lit',i<k)});}
+    addEventListener('scroll',onS,{passive:true});onS();}
+})();
+</script></body></html>
