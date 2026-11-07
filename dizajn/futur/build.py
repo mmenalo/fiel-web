@@ -417,7 +417,7 @@ def page3():
     html = page("dark", "Varijanta 3: Puni efekt", ghost=True)
     html = html.replace(APP, '<div class="hero-side" aria-hidden="true"></div>')
     html = html.replace(LOGO_DARK, '<img class="logo logo-img" src="fiel-logo.svg" alt="Fiel d.o.o." width="1222" height="600">', 1)
-    html = html.replace('</style>', '.top .logo-img{height:60px;width:auto;display:block}@media (max-width:560px){.top .logo-img{height:44px}}</style>', 1)
+    html = html.replace('</style>', '.top .logo-img{height:68px;width:auto;display:block}.top .wrap{height:86px}@media (max-width:560px){.top .logo-img{height:50px}.top .wrap{height:70px}}</style>', 1)
     html = html.replace('<a class="btn" href="#">Za investitore</a>', '<a class="btn" href="#demo-sekcija">Isprobajte demo ↓</a>', 1)
     html = html.replace('<section><div class="wrap"><span class="label">Zašto lokalno</span>', DEMO + '<section><div class="wrap"><span class="label">Zašto lokalno</span>', 1)
     html = html.replace('</style>', DEMO_CSS + '</style>', 1)
