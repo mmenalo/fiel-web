@@ -34,7 +34,7 @@ function pct(id){return S[id]&&S[id].attributes.brightness?Math.round(S[id].attr
 function light(id,v,p,rgb){var a={brightness:v?Math.round((p||pct(id)||100)*2.55):0};if(rgb)a.rgb_color=rgb,a.color_mode='rgb';else if(v){a.rgb_color=null;a.color_mode='brightness';}set(id,v?'on':'off',a);}
 function pos(id){return S[id]?S[id].attributes.current_position:0;}
 var MV={};
-function moveCover(id,to){clearInterval(MV[id]);if(to==null)return;MV[id]=setInterval(function(){var p=pos(id),d=to>p?5:-5;if(Math.abs(to-p)<=5){p=to;clearInterval(MV[id]);}else p+=d;set(id,p>0?'open':'closed',{current_position:p});push();},70);}
+function moveCover(id,to){clearInterval(MV[id]);if(to==null)return;MV[id]=setInterval(function(){var p=pos(id),d=to>p?10:-10;if(Math.abs(to-p)<=10){p=to;clearInterval(MV[id]);}else p+=d;set(id,p>0?'open':'closed',{current_position:p});push();},120);}
 function temps(){for(var k in CUR){var d=heat?(TGT[k]-CUR[k])*.02:(19-CUR[k])*.01;CUR[k]=Math.round((CUR[k]+d)*100)/100;set('sensor.'+k+'_temperatura',CUR[k].toFixed(1),{unit_of_measurement:'°C'});}}
 
 function init(){
@@ -71,7 +71,8 @@ function callService(domain,service,data){
   if(domain==='cover'){if(service==='open_cover')moveCover(id,100);else if(service==='close_cover')moveCover(id,0);else if(service==='stop_cover')moveCover(id,null);else if(data.position!=null)moveCover(id,data.position);}
  });push();}
 var raf=0;
-function push(noRender){if(card)card.hass={states:Object.assign({},S),callService:callService};if(!noRender&&!raf)raf=requestAnimationFrame(function(){raf=0;render();});}
+var cardT=0,cardLast=0;function toCard(){cardT=0;cardLast=Date.now();if(card)card.hass={states:Object.assign({},S),callService:callService};}
+function push(noRender){if(card&&!cardT)cardT=setTimeout(toCard,Math.max(0,140-(Date.now()-cardLast)));if(!noRender&&!raf)raf=requestAnimationFrame(function(){raf=0;render();});}
 
 /* ---------- ikone ---------- */
 var IP={home:'M3 11l9-7 9 7v9h-6v-6H9v6H3z',grid:'M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM13 13h7v7h-7z',bulb:'M9 18h6M10 21h4M12 3a6 6 0 0 0-3.5 10.9V16h7v-2.1A6 6 0 0 0 12 3z',
@@ -100,7 +101,7 @@ function lightRow(l){var o=on(l[0]);return '<div class="ph-lr'+(o?' on':'')+'"><
 /* ---------- ekrani ---------- */
 var V={};
 V.home=function(){var h=new Date().getHours(),g=h<10?'Dobro jutro':h<18?'Dobar dan':'Dobra večer',ow=openWins(),cl=COVERS.filter(function(c){return pos(c[0])<100;}).length;
- return '<div class="ph-hero"><small>Zagreb · '+new Date().toLocaleDateString('hr-HR',{weekday:'long',day:'numeric',month:'long'})+'</small><b>'+g+',<br>dobrodošli</b><span class="ph-wx">'+I(sun==='above_horizon'?'sun':'moon')+'5°<small>djelomično oblačno</small></span></div>'+
+ return '<div class="ph-hero"><small>Zagreb · '+new Date().toLocaleDateString('hr-HR',{weekday:'long',day:'numeric',month:'long'})+'</small><b>'+g+',<br>Fiel</b><span class="ph-wx">'+I(sun==='above_horizon'?'sun':'moon')+'5°<small>djelomično oblačno</small></span></div>'+
  (ow.length?'<button class="ph-warn" data-go="security">'+I('door')+'<span><small>Pažnja</small>'+ow[0][1]+(ow[0][0].indexOf('vrata')>-1?' otvorena':' otvoren prozor')+(ow.length>1?' i još '+(ow.length-1):'')+'</span></button>':'<div class="ph-ok">'+I('shield')+'Svi prozori i vrata zatvoreni</div>')+
  '<div class="ph-2"><div class="ph-card'+(alarm!=='off'?' armed':'')+'"><small>Alarm</small><b>'+alarmTxt()+'</b><button class="ph-pill" data-act="alarm">'+(alarm==='off'?'Uključi':'Isključi')+'</button></div>'+
  '<div class="ph-card"><small>Rasvjeta</small><b>'+nOn()+' upaljeno</b><button class="ph-pill" data-act="alloff">Ugasi sve</button></div></div>'+
@@ -200,7 +201,7 @@ setInterval(function(){temps();push(true);var a=document.activeElement;if(!(a&&a
 
 /* ---------- 3D kuća se učitava tek kad se približi ---------- */
 function load(){
- import('./kuca3d/kuca3d-card.js').then(function(){CFG.height=host.clientHeight;card=document.createElement('kuca3d-card');card.setConfig(CFG);addEventListener('resize',function(){if(card._config&&card._resize){card._config.height=host.clientHeight;card._resize();}});host.appendChild(card);push(true);host.classList.add('ready');})
+ Promise.all([import('./kuca3d/kuca3d-card.js'),import('./kuca3d/okolis.js')]).then(function(r){var O=r[1];CFG.height=host.clientHeight;card=document.createElement('kuca3d-card');O.pripremi(card);card.setConfig(CFG);card._floor='both';addEventListener('resize',function(){if(card._config&&card._resize){card._config.height=host.clientHeight;card._resize();}});host.appendChild(card);toCard();O.okolis(card);host.classList.add('ready');})
  .catch(function(){host.classList.add('fail');});}
 if('IntersectionObserver' in window){var io=new IntersectionObserver(function(es){if(es[0].isIntersecting){io.disconnect();load();}},{rootMargin:'400px'});io.observe(host);}else load();
 

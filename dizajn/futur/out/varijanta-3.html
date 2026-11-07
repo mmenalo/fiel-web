@@ -64,10 +64,11 @@ footer .big{font:500 clamp(6rem,22vw,16rem)/0.8 Jost,sans-serif;letter-spacing:.
 @media (max-width:960px){.top nav{display:none}.cta{margin-left:auto}.hero .wrap,.contact .wrap{grid-template-columns:1fr;gap:40px}.grid4{grid-template-columns:1fr 1fr}.hero{padding:40px 0 64px}section{padding:64px 0}}
 @media (max-width:560px){.grid4{grid-template-columns:1fr}.facts{grid-template-columns:repeat(3,1fr);gap:12px}.facts b{font-size:1.1rem}.scenes{grid-template-columns:repeat(3,1fr)}.btn{width:100%}.top .logo{height:36px}.cta{padding:9px 10px 9px 16px;font-size:.88rem}}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.reveal span{opacity:1}}
-.top .logo-img{height:62px;width:auto;display:block}@media (max-width:560px){.top .logo-img{height:44px}}.demo-sec .head{display:flex;justify-content:space-between;align-items:end;gap:30px;flex-wrap:wrap}
+.top .logo-img{height:60px;width:auto;display:block}@media (max-width:560px){.top .logo-img{height:44px}}.demo-sec .head{display:flex;justify-content:space-between;align-items:end;gap:30px;flex-wrap:wrap}
 .demo-sec .head p{color:var(--muted);max-width:30em}
 .demo-stage{display:grid;grid-template-columns:1fr 340px;gap:28px;align-items:center;margin-top:40px}
-.house{position:relative;height:640px;border-radius:28px;background:radial-gradient(60% 60% at 50% 55%,rgba(66,92,122,.28),transparent 70%);overflow:hidden}
+.house{position:relative;height:640px;border-radius:28px;background:linear-gradient(180deg,#050a14 0%,#0b1630 38%,#0f2238 60%,#0a1410 100%);overflow:hidden;box-shadow:0 0 0 1px rgba(190,205,228,.12),0 40px 90px -40px rgba(0,0,0,.9)}
+.house::after{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(120% 90% at 50% 55%,transparent 55%,rgba(3,6,12,.7) 100%);border-radius:inherit}
 .house kuca3d-card{display:block;width:100%;height:100%}
 .house-load{position:absolute;inset:0;display:grid;place-items:center;font:500 .8rem "IBM Plex Mono",monospace;letter-spacing:.12em;color:var(--muted)}
 .house.ready .house-load{display:none}.house.fail .house-load::after{content:" · 3D prikaz nije dostupan u ovom pregledniku"}
@@ -173,7 +174,7 @@ footer .big{font:500 clamp(6rem,22vw,16rem)/0.8 Jost,sans-serif;letter-spacing:.
 .glow-beam{position:absolute;width:900px;height:900px;left:-300px;top:-400px;background:radial-gradient(closest-side,rgba(66,92,122,.45),transparent);filter:blur(40px);pointer-events:none;z-index:0}
 @media (max-width:960px){.sol .wrap{grid-template-columns:1fr}.sol-list{grid-template-columns:1fr}}
 @media (prefers-reduced-motion:reduce){.up{opacity:1;transform:none}.fx h1 em{animation:none}}
-</style></head><body class="dark fx"><canvas id="fx" aria-hidden="true"></canvas><header class="top"><div class="wrap"><a href="#"><img class="logo logo-img" src="fiel-logo.png" alt="Fiel d.o.o." width="420" height="203"></a>
+</style></head><body class="dark fx"><canvas id="fx" aria-hidden="true"></canvas><header class="top"><div class="wrap"><a href="#"><img class="logo logo-img" src="fiel-logo.svg" alt="Fiel d.o.o." width="1222" height="600"></a>
 <nav><a href="#">Pametna kuća</a><a href="#">Video nadzor i portafoni</a><a href="#">Za investitore</a><a href="#">Kako radimo</a><a href="#">O nama</a></nav>
 <a class="cta" href="#kontakt">Besplatan dolazak <i>↗</i></a></div></header>
 <main>
@@ -189,11 +190,11 @@ footer .big{font:500 clamp(6rem,22vw,16rem)/0.8 Jost,sans-serif;letter-spacing:.
 <div class="head"><div><span class="label">Isprobajte</span><h2 style="margin-top:14px">Upravljajte kućom <em>s mobitela</em></h2></div>
 <p>Ovo je 3D model kuće koju smo opremili i aplikacija kakvu dobiju naši klijenti. Upalite svjetlo, spustite žaluzine ili odaberite scenu i pogledajte što se događa u kući. Možete kliknuti i sobu u modelu. Demo radi samo u vašem pregledniku.</p></div>
 <div class="demo-stage" id="demo">
-<div class="house"><div class="house-load">UČITAVAM 3D MODEL</div><span class="house-hint">Kliknite sobu · Prizemlje / Kat gore desno</span></div>
+<div class="house"><div class="house-load">UČITAVAM 3D MODEL</div><span class="house-hint">Prizemlje i Kat gore desno: pogled u sobe, klik pali svjetlo</span></div>
 <div class="ph" aria-label="Demo aplikacije"><div class="ph-in"><div class="ph-notch"></div><div class="ph-screen" aria-live="polite"></div>
 <nav class="ph-nav"><button data-tab="home"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11l9-7 9 7v9h-6v-6H9v6H3z"/></svg>Početna</button><button data-tab="rooms"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM13 13h7v7h-7z"/></svg>Prostorije</button><button data-tab="light"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.5 10.9V16h7v-2.1A6 6 0 0 0 12 3z"/></svg>Rasvjeta</button><button data-tab="music"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18V5l11-2v13M9 18a3 3 0 1 1-6 0 3 3 0 0 1 6 0zM20 16a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/></svg>Glazba</button><button data-tab="more"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5h2v2H5zM11 5h2v2h-2zM17 5h2v2h-2zM5 11h2v2H5zM11 11h2v2h-2zM17 11h2v2h-2zM5 17h2v2H5zM11 17h2v2h-2zM17 17h2v2h-2z"/></svg>Više</button></nav></div></div>
 </div></div>
-<script type="application/json" id="kuca3d-cfg">{"rooms": {"dnevni": {"light": "light.dnevni", "temp": "sensor.dnevni_temperatura"}, "blagovaonica": {"light": "light.blagovaonica"}, "kuhinja": {"light": "light.kuhinja"}, "holl": {"light": "light.holl"}, "kupaonica": {"light": "light.kupaonica", "temp": "sensor.kupaonica_temperatura"}, "ured": {"light": "light.ured", "temp": "sensor.ured_temperatura"}, "toni": {"light": "light.toni", "temp": "sensor.toni_temperatura"}, "ana": {"light": "light.ana", "temp": "sensor.ana_temperatura"}, "mz": {"light": "light.mz", "temp": "sensor.mz_temperatura"}, "jopa": {"light": "light.jopa", "temp": "sensor.jopa_temperatura"}, "kupaonica_kat": {"light": "light.kupaonica_kat", "temp": "sensor.kupaonica_kat_temperatura"}, "hodnik": {"light": "light.hodnik"}}, "windows": {"dnevni_l": {"cover": "cover.dnevni_l"}, "dnevni_d": {"cover": "cover.dnevni_d", "open": "binary_sensor.dnevni_d_prozor", "slide": "left"}, "kuhinja": {"cover": "cover.kuhinja", "open": "binary_sensor.kuhinja_prozor"}, "toni": {"cover": "cover.toni", "open": "binary_sensor.toni_prozor"}, "ana": {"cover": "cover.ana", "open": "binary_sensor.ana_prozor"}, "mz": {"cover": "cover.mz", "open": "binary_sensor.mz_prozor"}, "balkon": {"cover": "cover.balkon", "open": "binary_sensor.balkon_prozor"}, "jopa": {"open": "binary_sensor.jopa_prozor"}, "kupaonica_kat": {"open": "binary_sensor.kupaonica_kat_prozor"}, "kupaonica": {"open": "binary_sensor.kupaonica_prozor"}}, "strips": {"tv": {"light": "light.traka_tv"}, "mz_krevet": {"light": "light.traka_mz_krevet"}, "ormar": {"light": "light.traka_ormar"}}, "doors": {"ulaz": {"open": "binary_sensor.vrata_ulaz"}}, "cameras": {}, "curtains": {"dnevni": {"cover": "cover.zavjesa_dnevni"}}, "floor": "both", "mode": "auto", "cut_walls": false, "sun_entity": "sun.sun", "fixed": true, "lawn": false, "show_bar": true, "show_info": false, "show_labels": true, "elevation": 46, "azimuth": -24, "zoom": 1.3, "quality": "auto", "transparent": true, "height": null}</script></section>
+<script type="application/json" id="kuca3d-cfg">{"rooms": {"dnevni": {"light": "light.dnevni", "temp": "sensor.dnevni_temperatura"}, "blagovaonica": {"light": "light.blagovaonica"}, "kuhinja": {"light": "light.kuhinja"}, "holl": {"light": "light.holl"}, "kupaonica": {"light": "light.kupaonica", "temp": "sensor.kupaonica_temperatura"}, "ured": {"light": "light.ured", "temp": "sensor.ured_temperatura"}, "toni": {"light": "light.toni", "temp": "sensor.toni_temperatura"}, "ana": {"light": "light.ana", "temp": "sensor.ana_temperatura"}, "mz": {"light": "light.mz", "temp": "sensor.mz_temperatura"}, "jopa": {"light": "light.jopa", "temp": "sensor.jopa_temperatura"}, "kupaonica_kat": {"light": "light.kupaonica_kat", "temp": "sensor.kupaonica_kat_temperatura"}, "hodnik": {"light": "light.hodnik"}}, "windows": {"dnevni_l": {"cover": "cover.dnevni_l"}, "dnevni_d": {"cover": "cover.dnevni_d", "open": "binary_sensor.dnevni_d_prozor", "slide": "left"}, "kuhinja": {"cover": "cover.kuhinja", "open": "binary_sensor.kuhinja_prozor"}, "toni": {"cover": "cover.toni", "open": "binary_sensor.toni_prozor"}, "ana": {"cover": "cover.ana", "open": "binary_sensor.ana_prozor"}, "mz": {"cover": "cover.mz", "open": "binary_sensor.mz_prozor"}, "balkon": {"cover": "cover.balkon", "open": "binary_sensor.balkon_prozor"}, "jopa": {"open": "binary_sensor.jopa_prozor"}, "kupaonica_kat": {"open": "binary_sensor.kupaonica_kat_prozor"}, "kupaonica": {"open": "binary_sensor.kupaonica_prozor"}}, "strips": {"tv": {"light": "light.traka_tv"}, "mz_krevet": {"light": "light.traka_mz_krevet"}, "ormar": {"light": "light.traka_ormar"}}, "doors": {"ulaz": {"open": "binary_sensor.vrata_ulaz"}}, "cameras": {}, "curtains": {"dnevni": {"cover": "cover.zavjesa_dnevni"}}, "floor": "both", "mode": "auto", "cut_walls": false, "sun_entity": "sun.sun", "fixed": true, "lawn": true, "show_bar": true, "show_info": false, "show_labels": true, "elevation": 46, "azimuth": -24, "zoom": 1.0, "quality": "auto", "transparent": true, "height": null}</script></section>
 <section data-shape="dust"><div class="wrap"><span class="label">Zašto lokalno</span>
 <p class="manifest reveal" style="margin-top:18px">Pametna kuća ne smije stati kad padne internet ili kad proizvođač promijeni uvjete. Zato sve radi na uređaju u vašem objektu.</p>
 <div class="grid4">
@@ -206,7 +207,7 @@ footer .big{font:500 clamp(6rem,22vw,16rem)/0.8 Jost,sans-serif;letter-spacing:.
 <p style="color:var(--muted);margin-top:16px;max-width:28em">Prijeđite mišem ili dodirnite karticu.</p></div>
 <div class="sol-list">
 <button data-s="lamp" class="act"><b>Rasvjeta</b><span>Scene, raspored po dobu dana i prisutnost.</span></button>
-<button data-s="wave"><b>Grijanje i hlađenje</b><span>Temperatura po prostorijama i raspored po danima.</span></button>
+<button data-s="heat"><b>Grijanje i hlađenje</b><span>Temperatura po prostorijama i raspored po danima.</span></button>
 <button data-s="blind"><b>Rolete</b><span>Prema suncu, dobu dana ili jednim dodirom.</span></button>
 <button data-s="door"><b>Alarm i brave</b><span>Jedan dodir: sve zaključano, alarm uključen.</span></button>
 <button data-s="eye"><b>Kamere i portafon</b><span>Slika s ulaza i kamera na zaslonu i mobitelu.</span></button>
@@ -284,7 +285,7 @@ function pct(id){return S[id]&&S[id].attributes.brightness?Math.round(S[id].attr
 function light(id,v,p,rgb){var a={brightness:v?Math.round((p||pct(id)||100)*2.55):0};if(rgb)a.rgb_color=rgb,a.color_mode='rgb';else if(v){a.rgb_color=null;a.color_mode='brightness';}set(id,v?'on':'off',a);}
 function pos(id){return S[id]?S[id].attributes.current_position:0;}
 var MV={};
-function moveCover(id,to){clearInterval(MV[id]);if(to==null)return;MV[id]=setInterval(function(){var p=pos(id),d=to>p?5:-5;if(Math.abs(to-p)<=5){p=to;clearInterval(MV[id]);}else p+=d;set(id,p>0?'open':'closed',{current_position:p});push();},70);}
+function moveCover(id,to){clearInterval(MV[id]);if(to==null)return;MV[id]=setInterval(function(){var p=pos(id),d=to>p?10:-10;if(Math.abs(to-p)<=10){p=to;clearInterval(MV[id]);}else p+=d;set(id,p>0?'open':'closed',{current_position:p});push();},120);}
 function temps(){for(var k in CUR){var d=heat?(TGT[k]-CUR[k])*.02:(19-CUR[k])*.01;CUR[k]=Math.round((CUR[k]+d)*100)/100;set('sensor.'+k+'_temperatura',CUR[k].toFixed(1),{unit_of_measurement:'°C'});}}
 
 function init(){
@@ -321,7 +322,8 @@ function callService(domain,service,data){
   if(domain==='cover'){if(service==='open_cover')moveCover(id,100);else if(service==='close_cover')moveCover(id,0);else if(service==='stop_cover')moveCover(id,null);else if(data.position!=null)moveCover(id,data.position);}
  });push();}
 var raf=0;
-function push(noRender){if(card)card.hass={states:Object.assign({},S),callService:callService};if(!noRender&&!raf)raf=requestAnimationFrame(function(){raf=0;render();});}
+var cardT=0,cardLast=0;function toCard(){cardT=0;cardLast=Date.now();if(card)card.hass={states:Object.assign({},S),callService:callService};}
+function push(noRender){if(card&&!cardT)cardT=setTimeout(toCard,Math.max(0,140-(Date.now()-cardLast)));if(!noRender&&!raf)raf=requestAnimationFrame(function(){raf=0;render();});}
 
 /* ---------- ikone ---------- */
 var IP={home:'M3 11l9-7 9 7v9h-6v-6H9v6H3z',grid:'M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM13 13h7v7h-7z',bulb:'M9 18h6M10 21h4M12 3a6 6 0 0 0-3.5 10.9V16h7v-2.1A6 6 0 0 0 12 3z',
@@ -350,7 +352,7 @@ function lightRow(l){var o=on(l[0]);return '<div class="ph-lr'+(o?' on':'')+'"><
 /* ---------- ekrani ---------- */
 var V={};
 V.home=function(){var h=new Date().getHours(),g=h<10?'Dobro jutro':h<18?'Dobar dan':'Dobra večer',ow=openWins(),cl=COVERS.filter(function(c){return pos(c[0])<100;}).length;
- return '<div class="ph-hero"><small>Zagreb · '+new Date().toLocaleDateString('hr-HR',{weekday:'long',day:'numeric',month:'long'})+'</small><b>'+g+',<br>dobrodošli</b><span class="ph-wx">'+I(sun==='above_horizon'?'sun':'moon')+'5°<small>djelomično oblačno</small></span></div>'+
+ return '<div class="ph-hero"><small>Zagreb · '+new Date().toLocaleDateString('hr-HR',{weekday:'long',day:'numeric',month:'long'})+'</small><b>'+g+',<br>Fiel</b><span class="ph-wx">'+I(sun==='above_horizon'?'sun':'moon')+'5°<small>djelomično oblačno</small></span></div>'+
  (ow.length?'<button class="ph-warn" data-go="security">'+I('door')+'<span><small>Pažnja</small>'+ow[0][1]+(ow[0][0].indexOf('vrata')>-1?' otvorena':' otvoren prozor')+(ow.length>1?' i još '+(ow.length-1):'')+'</span></button>':'<div class="ph-ok">'+I('shield')+'Svi prozori i vrata zatvoreni</div>')+
  '<div class="ph-2"><div class="ph-card'+(alarm!=='off'?' armed':'')+'"><small>Alarm</small><b>'+alarmTxt()+'</b><button class="ph-pill" data-act="alarm">'+(alarm==='off'?'Uključi':'Isključi')+'</button></div>'+
  '<div class="ph-card"><small>Rasvjeta</small><b>'+nOn()+' upaljeno</b><button class="ph-pill" data-act="alloff">Ugasi sve</button></div></div>'+
@@ -450,7 +452,7 @@ setInterval(function(){temps();push(true);var a=document.activeElement;if(!(a&&a
 
 /* ---------- 3D kuća se učitava tek kad se približi ---------- */
 function load(){
- import('./kuca3d/kuca3d-card.js').then(function(){CFG.height=host.clientHeight;card=document.createElement('kuca3d-card');card.setConfig(CFG);addEventListener('resize',function(){if(card._config&&card._resize){card._config.height=host.clientHeight;card._resize();}});host.appendChild(card);push(true);host.classList.add('ready');})
+ Promise.all([import('./kuca3d/kuca3d-card.js'),import('./kuca3d/okolis.js')]).then(function(r){var O=r[1];CFG.height=host.clientHeight;card=document.createElement('kuca3d-card');O.pripremi(card);card.setConfig(CFG);card._floor='both';addEventListener('resize',function(){if(card._config&&card._resize){card._config.height=host.clientHeight;card._resize();}});host.appendChild(card);toCard();O.okolis(card);host.classList.add('ready');})
  .catch(function(){host.classList.add('fail');});}
 if('IntersectionObserver' in window){var io=new IntersectionObserver(function(es){if(es[0].isIntersecting){io.disconnect();load();}},{rootMargin:'400px'});io.observe(host);}else load();
 
@@ -562,10 +564,24 @@ init();render();
     box(-1.5,1.5,ty-.06,ty,-.7,.7,1,'w');[[-1.35,-.55],[1.35,-.55],[-1.35,.55],[1.35,.55]].forEach(function(l){line([l[0],ty-.06,l[1]],[l[0],-2.3,l[1]],.6,'w');});
     area(1.4,'g',function(){var a=Math.random()*6.283,rr=1.2*Math.sqrt(Math.random());return [Math.cos(a)*rr,ty+.01,Math.sin(a)*rr*.55];});
     return done();};
+  COMP.heat=function(){var W=1.7,y0=-.55,y1=.75,z=0;
+    rect(-W,W,y0,y1,z,1,'w');
+    for(var x=-W+.12;x<W;x+=.17){line([x,y0+.05,z+.04],[x,y1-.05,z+.04],.55,'c');}
+    line([-W,y1+.05,z],[W,y1+.05,z],.6,'s');line([-W,y0-.05,z],[W,y0-.05,z],.6,'s');
+    [-W+.25,W-.25].forEach(function(x){line([x,y0-.05,z],[x,-1.05,z],.6,'w');});
+    ring(W+.18,y1-.1,z,.12,.5,'w');line([W,y1-.1,z],[W+.06,y1-.1,z],.4,'w');
+    area(.25,'o',function(){var a=Math.random()*6.283;return [W+.18+Math.cos(a)*.05,y1-.1+Math.sin(a)*.05,z+.02];});
+    /* podno grijanje: zmija cijevi */
+    var fy=-1.15;for(var k=0;k<7;k++){var zz=-1.1+k*.36;line([-2.2,fy,zz],[2.2,fy,zz],.9,'o');
+      if(k<6){var xe=k%2?-2.2:2.2;P.push({w:.35,c:'o',f:(function(zz,xe){return function(){var a=Math.random()*Math.PI-Math.PI/2;return [xe+(xe>0?1:-1)*Math.cos(a)*.18,fy,zz+.18+Math.sin(a)*.18];};})(zz,xe)});}}
+    rect(-2.5,2.5,fy-.02,fy-.02,0,0,'s');line([-2.5,fy-.02,-1.35],[2.5,fy-.02,-1.35],.5,'s');line([-2.5,fy-.02,1.35],[2.5,fy-.02,1.35],.5,'s');
+    /* topli zrak koji se diže */
+    for(var j=0;j<5;j++){(function(j){var bx=-1.3+j*.65;area(1.1,j%2?'o':'h',function(){var h=Math.random(),y=y1+.15+h*1.5;return [bx+Math.sin(h*7+j)*.18,y,Math.cos(h*5+j)*.12];});})(j);}
+    return done();};
   var CC={};function compInit(name){var D=COMP[name](),pos=new Float32Array(N*3),col=new Float32Array(N*3),j=0,sc=name==='villa'?.82:.95,dy=name==='villa'?.2:0;
     for(var i=0;i<N;i++){var u=(i+.5)/N;while(D[j].e<u&&j<D.length-1)j++;var p=D[j].f(),c=VC[D[j].c];pos.set([p[0]*sc,p[1]*sc+dy,p[2]*sc],i*3);col.set([c.r,c.g,c.b],i*3);}
     CC[name]={p:pos,c:col};return CC[name];}
-  var VC={w:new THREE.Color('#e3ebf7'),g:new THREE.Color('#f3c66b'),b:new THREE.Color('#3f9bff'),n:new THREE.Color('#4f7a63'),t:new THREE.Color('#8fc6a0'),s:new THREE.Color('#8f9fb6'),c:new THREE.Color('#d6dde8'),r:new THREE.Color('#ff4b4b'),d:new THREE.Color('#2c3a52')};
+  var VC={w:new THREE.Color('#e3ebf7'),g:new THREE.Color('#f3c66b'),b:new THREE.Color('#3f9bff'),n:new THREE.Color('#4f7a63'),t:new THREE.Color('#8fc6a0'),s:new THREE.Color('#8f9fb6'),c:new THREE.Color('#d6dde8'),r:new THREE.Color('#ff4b4b'),d:new THREE.Color('#2c3a52'),o:new THREE.Color('#ff8a3d'),h:new THREE.Color('#ff4f2e')};
   var shapes={
     sphere:function(i){var y=1-2*(i+.5)/N,rr=Math.sqrt(1-y*y),a=i*2.39996;return [Math.cos(a)*rr*2.7,y*2.7,Math.sin(a)*rr*2.7];},
     dust:function(){return [R()*9,R()*5,R()*4-1];},
@@ -596,7 +612,7 @@ init();render();
   var t=0,ry=0,rx=0;(function f(){t+=.003;var p=g.attributes.position.array;
     var cc=g.attributes.color.array;for(var i=0;i<N*3;i++){p[i]+=(tgt[i]-p[i])*.045;cc[i]+=(ctg[i]-cc[i])*.05;}
     g.attributes.position.needsUpdate=true;g.attributes.color.needsUpdate=true;offX+=(goalX-offX)*.05;
-    pts.position.x=offX;var V=!!COMP[cur];ry+=((V?(cur==='villa'?-.55:-.35)+Math.sin(t*2)*.4:t*1.2)+mx*.5-ry)*.04;rx+=((cur==='villa'?.42:cur==='lamp'?.32:V?.08:0)+my*.3+Math.sin(t)*.08-rx)*.04;pts.rotation.y=ry;pts.rotation.x=rx;
+    pts.position.x=offX;var V=!!COMP[cur];ry+=((V?(cur==='villa'?-.55:-.35)+Math.sin(t*2)*.4:t*1.2)+mx*.5-ry)*.04;rx+=((cur==='villa'?.42:cur==='lamp'?.32:cur==='heat'?.28:V?.08:0)+my*.3+Math.sin(t)*.08-rx)*.04;pts.rotation.y=ry;pts.rotation.x=rx;
     r.render(sc,cam);requestAnimationFrame(f);})();
 })();
 (function(){

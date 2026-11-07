@@ -196,10 +196,24 @@ THREE_FX = """
     box(-1.5,1.5,ty-.06,ty,-.7,.7,1,'w');[[-1.35,-.55],[1.35,-.55],[-1.35,.55],[1.35,.55]].forEach(function(l){line([l[0],ty-.06,l[1]],[l[0],-2.3,l[1]],.6,'w');});
     area(1.4,'g',function(){var a=Math.random()*6.283,rr=1.2*Math.sqrt(Math.random());return [Math.cos(a)*rr,ty+.01,Math.sin(a)*rr*.55];});
     return done();};
+  COMP.heat=function(){var W=1.7,y0=-.55,y1=.75,z=0;
+    rect(-W,W,y0,y1,z,1,'w');
+    for(var x=-W+.12;x<W;x+=.17){line([x,y0+.05,z+.04],[x,y1-.05,z+.04],.55,'c');}
+    line([-W,y1+.05,z],[W,y1+.05,z],.6,'s');line([-W,y0-.05,z],[W,y0-.05,z],.6,'s');
+    [-W+.25,W-.25].forEach(function(x){line([x,y0-.05,z],[x,-1.05,z],.6,'w');});
+    ring(W+.18,y1-.1,z,.12,.5,'w');line([W,y1-.1,z],[W+.06,y1-.1,z],.4,'w');
+    area(.25,'o',function(){var a=Math.random()*6.283;return [W+.18+Math.cos(a)*.05,y1-.1+Math.sin(a)*.05,z+.02];});
+    /* podno grijanje: zmija cijevi */
+    var fy=-1.15;for(var k=0;k<7;k++){var zz=-1.1+k*.36;line([-2.2,fy,zz],[2.2,fy,zz],.9,'o');
+      if(k<6){var xe=k%2?-2.2:2.2;P.push({w:.35,c:'o',f:(function(zz,xe){return function(){var a=Math.random()*Math.PI-Math.PI/2;return [xe+(xe>0?1:-1)*Math.cos(a)*.18,fy,zz+.18+Math.sin(a)*.18];};})(zz,xe)});}}
+    rect(-2.5,2.5,fy-.02,fy-.02,0,0,'s');line([-2.5,fy-.02,-1.35],[2.5,fy-.02,-1.35],.5,'s');line([-2.5,fy-.02,1.35],[2.5,fy-.02,1.35],.5,'s');
+    /* topli zrak koji se diže */
+    for(var j=0;j<5;j++){(function(j){var bx=-1.3+j*.65;area(1.1,j%2?'o':'h',function(){var h=Math.random(),y=y1+.15+h*1.5;return [bx+Math.sin(h*7+j)*.18,y,Math.cos(h*5+j)*.12];});})(j);}
+    return done();};
   var CC={};function compInit(name){var D=COMP[name](),pos=new Float32Array(N*3),col=new Float32Array(N*3),j=0,sc=name==='villa'?.82:.95,dy=name==='villa'?.2:0;
     for(var i=0;i<N;i++){var u=(i+.5)/N;while(D[j].e<u&&j<D.length-1)j++;var p=D[j].f(),c=VC[D[j].c];pos.set([p[0]*sc,p[1]*sc+dy,p[2]*sc],i*3);col.set([c.r,c.g,c.b],i*3);}
     CC[name]={p:pos,c:col};return CC[name];}
-  var VC={w:new THREE.Color('#e3ebf7'),g:new THREE.Color('#f3c66b'),b:new THREE.Color('#3f9bff'),n:new THREE.Color('#4f7a63'),t:new THREE.Color('#8fc6a0'),s:new THREE.Color('#8f9fb6'),c:new THREE.Color('#d6dde8'),r:new THREE.Color('#ff4b4b'),d:new THREE.Color('#2c3a52')};
+  var VC={w:new THREE.Color('#e3ebf7'),g:new THREE.Color('#f3c66b'),b:new THREE.Color('#3f9bff'),n:new THREE.Color('#4f7a63'),t:new THREE.Color('#8fc6a0'),s:new THREE.Color('#8f9fb6'),c:new THREE.Color('#d6dde8'),r:new THREE.Color('#ff4b4b'),d:new THREE.Color('#2c3a52'),o:new THREE.Color('#ff8a3d'),h:new THREE.Color('#ff4f2e')};
   var shapes={
     sphere:function(i){var y=1-2*(i+.5)/N,rr=Math.sqrt(1-y*y),a=i*2.39996;return [Math.cos(a)*rr*2.7,y*2.7,Math.sin(a)*rr*2.7];},
     dust:function(){return [R()*9,R()*5,R()*4-1];},
@@ -230,7 +244,7 @@ THREE_FX = """
   var t=0,ry=0,rx=0;(function f(){t+=.003;var p=g.attributes.position.array;
     var cc=g.attributes.color.array;for(var i=0;i<N*3;i++){p[i]+=(tgt[i]-p[i])*.045;cc[i]+=(ctg[i]-cc[i])*.05;}
     g.attributes.position.needsUpdate=true;g.attributes.color.needsUpdate=true;offX+=(goalX-offX)*.05;
-    pts.position.x=offX;var V=!!COMP[cur];ry+=((V?(cur==='villa'?-.55:-.35)+Math.sin(t*2)*.4:t*1.2)+mx*.5-ry)*.04;rx+=((cur==='villa'?.42:cur==='lamp'?.32:V?.08:0)+my*.3+Math.sin(t)*.08-rx)*.04;pts.rotation.y=ry;pts.rotation.x=rx;
+    pts.position.x=offX;var V=!!COMP[cur];ry+=((V?(cur==='villa'?-.55:-.35)+Math.sin(t*2)*.4:t*1.2)+mx*.5-ry)*.04;rx+=((cur==='villa'?.42:cur==='lamp'?.32:cur==='heat'?.28:V?.08:0)+my*.3+Math.sin(t)*.08-rx)*.04;pts.rotation.y=ry;pts.rotation.x=rx;
     r.render(sc,cam);requestAnimationFrame(f);})();
 })();
 (function(){
@@ -336,7 +350,7 @@ footer .big{font:500 clamp(6rem,22vw,16rem)/0.8 Jost,sans-serif;letter-spacing:.
 DEMO_CSS = open(os.path.join(HERE, "demo.css")).read()
 DEMO_JS = open(os.path.join(HERE, "demo.js")).read()
 _cfg = json.load(open(os.path.join(OUT, "kuca3d", "kuca3d-config.json")))
-_cfg.update({"transparent": True, "show_labels": True, "show_bar": True, "show_info": False, "zoom": 1.3})
+_cfg.update({"transparent": True, "show_labels": True, "show_bar": True, "show_info": False, "zoom": 1.0, "lawn": True})
 NAVB = [("home", "home", "Početna"), ("rooms", "grid", "Prostorije"), ("light", "bulb", "Rasvjeta"), ("music", "music", "Glazba"), ("more", "dots", "Više")]
 _IC = {"home": "M3 11l9-7 9 7v9h-6v-6H9v6H3z", "grid": "M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM13 13h7v7h-7z",
        "bulb": "M9 18h6M10 21h4M12 3a6 6 0 0 0-3.5 10.9V16h7v-2.1A6 6 0 0 0 12 3z",
@@ -346,7 +360,7 @@ DEMO = f"""<section class="demo-sec" id="demo-sekcija" data-shape="dust"><div cl
 <div class="head"><div><span class="label">Isprobajte</span><h2 style="margin-top:14px">Upravljajte kućom <em>s mobitela</em></h2></div>
 <p>Ovo je 3D model kuće koju smo opremili i aplikacija kakvu dobiju naši klijenti. Upalite svjetlo, spustite žaluzine ili odaberite scenu i pogledajte što se događa u kući. Možete kliknuti i sobu u modelu. Demo radi samo u vašem pregledniku.</p></div>
 <div class="demo-stage" id="demo">
-<div class="house"><div class="house-load">UČITAVAM 3D MODEL</div><span class="house-hint">Kliknite sobu · Prizemlje / Kat gore desno</span></div>
+<div class="house"><div class="house-load">UČITAVAM 3D MODEL</div><span class="house-hint">Prizemlje i Kat gore desno: pogled u sobe, klik pali svjetlo</span></div>
 <div class="ph" aria-label="Demo aplikacije"><div class="ph-in"><div class="ph-notch"></div><div class="ph-screen" aria-live="polite"></div>
 <nav class="ph-nav">{''.join(f'<button data-tab="{k}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="{_IC[i]}"/></svg>{n}</button>' for k, i, n in NAVB)}</nav></div></div>
 </div></div>
@@ -402,8 +416,8 @@ def page(theme, name, ghost=False, particles=False, dark_band=False):
 def page3():
     html = page("dark", "Varijanta 3: Puni efekt", ghost=True)
     html = html.replace(APP, '<div class="hero-side" aria-hidden="true"></div>')
-    html = html.replace(LOGO_DARK, '<img class="logo logo-img" src="fiel-logo.png" alt="Fiel d.o.o." width="420" height="203">', 1)
-    html = html.replace('</style>', '.top .logo-img{height:62px;width:auto;display:block}@media (max-width:560px){.top .logo-img{height:44px}}</style>', 1)
+    html = html.replace(LOGO_DARK, '<img class="logo logo-img" src="fiel-logo.svg" alt="Fiel d.o.o." width="1222" height="600">', 1)
+    html = html.replace('</style>', '.top .logo-img{height:60px;width:auto;display:block}@media (max-width:560px){.top .logo-img{height:44px}}</style>', 1)
     html = html.replace('<a class="btn" href="#">Za investitore</a>', '<a class="btn" href="#demo-sekcija">Isprobajte demo ↓</a>', 1)
     html = html.replace('<section><div class="wrap"><span class="label">Zašto lokalno</span>', DEMO + '<section><div class="wrap"><span class="label">Zašto lokalno</span>', 1)
     html = html.replace('</style>', DEMO_CSS + '</style>', 1)
@@ -418,7 +432,7 @@ def page3():
 <p style="color:var(--muted);margin-top:16px;max-width:28em">Prijeđite mišem ili dodirnite karticu.</p></div>
 <div class="sol-list">
 <button data-s="lamp" class="act"><b>Rasvjeta</b><span>Scene, raspored po dobu dana i prisutnost.</span></button>
-<button data-s="wave"><b>Grijanje i hlađenje</b><span>Temperatura po prostorijama i raspored po danima.</span></button>
+<button data-s="heat"><b>Grijanje i hlađenje</b><span>Temperatura po prostorijama i raspored po danima.</span></button>
 <button data-s="blind"><b>Rolete</b><span>Prema suncu, dobu dana ili jednim dodirom.</span></button>
 <button data-s="door"><b>Alarm i brave</b><span>Jedan dodir: sve zaključano, alarm uključen.</span></button>
 <button data-s="eye"><b>Kamere i portafon</b><span>Slika s ulaza i kamera na zaslonu i mobitelu.</span></button>
