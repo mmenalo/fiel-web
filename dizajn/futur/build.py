@@ -210,6 +210,32 @@ THREE_FX = """
     /* topli zrak koji se diže */
     for(var j=0;j<5;j++){(function(j){var bx=-1.3+j*.65;area(1.1,j%2?'o':'h',function(){var h=Math.random(),y=y1+.15+h*1.5;return [bx+Math.sin(h*7+j)*.18,y,Math.cos(h*5+j)*.12];});})(j);}
     return done();};
+  COMP.cam=function(){
+    /* nadzorna kamera na zidnom nosaču */
+    box(-2.42,-2.3,.25,1.15,-.32,.32,1.6,'s');area(.25,'d',function(){return [-2.3,rnd(.25,1.15),rnd(-.32,.32)];});
+    line([-2.3,.72,0],[-1.75,.9,0],5,'w');line([-2.3,.6,0],[-1.75,.82,0],3,'s');
+    var A=[-1.95,1.12],B=[.05,.68],dx=B[0]-A[0],dy=B[1]-A[1],Ln=Math.sqrt(dx*dx+dy*dy),ux=dx/Ln,uy=dy/Ln,nx=-uy,ny=ux,r=.33;
+    function cyl(t,a,rr){return [A[0]+dx*t+nx*Math.cos(a)*rr,A[1]+dy*t+ny*Math.cos(a)*rr,Math.sin(a)*rr];}
+    area(3.2,'w',function(){return cyl(Math.random(),Math.random()*6.283,r);});
+    area(1.4,'c',function(){return cyl(rnd(-.08,1.12),rnd(-1.25,1.25),r+.09);});
+    function disc(t,r0,r1,w,c){area(w,c,function(){var a=Math.random()*6.283,rr=rnd(r0,r1);return cyl(t,a,rr);});}
+    disc(1,.27,.33,1.2,'w');disc(1.01,.2,.24,1,'b');disc(1.01,0,.13,.8,'d');disc(1.015,.05,.08,.6,'b');
+    for(var k=0;k<8;k++){(function(k){var a=k/8*6.283;area(.08,'r',function(){return cyl(1.01,a+R()*.08,.17+R()*.01);});})(k);}
+    disc(0,0,.33,.5,'s');
+    /* vidno polje */
+    area(1.1,'b',function(){var t=Math.pow(Math.random(),.7),L2=1.5*t,sp=.55*t;return [B[0]+ux*L2+nx*R()*sp,B[1]+uy*L2+ny*R()*sp*.6,R()*sp];});
+    /* portafon */
+    var x0=1.3,x1=2.15,y0=-1.45,y1=1.25;
+    box(x0,x1,y0,y1,0,.12,2.2,'w');area(.6,'d',function(){return [rnd(x0,x1),rnd(y0,y1),.12];});
+    rect(x0+.13,x1-.13,.3,.95,.13,3,'c');area(1.3,'b',function(){return [rnd(x0+.15,x1-.15),rnd(.32,.93),.13];});
+    area(.35,'g',function(){var a=Math.random()*6.283,rr=.09*Math.sqrt(Math.random());return [(x0+x1)/2+Math.cos(a)*rr*1.2,.62+.06+Math.sin(a)*rr,.135];});
+    ring((x0+x1)/2,1.08,.13,.07,.3,'b');ring((x0+x1)/2,1.08,.13,.03,.15,'w');
+    for(var gy=0;gy<5;gy++)line([x0+.25,-.05+gy*.07,.13],[x1-.25,-.05+gy*.07,.13],1.2,'s');
+    ring((x0+x1)/2,-.6,.13,.2,.7,'g');ring((x0+x1)/2,-.6,.13,.13,.4,'g');area(.3,'g',function(){var a=Math.random()*6.283,rr=.1*Math.sqrt(Math.random());return [(x0+x1)/2+Math.cos(a)*rr,-.6+Math.sin(a)*rr,.14];});
+    rect(x0+.15,x1-.15,-1.25,-1.02,.13,2,'s');
+    /* zvučni valovi poziva */
+    [.32,.45,.58].forEach(function(rr,i){area(.25,'g',function(){var a=rnd(-.7,.7);return [(x0+x1)/2+Math.cos(a)*rr*1.0+.05,-.6+Math.sin(a)*rr,.14];});});
+    return done();};
   COMP.tablet=function(){var w=.5,h=.325,r=.035;
     function rr(x0,x1,y0,y1,d,c){var k=Math.min(r,(x1-x0)/4,(y1-y0)/4);line([x0+k,y0,0],[x1-k,y0,0],d,c);line([x0+k,y1,0],[x1-k,y1,0],d,c);line([x0,y0+k,0],[x0,y1-k,0],d,c);line([x1,y0+k,0],[x1,y1-k,0],d,c);
       [[x0+k,y0+k,Math.PI],[x1-k,y0+k,1.5*Math.PI],[x1-k,y1-k,0],[x0+k,y1-k,.5*Math.PI]].forEach(function(q){P.push({w:k*1.6*d,c:c,f:function(){var a=q[2]+Math.random()*Math.PI/2;return [q[0]+Math.cos(a)*k,q[1]+Math.sin(a)*k,0];}});});}
@@ -249,7 +275,8 @@ THREE_FX = """
   var m=new THREE.PointsMaterial({size:mob?.03:.022,vertexColors:true,transparent:true,opacity:.9,blending:THREE.AdditiveBlending,depthWrite:false});
   var pts=new THREE.Points(g,m);sc.add(pts);
   var offX=0,goalX=0,cur='';
-  function shape(name,x){if(name===cur&&x===goalX)return;cur=name;goalX=x;if(COMP[name]){var C=CC[name]||compInit(name);if(name!=='tablet')tgt.set(C.p);ctg.set(C.c);return;}var f=shapes[name];for(var i=0;i<N;i++)tgt.set(f(i),i*3);ctg.set(base);}
+  function tabDust(){var D=window.fielTabletDust&&window.fielTabletDust(N);if(!D)return CC.tablet||compInit('tablet');var c=new Float32Array(N*3);for(var i=0;i<N;i++){var k=VC[D.k[i]]||VC.w;c[i*3]=k.r;c[i*3+1]=k.g;c[i*3+2]=k.b;}CC.tablet={p:D.p,c:c};return CC.tablet;}window.fielTabDust=function(){if(cur==='tablet'){var C=tabDust();ctg.set(C.c);}};
+  function shape(name,x){if(name===cur&&x===goalX)return;cur=name;goalX=x;if(COMP[name]){var C=name==='tablet'?tabDust():(CC[name]||compInit(name));if(name!=='tablet')tgt.set(C.p);ctg.set(C.c);return;}var f=shapes[name];for(var i=0;i<N;i++)tgt.set(f(i),i*3);ctg.set(base);}
   window.fielShape=shape;
   var secs=[].slice.call(document.querySelectorAll('[data-shape]'));
   function pick(){var best=null,bv=0;secs.forEach(function(s){var b=s.getBoundingClientRect(),v=Math.min(b.bottom,innerHeight)-Math.max(b.top,0);if(v>bv){bv=v;best=s;}});
@@ -257,7 +284,7 @@ THREE_FX = """
   addEventListener('scroll',pick,{passive:true});pick();
   var mx=0,my=0;addEventListener('pointermove',function(e){mx=e.clientX/innerWidth-.5;my=e.clientY/innerHeight-.5;});
   var t=0,ry=0,rx=0;(function f(){t+=.003;var p=g.attributes.position.array;
-    if(cur==='tablet'&&CC.tablet){var te=document.getElementById('tabwrap');if(te){var tr=te.getBoundingClientRect(),hh=Math.tan(25*Math.PI/180)*7,hw=hh*cam.aspect,tcx=((tr.left+tr.width/2)/innerWidth*2-1)*hw,tcy=-((tr.top+tr.height/2)/innerHeight*2-1)*hh,tsw=tr.width/innerWidth*2*hw*1.04,TBp=CC.tablet.p;for(var q=0;q<N;q++){tgt[q*3]=TBp[q*3]*tsw+tcx;tgt[q*3+1]=TBp[q*3+1]*tsw+tcy;tgt[q*3+2]=0;}}}
+    if(cur==='tablet'&&CC.tablet){var te=document.getElementById('tabwrap');if(te){var tr=te.getBoundingClientRect(),hh=Math.tan(25*Math.PI/180)*7,hw=hh*cam.aspect,tcx=((tr.left+tr.width/2)/innerWidth*2-1)*hw,tcy=-((tr.top+tr.height/2)/innerHeight*2-1)*hh,tsw=tr.width/innerWidth*2*hw,TBp=CC.tablet.p;for(var q=0;q<N;q++){tgt[q*3]=TBp[q*3]*tsw+tcx;tgt[q*3+1]=TBp[q*3+1]*tsw+tcy;tgt[q*3+2]=0;}}}
     var cc=g.attributes.color.array;for(var i=0;i<N*3;i++){p[i]+=(tgt[i]-p[i])*.045;cc[i]+=(ctg[i]-cc[i])*.05;}
     g.attributes.position.needsUpdate=true;g.attributes.color.needsUpdate=true;offX+=(goalX-offX)*.05;
     pts.position.x=offX;var V=!!COMP[cur],TBm=cur==='tablet';if(TBm){ry+=(0-ry)*.08;rx+=(0-rx)*.08;}else{ry+=((V?(cur==='villa'?-.55:-.35)+Math.sin(t*2)*.4:t*1.2)+mx*.5-ry)*.04;rx+=((cur==='villa'?.42:cur==='lamp'?.32:cur==='heat'?.28:V?.08:0)+my*.3+Math.sin(t)*.08-rx)*.04;}pts.rotation.y=ry;pts.rotation.x=rx;
@@ -374,7 +401,7 @@ _IC = {"home": "M3 11l9-7 9 7v9h-6v-6H9v6H3z", "grid": "M4 4h7v7H4zM13 4h7v7h-7z
        "dots": "M5 5h2v2H5zM11 5h2v2h-2zM17 5h2v2h-2zM5 11h2v2H5zM11 11h2v2h-2zM17 11h2v2h-2zM5 17h2v2H5zM11 17h2v2h-2zM17 17h2v2h-2z"}
 DEMO = f"""<section class="demo-sec" id="demo-sekcija" data-shape="dust"><div class="wrap">
 <div class="head"><div><span class="label">Isprobajte</span><h2 style="margin-top:14px">Upravljajte kućom <em>s mobitela</em></h2></div>
-<p>Ovo je 3D model kuće koju smo opremili i aplikacija kakvu dobiju naši klijenti. Upalite svjetlo, spustite žaluzine ili odaberite scenu i pogledajte što se događa u kući. Možete kliknuti i sobu u modelu. Demo radi samo u vašem pregledniku.</p></div>
+<p>Lijevo je vizualizacija kuće, desno aplikacija kakvu dobiju naši klijenti. Upalite svjetlo, spustite rolete ili odaberite scenu i pogledajte što se događa na kući. Možete kliknuti i prozor na slici. Demo radi samo u vašem pregledniku.</p></div>
 <div class="demo-stage" id="demo">
 <div class="house"><div class="house-load">UČITAVAM 3D MODEL</div><span class="house-hint">Prizemlje i Kat gore desno: pogled u sobe, klik pali svjetlo</span></div>
 <div class="ph" aria-label="Demo aplikacije"><div class="ph-in"><div class="ph-notch"></div><div class="ph-screen" aria-live="polite"></div>
@@ -425,7 +452,7 @@ def page(theme, name, ghost=False, particles=False, dark_band=False):
 <script>{JS}{PARTICLES if particles else ''}</script>"""
     return f"""<!doctype html><html lang="hr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>{name} | Fiel</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,300;0,400;0,500;1,500&family=Source+Sans+3:wght@400;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,300;0,400;0,500;1,500&family=Source+Sans+3:wght@400;600&family=IBM+Plex+Mono:wght@500&family=Orbitron:wght@500&display=swap" rel="stylesheet">
 <style>{CSS}</style></head><body class="{theme}">{body}</body></html>"""
 
 
@@ -452,7 +479,7 @@ def page3():
 <button data-s="heat"><b>Grijanje i hlađenje</b><span>Temperatura po prostorijama i raspored po danima.</span></button>
 <button data-s="blind"><b>Rolete</b><span>Prema suncu, dobu dana ili jednim dodirom.</span></button>
 <button data-s="door"><b>Alarm i brave</b><span>Jedan dodir: sve zaključano, alarm uključen.</span></button>
-<button data-s="eye"><b>Kamere i portafon</b><span>Slika s ulaza i kamera na zaslonu i mobitelu.</span></button>
+<button data-s="cam"><b>Kamere i portafon</b><span>Slika s ulaza i kamera na zaslonu i mobitelu.</span></button>
 <button data-s="house"><b>Cijela kuća</b><span>Sve na jednom zaslonu, radi i bez interneta.</span></button>
 </div></div></section>"""
     html = html.replace('<section class="band">', sol + '\n<section class="band" data-shape="villa" data-x="2.6">')
