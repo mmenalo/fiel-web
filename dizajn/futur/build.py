@@ -241,21 +241,51 @@ THREE_FX = """
     [.32,.45,.58].forEach(function(rr,i){area(.25,'g',function(){var a=rnd(-.7,.7);return [(x0+x1)/2+Math.cos(a)*rr*1.0+.05,-.6+Math.sin(a)*rr,.14];});});
     return done();};
   COMP.zgrada=function(){
-    /* stambena zgrada: 5 katova, balkoni, osvijetljeni stanovi */
-    var W=1.5,D=.9,F=5,fh=.52,y0=-1.35;
-    box(-W,W,y0,y0+F*fh,-D,D,1.6,'w');
-    for(var f=1;f<F;f++){line([-W,y0+f*fh,D],[W,y0+f*fh,D],1.1,'s');line([W,y0+f*fh,-D],[W,y0+f*fh,D],.7,'s');}
-    for(var f2=0;f2<F;f2++){for(var c=0;c<5;c++){(function(f2,c){var x0=-W+.18+c*.58,x1=x0+.34,yy=y0+f2*fh+.12,lit=((f2*7+c*3)%5)<2;
-      rect(x0,x1,yy,yy+.3,D,1.2,lit?'g':'c');if(lit)area(.35,'g',function(){return [rnd(x0,x1),rnd(yy,yy+.3),D];});
-      if(f2>0&&c%2===0){line([x0-.06,yy-.02,D+.22],[x1+.06,yy-.02,D+.22],.9,'w');line([x0-.06,yy+.12,D+.22],[x1+.06,yy+.12,D+.22],.6,'s');}})(f2,c);}
-      for(var k=0;k<3;k++){(function(f2,k){var z0=-D+.15+k*.55,yy=y0+f2*fh+.12,lit=((f2+k*2)%4)===0;rect2(W,z0,z0+.3,yy,yy+.3,lit?'g':'c');})(f2,k);}}
-    function rect2(x,z0,z1,ya,yb,c){line([x,ya,z0],[x,ya,z1],1,c);line([x,yb,z0],[x,yb,z1],1,c);line([x,ya,z0],[x,yb,z0],1,c);line([x,ya,z1],[x,yb,z1],1,c);}
-    /* ulaz s portafonom */
-    rect(-.3,.3,y0,y0+.4,D+.01,2,'b');area(.3,'b',function(){return [rnd(-.28,.28),rnd(y0,y0+.4),D+.01];});
-    /* krov s LED trakom */
-    box(-W-.08,W+.08,y0+F*fh,y0+F*fh+.08,-D-.08,D+.08,1.6,'g');
-    /* tlo */
-    area(1.4,'n',function(){return [rnd(-2.6,2.6),y0,rnd(-1.6,2.2)];});
+    /* moderna stambena zgrada: dva volumena, staklene fasade, balkoni s ogradama, lamele, penthouse s terasom */
+    var y0=-1.55,fh=.34;
+    function outl(x0,x1,ya,yb,z0,z1,d,c){line([x0,ya,z1],[x1,ya,z1],d,c);line([x0,yb,z1],[x1,yb,z1],d,c);line([x0,yb,z0],[x1,yb,z0],d*.6,c);line([x0,ya,z1],[x0,yb,z1],d,c);line([x1,ya,z1],[x1,yb,z1],d,c);line([x0,ya,z0],[x0,yb,z0],d,c);line([x0,ya,z0],[x0,ya,z1],d*.6,c);line([x0,yb,z0],[x0,yb,z1],d*.6,c);line([x1,yb,z0],[x1,yb,z1],d*.6,c);}
+    function side(x,z0,z1,ya,yb,d,c){line([x,ya,z0],[x,ya,z1],d,c);line([x,yb,z0],[x,yb,z1],d,c);line([x,ya,z0],[x,yb,z0],d,c);line([x,ya,z1],[x,yb,z1],d,c);}
+    /* volumen A: 6 katova */
+    var ax0=-1.55,ax1=.05,az0=-.7,az1=.6,AF=8,aTop=y0+AF*fh;
+    outl(ax0,ax1,y0,aTop,az0,az1,1.5,'w');
+    for(var f=0;f<AF;f++){var yy=y0+f*fh;
+      /* ploča i balkon koji prelazi preko ruba */
+      if(f>0){line([ax0-.12,yy,az1+.32],[ax1+.05,yy,az1+.32],2,'w');line([ax0-.12,yy-.03,az1+.32],[ax1+.05,yy-.03,az1+.32],1,'w');line([ax0-.12,yy,az1],[ax0-.12,yy,az1+.32],.6,'w');line([ax1+.05,yy,az1],[ax1+.05,yy,az1+.32],.4,'w');
+        area(.9,'c',function(){var q=yy;return function(){return [rnd(ax0-.12,ax1+.05),q+rnd(.02,.17),az1+.32];};}());
+        line([ax0-.12,yy+.18,az1+.32],[ax1+.05,yy+.18,az1+.32],.6,'s');}
+      /* staklo od poda do stropa, stanovi */
+      for(var c=0;c<4;c++){(function(f,c){var x0=ax0+.07+c*.385,x1=x0+.33,ya=yy+.05,yb=yy+fh-.04,lit=((f*5+c*3)%7)<3;
+        rect(x0,x1,ya,yb,az1,.8,lit?'g':'s');line([(x0+x1)/2,ya,az1],[(x0+x1)/2,yb,az1],.4,lit?'g':'s');
+        if(lit)area(.32,'g',function(){return [rnd(x0,x1),rnd(ya,yb),az1];});})(f,c);}
+      /* bočna fasada s uskim prozorima */
+      for(var k=0;k<3;k++){(function(f,k){var z0=az0+.12+k*.48,lit=((f+k*2)%5)===0;side(ax0,z0,z0+.18,yy+.06,yy+fh-.05,.7,lit?'g':'s');})(f,k);}}
+    /* penthouse uvučen, krovna terasa s pergolom */
+    var px0=ax0+.25,px1=ax1-.35,pz0=az0+.1,pz1=az1-.3,pTop=aTop+.42;
+    box(px0,px1,aTop,pTop,pz0,pz1,1,'w');rect(px0+.05,px1-.05,aTop+.04,pTop-.04,pz1,1,'g');area(.5,'g',function(){return [rnd(px0+.05,px1-.05),rnd(aTop+.04,pTop-.04),pz1];});
+    line([ax0,aTop+.12,az1],[ax1,aTop+.12,az1],.8,'c');line([ax0,aTop+.12,az0],[ax0,aTop+.12,az1],.5,'c');
+    for(var pg=0;pg<7;pg++){var px=px1+.05+pg*.06;}
+    line([px0-.05,pTop+.04,pz0-.05],[px1+.05,pTop+.04,pz0-.05],1,'g');line([px0-.05,pTop+.04,pz1+.05],[px1+.05,pTop+.04,pz1+.05],1,'g');
+    line([ax0,aTop,az1],[ax1,aTop,az1],1.2,'g');line([ax0,aTop,az0],[ax0,aTop,az1],.8,'g');
+    /* volumen B: 4 kata, istaknut naprijed, vertikalne lamele */
+    var bx0=.05,bx1=1.75,bz0=-.5,bz1=.95,BF=4,bTop=y0+BF*fh;
+    outl(bx0,bx1,y0,bTop,bz0,bz1,1.5,'w');
+    for(var f3=1;f3<BF;f3++)line([bx0,y0+f3*fh,bz1],[bx1,y0+f3*fh,bz1],1,'s');
+    for(var lx=bx0+.1;lx<bx1-.05;lx+=.11)line([lx,y0+fh,bz1+.06],[lx,bTop+.06,bz1+.06],.7,'w');
+    for(var f4=1;f4<BF;f4++){for(var c2=0;c2<3;c2++){(function(f4,c2){var x0=bx0+.1+c2*.55,x1=x0+.45,ya=y0+f4*fh+.05,yb=ya+fh-.09,lit=((f4*3+c2)%4)===1;
+      if(lit)area(.45,'g',function(){return [rnd(x0,x1),rnd(ya,yb),bz1+.01];});})(f4,c2);}}
+    for(var k2=0;k2<3;k2++){(function(k2){for(var f5=0;f5<BF;f5++){var z0=bz0+.12+k2*.47,lit=((f5*2+k2)%5)===2;side(bx1,z0,z0+.3,y0+f5*fh+.06,y0+(f5+1)*fh-.05,.7,lit?'g':'s');}})(k2);}
+    /* krovni vrt na B */
+    line([bx0,bTop,bz1],[bx1,bTop,bz1],1.2,'g');line([bx1,bTop,bz0],[bx1,bTop,bz1],.8,'g');
+    line([bx0+.05,bTop+.14,bz1-.02],[bx1-.05,bTop+.14,bz1-.02],.7,'c');
+    area(.9,'t',function(){var a=Math.random()*6.283,rr=.22*Math.sqrt(Math.random());return [1.3+Math.cos(a)*rr,bTop+.18+Math.random()*.25,.35+Math.sin(a)*rr];});
+    for(var pp=0;pp<6;pp++)line([bx0+.15+pp*.12,bTop+.42,bz0+.15],[bx0+.15+pp*.12,bTop+.42,bz1-.25],.35,'w');
+    [[bx0+.15,bz0+.15],[bx0+.75,bz0+.15],[bx0+.15,bz1-.25],[bx0+.75,bz1-.25]].forEach(function(q){line([q[0],bTop,q[1]],[q[0],bTop+.42,q[1]],.3,'w');});
+    /* prizemlje: stakleni ulaz s nadstrešnicom */
+    rect(-.75,.05,y0,y0+.34,az1+.01,1.3,'b');area(.6,'b',function(){return [rnd(-.75,.05),rnd(y0,y0+.34),az1+.01];});
+    line([-.9,y0+.38,az1+.45],[.2,y0+.38,az1+.45],1,'w');line([-.9,y0+.38,az1],[-.9,y0+.38,az1+.45],.4,'w');line([.2,y0+.38,az1],[.2,y0+.38,az1+.45],.4,'w');
+    /* drveće i tlo */
+    [[-2.2,1.4],[2.35,1.6],[-.4,1.9],[1.1,2.0]].forEach(function(t){line([t[0],y0,t[1]],[t[0],y0+.35,t[1]],.3,'s');area(1.3,'t',function(){var a=Math.random()*6.283,u=Math.random()*2-1,rr=.32*Math.cbrt(Math.random()),s2=Math.sqrt(1-u*u);return [t[0]+Math.cos(a)*s2*rr,y0+.6+u*rr*1.1,t[1]+Math.sin(a)*s2*rr];});});
+    line([-2.7,y0,1.25],[2.7,y0,1.25],.8,'s');area(.9,'n',function(){return [rnd(-2.8,2.8),y0,rnd(-1.2,2.4)];});
     return done();};
   COMP.tablet=function(){var w=.5,h=.325,r=.035;
     function rr(x0,x1,y0,y1,d,c){var k=Math.min(r,(x1-x0)/4,(y1-y0)/4);line([x0+k,y0,0],[x1-k,y0,0],d,c);line([x0+k,y1,0],[x1-k,y1,0],d,c);line([x0,y0+k,0],[x0,y1-k,0],d,c);line([x1,y0+k,0],[x1,y1-k,0],d,c);
