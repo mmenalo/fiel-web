@@ -70,7 +70,7 @@ JS = """
 
 PARTICLES = """
 (function(){
-  var c=document.getElementById('cestice'); if(!c||matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var c=document.getElementById('cestice'); if(!c) return;
   var x=c.getContext('2d'),W,H,dpr=Math.min(devicePixelRatio||1,2),N=innerWidth<700?380:900,P=[],t=0,mode=0;
   function house(i){var s=Math.min(W,H)*.34,cx=W*.5,cy=H*.52,u=i/N*5,f=u%1,seg=Math.floor(u);
     var pts=[[-1,1,1,1],[1,1,1,-.2],[1,-.2,0,-1],[0,-1,-1,-.2],[-1,-.2,-1,1]][seg]||[-1,1,1,1];
@@ -92,9 +92,13 @@ PARTICLES = """
 
 THREE_FX = """
 (function(){
-  if(!window.THREE||matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  var mob=innerWidth<700, N=mob?4200:10000;
-  var r=new THREE.WebGLRenderer({canvas:document.getElementById('fx'),alpha:true,antialias:false});
+  if(!window.THREE) return;
+  var mob=innerWidth<700, N=mob?4200:10000, cv=document.getElementById('fx'), r=null;
+  try{r=new THREE.WebGLRenderer({canvas:cv,alpha:true,antialias:false});}catch(e){r=null;}
+  if(!r||!r.getContext()){r=(function(){var x=cv.getContext('2d'),d=Math.min(devicePixelRatio||1,2),W=1,H=1;return {setPixelRatio:function(){},setSize:function(w,h){W=w;H=h;cv.width=w*d;cv.height=h*d;},
+    render:function(){x.setTransform(d,0,0,d,0,0);x.clearRect(0,0,W,H);x.globalCompositeOperation='lighter';var P=pts,a=P.geometry.attributes.position.array,c=P.geometry.attributes.color.array,s=P.scale.x,cy=Math.cos(P.rotation.y),sy=Math.sin(P.rotation.y),cx=Math.cos(P.rotation.x),sx2=Math.sin(P.rotation.x),f=H/2/Math.tan(25*Math.PI/180),px=P.position.x,py=P.position.y;
+      for(var i=0;i<N;i++){var X=a[i*3]*s,Y=a[i*3+1]*s,Z=a[i*3+2]*s,X1=X*cy+Z*sy,Z1=-X*sy+Z*cy,Y1=Y*cx-Z1*sx2,Z2=Y*sx2+Z1*cx;X1+=px;Y1+=py;var zc=7-Z2;if(zc<.3)continue;var k=f/zc,u=W/2+X1*k,v=H/2-Y1*k;if(u<0||v<0||u>W||v>H)continue;
+        x.fillStyle='rgba('+(c[i*3]*255|0)+','+(c[i*3+1]*255|0)+','+(c[i*3+2]*255|0)+',.85)';x.fillRect(u,v,1.6,1.6);}}};})();}
   r.setPixelRatio(Math.min(devicePixelRatio,mob?1.5:2));
   var sc=new THREE.Scene(), cam=new THREE.PerspectiveCamera(50,1,.1,100); cam.position.z=7;
   function size(){r.setSize(innerWidth,innerHeight,false);cam.aspect=innerWidth/innerHeight;cam.updateProjectionMatrix();}
@@ -505,7 +509,7 @@ def page3():
     html = html.replace('<section class="band" data-shape="villa" data-x="2.6"><div class="wrap"><span class="label">Kako radimo</span><h2 style="margin-top:14px">Od prvog razgovora <em>do predaje</em></h2>','<section class="band" data-shape="villa" data-x="2.6"><div class="wrap"><span class="label">Kako radimo</span><h2 style="margin-top:14px">Od prvog razgovora <em>do predaje</em></h2><div class="mslot band-slot" aria-hidden="true"></div>',1)
     html = html.replace('<section class="contact" id="kontakt">','<section class="contact" id="kontakt" data-shape="villa" data-x="2.9" data-mshape="dust">')
     html = html.replace('© 2026 Fiel d.o.o. · Rušiščak 5b, Zagreb','© 2026 Fiel d.o.o. · Rušiščak 5b, Zagreb · <span class="clock">ZAGREB, SADA <span id="sat"></span></span>')
-    html = html.replace('<script>','<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script><script>', 1)
+    html = html.replace('<script>','<script src="three.min.js"></script><script>', 1)
     html = html.replace('</script></body>', THREE_FX + '</script></body>')
     return html
 

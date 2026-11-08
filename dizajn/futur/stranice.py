@@ -17,7 +17,7 @@ v3 = open(os.path.join(OUT, "varijanta-3.html")).read()
 HEAD = v3[:v3.index("<body")]
 FX_SCRIPT = v3[v3.index("(function(){var R=Math.random") if "(function(){var R=Math.random" in v3 else 0:0]
 # skripta čestica: zadnji <script> blok u varijanti 3 sadrži demo + čestice; čestice su B.THREE_FX
-THREE = '<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>'
+THREE = '<script src="three.min.js"></script>'
 
 
 def fig(src, alt, cap, cls="dash"):
