@@ -27,7 +27,7 @@ var ROOMS=[
  {k:'kup',n:'Kupaonice',l:['light.kupaonica','light.kupaonica_kat'],t:'kupaonica'}];
 var TN={dnevni:'Dnevni boravak',kupaonica:'Kupaonica',ured:'Ured',toni:'Soba 1',ana:'Soba 2',mz:'Spavaća soba',jopa:'Soba 3',kupaonica_kat:'Kupaonica kat'};
 var CUR={dnevni:22.0,kupaonica:22.6,ured:21.4,toni:21.2,ana:22.2,mz:22.8,jopa:20.9,kupaonica_kat:22.3},TGT={dnevni:22,kupaonica:23,ured:21.5,toni:21.5,ana:21.5,mz:21,jopa:21.5,kupaonica_kat:23};
-var heat=true, alarm='off', scene='', sun='below_horizon', room='dnevni', tab='home', sub='', zone=0, play=false, vol=42, water=-1, wleft=0, cam=0;
+var heat=true, alarm='off', scene='', sun=(new Date().getHours()>=7&&new Date().getHours()<17)?'above_horizon':'below_horizon', room='dnevni', tab='home', sub='', zone=0, play=false, vol=42, water=-1, wleft=0, cam=0;
 
 function on(id){return S[id]&&S[id].state==='on';}
 function pct(id){return S[id]&&S[id].attributes.brightness?Math.round(S[id].attributes.brightness/2.55):0;}
@@ -340,17 +340,18 @@ var VR={dnevni:{b:[585,367,915,712],l:['light.dnevni','light.blagovaonica','ligh
  gd:{b:[893,201,1019,380],l:['light.mz','light.traka_mz_krevet'],c:['cover.mz'],s:[924,217,987,349],n:'Spavaća soba'}};
 var vrt=true,vmode='foto',VS=null;
 function pc(b){return 'left:'+(b[0]/15.36)+'%;top:'+(b[1]/10.24)+'%;width:'+((b[2]-b[0])/15.36)+'%;height:'+((b[3]-b[1])/10.24)+'%';}
-function buildVila(){var h='<div class="vila"><div class="vl-st"><img src="vila/baza.jpg" alt="Vizualizacija kuće noću" class="vl-b"><img src="vila/vrt-ugasen.jpg" alt="" class="vl-vrt">';
+function buildVila(){var h='<div class="vila"><div class="vl-st"><img src="vila/baza.jpg" alt="Vizualizacija kuće noću" class="vl-b"><img src="vila/vrt-ugasen.jpg" alt="" class="vl-vrt"><img src="vila/dan.jpg" alt="" class="vl-dan">';
  Object.keys(VR).forEach(function(k){var r=VR[k];h+='<img src="vila/s-'+k+'.png" alt="" class="vl-s" data-k="'+k+'" style="'+pc(r.b)+'">';});
- Object.keys(VR).forEach(function(k){var r=VR[k];h+='<div class="vl-r" data-k="'+k+'" style="'+pc(r.s)+'"><img src="vila/r-'+k+'.png" alt=""></div>';});
+ Object.keys(VR).forEach(function(k){var r=VR[k];h+='<div class="vl-r" data-k="'+k+'" style="'+pc(r.s)+'"><img src="vila/r-'+k+'.png" alt="" class="n"><img src="vila/rd-'+k+'.png" alt="" class="d"></div>';});
  Object.keys(VR).forEach(function(k){var r=VR[k];h+='<button class="vl-h" data-vroom="'+k+'" style="left:'+((r.s[0]+r.s[2])/2/15.36)+'%;top:'+((r.s[1]+r.s[3])/2/10.24)+'%"><i></i><span>'+r.n+'</span></button>';});
  h+='</div><span class="vl-tag">Vizualizacija</span></div>';
  host.insertAdjacentHTML('afterbegin',h);
- host.insertAdjacentHTML('beforeend','<div class="vl-ctl"><button data-vmode="foto" class="on">Kuća</button><button data-vmode="3d">3D tlocrt</button><button data-vrt class="vrt on">Vrtna rasvjeta</button></div>');
+ host.insertAdjacentHTML('beforeend','<div class="vl-ctl"><button data-vmode="foto" class="on">Kuća</button><button data-vmode="3d">3D tlocrt</button><button data-vsun class="vsun">Dan</button><button data-vrt class="vrt on">Vrtna rasvjeta</button></div>');
  VS=host.querySelector('.vl-st');fitVila();addEventListener('resize',fitVila);
  host.addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;
   if(b.dataset.vroom){var r=VR[b.dataset.vroom],v=!r.l.some(on);r.l.forEach(function(id){light(id,v);});scene='';push();return;}
   if(b.dataset.vrt!=null){vrt=!vrt;vilaUpd();return;}
+  if(b.dataset.vsun!=null){sun=sun==='above_horizon'?'below_horizon':'above_horizon';if(sun==='above_horizon')vrt=true;push();return;}
   if(b.dataset.vmode){vmode=b.dataset.vmode;host.classList.toggle('m3d',vmode==='3d');[].forEach.call(host.querySelectorAll('[data-vmode]'),function(x){x.classList.toggle('on',x===b);});if(vmode==='3d'&&!card)load();if(card&&card._resize){card._config.height=host.clientHeight;card._resize();}cardVis=vmode==='3d';if(cardVis&&cardPend)toCard();return;}
  });
  vilaUpd();}
@@ -361,7 +362,8 @@ function vilaUpd(){if(!VS)return;
   VS.querySelector('.vl-s[data-k="'+k+'"]').style.opacity=o;
   var p=0;r.c.forEach(function(c){p+=pos(c);});p/=r.c.length;VS.querySelector('.vl-r[data-k="'+k+'"]').style.clipPath='inset(0 0 '+p+'% 0)';
   VS.querySelector('.vl-h[data-vroom="'+k+'"]').classList.toggle('on',o>0);});
- VS.querySelector('.vl-vrt').style.opacity=vrt?0:1;var vb=host.querySelector('[data-vrt]');if(vb)vb.classList.toggle('on',vrt);}
+ var day=sun==='above_horizon';host.classList.toggle('vday',day);var sb=host.querySelector('[data-vsun]');if(sb)sb.textContent=day?'Noć':'Dan';
+ VS.querySelector('.vl-vrt').style.opacity=vrt||day?0:1;var vb=host.querySelector('[data-vrt]');if(vb)vb.classList.toggle('on',vrt);}
 
 cardVis=false;buildVila();
 

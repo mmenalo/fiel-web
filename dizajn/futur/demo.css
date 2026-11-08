@@ -228,3 +228,7 @@
 .vl-ctl button.on{background:#f3c66b;color:#1b1406;border-color:#f3c66b}.vl-ctl .vrt{margin-left:8px}.vl-ctl .vrt:not(.on){background:rgba(5,8,15,.7);color:#e9eef5;border-color:rgba(190,205,228,.25)}
 .house:not(.m3d) kuca3d-card,.house:not(.m3d) .house-load,.house:not(.m3d) .house-hint{display:none}.house.m3d .vila{display:none}
 .house.m3d .vl-ctl .vrt{display:none}
+.vl-dan{left:0;top:0;width:100%;height:100%;opacity:0;transition:opacity 1.2s ease;pointer-events:none}
+.house.vday .vl-dan{opacity:1}.house.vday .vl-s{opacity:0!important}.house.vday .vl-ctl .vrt{display:none}
+.vl-r .d{display:none}.house.vday .vl-r .d{display:block}.house.vday .vl-r .n{display:none}
+.house.m3d .vl-ctl .vsun{display:none}
