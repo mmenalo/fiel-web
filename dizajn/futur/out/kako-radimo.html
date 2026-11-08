@@ -351,6 +351,21 @@ footer .big{font:500 clamp(6rem,22vw,16rem)/0.8 Jost,sans-serif;letter-spacing:.
 @keyframes vlc{to{box-shadow:0 0 0 16px rgba(167,123,255,0)}}
 .pcams .vl-h{opacity:0;pointer-events:none}
 
+/* jedan dan u kući */
+.dan-wrap{margin-top:28px;display:grid;gap:10px}
+.dan-h{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.dan-h b{font:500 1rem Jost,sans-serif;color:var(--ink,#e9eef5)}
+.dan-play{font:500 .85rem Jost,sans-serif;color:#0b1220;background:var(--gold,#d9ad52);border:0;border-radius:99px;padding:8px 16px;cursor:pointer;white-space:nowrap}
+.dan-row{display:grid;grid-template-columns:repeat(6,1fr);gap:8px}
+.dan-row button{display:grid;gap:2px;text-align:left;font:inherit;color:var(--text,#e9eef5);background:rgba(17,29,48,.66);border:1px solid var(--line,rgba(190,205,228,.16));border-radius:14px;padding:12px 14px;cursor:pointer;transition:border-color .3s,background .3s}
+.dan-row button:hover{border-color:rgba(217,173,82,.5)}
+.dan-row button.on{border-color:var(--gold,#d9ad52);background:linear-gradient(160deg,rgba(217,173,82,.22),rgba(17,29,48,.75))}
+.dan-row time{font:500 .8rem "IBM Plex Mono",monospace;color:#f3c66b}
+.dan-row b{font:500 .98rem Jost,sans-serif}.dan-row small{color:var(--muted);font-size:.85rem;line-height:1.35}
+@media (max-width:960px){.dan-row{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:6px;scrollbar-width:thin}.dan-row button{flex:0 0 min(170px,44vw);scroll-snap-align:start}}
+@media (max-width:560px){.dan-wrap{margin-top:18px}.dan-row small{display:none}.dan-row button{flex-basis:118px;padding:10px 12px}}
+.prikaz-note{color:var(--muted);font-size:.95rem;margin:4px 0 0;max-width:34em}
+
 #fx{position:fixed;inset:0;width:100vw;height:100vh;z-index:0;pointer-events:none}
 .fx main,.fx footer,.fx .top{position:relative;z-index:1}.fx .top{position:sticky}
 .fx section,.fx .hero{background:transparent}.fx .band{background:rgba(14,24,40,.55)}
@@ -432,6 +447,9 @@ footer .big{font:500 clamp(6rem,22vw,16rem)/0.8 Jost,sans-serif;letter-spacing:.
 .dplan{margin:0}.dplan svg{width:100%;height:auto;background:rgba(14,24,40,.6);border:1px solid var(--line);border-radius:20px;padding:10px}
 .legal .wrap{max-width:820px}.legal h2{font-size:1.4rem;margin:28px 0 8px}.legal p,.legal li{color:var(--muted)}
 .top nav a[aria-current]{color:#f3c66b}
+.sub .lined.scen ul{margin:0;padding-left:18px;display:grid;gap:8px;color:var(--muted);font-size:.97rem}.sub .scen li b{color:#f3c66b;font-weight:600}
+[data-tema=svijetla] .fx .scen li b,[data-tema=mjesano] .fx .lt .scen li b{color:#a87a22}
+.info.one{grid-template-columns:1fr}.info p{color:var(--muted);margin:0;font-size:.97rem}.info p a{color:#f3c66b}
 @media (max-width:960px){.pgh .wrap,.sub .split,.upit-grid{grid-template-columns:1fr;gap:36px}.sub .lined,.sub .lined.three,.roles,.steps,.info{grid-template-columns:1fr}
  .warranty{grid-template-columns:1fr;gap:16px;padding:26px!important}.process article{grid-template-columns:1fr;gap:6px}.pgh{padding:48px 0 24px}.pgh .shape-space{min-height:280px}.form .row{grid-template-columns:1fr}.hero-dash .glass{transform:none}}
 </style><script src="three.min.js"></script><script>(function(){var q=(location.search.match(/[?&]tema=(\w+)/)||[])[1],t;try{t=q||localStorage.getItem('fielTema');}catch(e){t=q;}if(t!=='svijetla'&&t!=='mjesano')t='tamna';document.documentElement.setAttribute('data-tema',t);
@@ -449,7 +467,7 @@ document.addEventListener('DOMContentLoaded',function(){var d=document.createEle
       <article><span class="n">1</span><div class="body"><h2>Konzultacije na lokaciji</h2><p>Dođemo pogledati objekt ili projekt. Razgovaramo o tome kako živite ili radite u prostoru, što vam smeta i što biste htjeli da radi samo. Konzultacije su besplatne i ne obvezuju vas.</p><p><strong>Na konzultacijama dobivate:</strong> procjenu što je moguće u vašem prostoru, prijedlog opreme i okvirni rok.</p></div></article>
       <article><span class="n">2</span><div class="body"><h2>Projekt i ponuda</h2><p>Izradimo projekt sustava: što se ugrađuje, gdje i kako se povezuje. Uz projekt dobivate točnu ponudu s popisom opreme i radova. Ako radite s arhitektom ili projektantom, uskladimo se s njim.</p></div></article>
       <article><span class="n">3</span><div class="body"><h2>Ugradnja i podešavanje</h2><p>Ugradimo opremu, povežemo je i podešavamo sustav prema dogovorenim pravilima. Prije predaje sve ispitamo zajedno s vama.</p></div></article>
-      <article><span class="n">4</span><div class="body"><h2>Predaja i podrška</h2><p>Pokažemo vam kako se sustav koristi i dobijete kratke upute. Nakon toga ostajemo dostupni za pitanja, izmjene i održavanje.</p></div></article>
+      <article><span class="n">4</span><div class="body"><h2>Predaja: sustav je vaš</h2><p>Pokažemo vam kako se sustav koristi. Uz to dobivate:</p><ul style="margin:8px 0 0;padding-left:20px;display:grid;gap:4px;color:var(--muted)"><li>kratke upute za ukućane,</li><li>dokumentaciju: popis ugrađene opreme i shemu spajanja,</li><li>administratorski pristup koji ostaje vama,</li><li>sigurnosnu kopiju svih postavki.</li></ul><p>S tim sustav može održavati bilo tko, i mi i drugi instalater. Mi ostajemo dostupni za pitanja, izmjene i održavanje. <span class="check">Provjeriti: predaješ li administratorski pristup i kopiju postavki</span></p></div></article>
     </div>
   </div><figure class="dash wide up"><div class="glass"><img src="dash/tab-grijanje.jpg" alt="Zaslon rasporeda grijanja" loading="lazy"></div><figcaption>Primjer: raspored grijanja koji podesimo pri predaji</figcaption></figure>
 </section>
@@ -469,6 +487,9 @@ document.addEventListener('DOMContentLoaded',function(){var d=document.createEle
       <details><summary>Koliko košta i o čemu ovisi cijena?</summary><div><p>Javnih cijena nemamo jer svaki objekt je drugačiji. Cijena najviše ovisi o:</p><ul style="margin:0;padding-left:20px;display:grid;gap:4px"><li>broju prostorija i krugova rasvjete,</li><li>broju roleta i zona grijanja,</li><li>tome želite li zidni zaslon ili samo mobitel,</li><li>broju kamera i ulaza za portafon,</li><li>stanju postojeće instalacije i razvodnog ormara.</li></ul><p>Nakon besplatnog dolaska dobivate točnu ponudu s popisom opreme i radova.</p></div></details>
       <details><summary>Tko izvodi elektroinstalaterske radove?</summary><div><p><span class="check">Provjeriti: radite li sve sami ili s elektroizvođačem, i tko odgovara za koji dio</span></p></div></details>
       <details><summary>Što dobivam pri predaji?</summary><div><p>Ispitan sustav, kratke upute za korištenje, dokumentaciju sustava (popis opreme i shemu spajanja) i pristupne podatke koji ostaju vama. <span class="check">provjeriti</span></p></div></details>
+      <details><summary>Može li sustav kasnije održavati netko drugi?</summary><div><p>Može. Dokumentacija, administratorski pristup i kopija postavki ostaju vama, pa niste vezani uz nas. <span class="check">provjeriti</span></p></div></details>
+      <details><summary>Preuzimate li sustave koje je ugradio netko drugi?</summary><div><p>Da. Pogledamo što je ugrađeno i kako je postavljeno, pa vam kažemo što se može zadržati, a što bi trebalo promijeniti. <span class="check">Provjeriti: preuzimaš li tuđe sustave</span></p></div></details>
+      <details><summary>Mogu li vidjeti kako sustav radi prije odluke?</summary><div><p>Možete. Na prvom sastanku pokažemo sustav uživo na tabletu, a možemo i kratkim videopozivom. <a href="kontakt.html#prikaz" style="color:#f3c66b">Dogovorite prikaz</a>. <span class="check">provjeriti</span></p></div></details>
       <details><summary>Tko održava sustav nakon jamstva?</summary><div><p>Mi, po dogovoru. <span class="check">Provjeriti: ugovor o održavanju, cijena po dolasku ili godišnje</span></p></div></details>
       <details><summary>Što ako nestane interneta?</summary><div><p>Rasvjeta, rolete, grijanje, alarm i brave rade i dalje, jer sustav radi u vašem objektu. Bez interneta ne možete upravljati s udaljene lokacije i ne dobivate obavijesti na mobitel.</p></div></details>
       <details><summary>Što ako nestane struje?</summary><div><p>Predlažemo dodati UPS za glavni uređaj, mrežu i snimač kamera, kako bi alarm i snimanje radili i za vrijeme kraćeg nestanka struje. <span class="check">provjeriti</span></p></div></details>

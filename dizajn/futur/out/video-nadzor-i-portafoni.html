@@ -351,6 +351,21 @@ footer .big{font:500 clamp(6rem,22vw,16rem)/0.8 Jost,sans-serif;letter-spacing:.
 @keyframes vlc{to{box-shadow:0 0 0 16px rgba(167,123,255,0)}}
 .pcams .vl-h{opacity:0;pointer-events:none}
 
+/* jedan dan u kući */
+.dan-wrap{margin-top:28px;display:grid;gap:10px}
+.dan-h{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.dan-h b{font:500 1rem Jost,sans-serif;color:var(--ink,#e9eef5)}
+.dan-play{font:500 .85rem Jost,sans-serif;color:#0b1220;background:var(--gold,#d9ad52);border:0;border-radius:99px;padding:8px 16px;cursor:pointer;white-space:nowrap}
+.dan-row{display:grid;grid-template-columns:repeat(6,1fr);gap:8px}
+.dan-row button{display:grid;gap:2px;text-align:left;font:inherit;color:var(--text,#e9eef5);background:rgba(17,29,48,.66);border:1px solid var(--line,rgba(190,205,228,.16));border-radius:14px;padding:12px 14px;cursor:pointer;transition:border-color .3s,background .3s}
+.dan-row button:hover{border-color:rgba(217,173,82,.5)}
+.dan-row button.on{border-color:var(--gold,#d9ad52);background:linear-gradient(160deg,rgba(217,173,82,.22),rgba(17,29,48,.75))}
+.dan-row time{font:500 .8rem "IBM Plex Mono",monospace;color:#f3c66b}
+.dan-row b{font:500 .98rem Jost,sans-serif}.dan-row small{color:var(--muted);font-size:.85rem;line-height:1.35}
+@media (max-width:960px){.dan-row{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:6px;scrollbar-width:thin}.dan-row button{flex:0 0 min(170px,44vw);scroll-snap-align:start}}
+@media (max-width:560px){.dan-wrap{margin-top:18px}.dan-row small{display:none}.dan-row button{flex-basis:118px;padding:10px 12px}}
+.prikaz-note{color:var(--muted);font-size:.95rem;margin:4px 0 0;max-width:34em}
+
 #fx{position:fixed;inset:0;width:100vw;height:100vh;z-index:0;pointer-events:none}
 .fx main,.fx footer,.fx .top{position:relative;z-index:1}.fx .top{position:sticky}
 .fx section,.fx .hero{background:transparent}.fx .band{background:rgba(14,24,40,.55)}
@@ -432,6 +447,9 @@ footer .big{font:500 clamp(6rem,22vw,16rem)/0.8 Jost,sans-serif;letter-spacing:.
 .dplan{margin:0}.dplan svg{width:100%;height:auto;background:rgba(14,24,40,.6);border:1px solid var(--line);border-radius:20px;padding:10px}
 .legal .wrap{max-width:820px}.legal h2{font-size:1.4rem;margin:28px 0 8px}.legal p,.legal li{color:var(--muted)}
 .top nav a[aria-current]{color:#f3c66b}
+.sub .lined.scen ul{margin:0;padding-left:18px;display:grid;gap:8px;color:var(--muted);font-size:.97rem}.sub .scen li b{color:#f3c66b;font-weight:600}
+[data-tema=svijetla] .fx .scen li b,[data-tema=mjesano] .fx .lt .scen li b{color:#a87a22}
+.info.one{grid-template-columns:1fr}.info p{color:var(--muted);margin:0;font-size:.97rem}.info p a{color:#f3c66b}
 @media (max-width:960px){.pgh .wrap,.sub .split,.upit-grid{grid-template-columns:1fr;gap:36px}.sub .lined,.sub .lined.three,.roles,.steps,.info{grid-template-columns:1fr}
  .warranty{grid-template-columns:1fr;gap:16px;padding:26px!important}.process article{grid-template-columns:1fr;gap:6px}.pgh{padding:48px 0 24px}.pgh .shape-space{min-height:280px}.form .row{grid-template-columns:1fr}.hero-dash .glass{transform:none}}
 </style><script src="three.min.js"></script><script>(function(){var q=(location.search.match(/[?&]tema=(\w+)/)||[])[1],t;try{t=q||localStorage.getItem('fielTema');}catch(e){t=q;}if(t!=='svijetla'&&t!=='mjesano')t='tamna';document.documentElement.setAttribute('data-tema',t);
@@ -482,7 +500,22 @@ document.addEventListener('DOMContentLoaded',function(){var d=document.createEle
   </div>
 </section>
 
-<section class="tight" data-shape="cam" data-x="-2.6" data-mshape="dust">
+<section data-shape="cam" data-x="-2.6" data-mshape="dust">
+  <div class="wrap">
+    <div class="head"><span class="label">Primjeri</span><h2>Što se događa kad netko dođe</h2></div>
+    <div class="lined scen">
+      <div><h3>Kuća</h3><ul>
+        <li><b>Kad</b> kurir pozvoni dok niste kod kuće, javite mu se s mobitela i otključate ulaz ili garažu.</li>
+        <li><b>Kad</b> kamera noću primijeti osobu uz ogradu, pali se rasvjeta dvorišta, a vi dobivate obavijest sa slikom.</li>
+        <li><b>Kad</b> uključite alarm, kamere počnu slati obavijesti, a kad ga isključite, prestanu.</li></ul></div>
+      <div><h3>Zgrada i firma</h3><ul>
+        <li><b>Kad</b> netko pozvoni na ulazu zgrade, poziv dobiva samo taj stan, na zaslonu i na mobitelu.</li>
+        <li><b>Kad</b> netko uđe u poslovni prostor izvan radnog vremena, dobivate obavijest i snimku.</li>
+        <li><b>Kad</b> treba provjeriti što se dogodilo, snimku tražite po vremenu i kameri, na mobitelu.</li></ul></div>
+    </div>
+  </div>
+</section>
+<section class="tight" data-shape="door" data-x="-2.6" data-mshape="dust">
   <div class="wrap warranty">
     <strong style="font-size:clamp(2rem,5vw,3rem)">+ pametna kuća</strong>
     <p>Ako imate i pametnu kuću, kamere i portafon su na istom zaslonu kao rasvjeta i alarm. Kad se alarm uključi, kamere šalju obavijesti; kad netko zvoni, slika se pojavi na zaslonu u dnevnom boravku.</p>

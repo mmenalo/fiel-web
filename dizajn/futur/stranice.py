@@ -149,6 +149,9 @@ CSS = """
 .dplan{margin:0}.dplan svg{width:100%;height:auto;background:rgba(14,24,40,.6);border:1px solid var(--line);border-radius:20px;padding:10px}
 .legal .wrap{max-width:820px}.legal h2{font-size:1.4rem;margin:28px 0 8px}.legal p,.legal li{color:var(--muted)}
 .top nav a[aria-current]{color:#f3c66b}
+.sub .lined.scen ul{margin:0;padding-left:18px;display:grid;gap:8px;color:var(--muted);font-size:.97rem}.sub .scen li b{color:#f3c66b;font-weight:600}
+[data-tema=svijetla] .fx .scen li b,[data-tema=mjesano] .fx .lt .scen li b{color:#a87a22}
+.info.one{grid-template-columns:1fr}.info p{color:var(--muted);margin:0;font-size:.97rem}.info p a{color:#f3c66b}
 @media (max-width:960px){.pgh .wrap,.sub .split,.upit-grid{grid-template-columns:1fr;gap:36px}.sub .lined,.sub .lined.three,.roles,.steps,.info{grid-template-columns:1fr}
  .warranty{grid-template-columns:1fr;gap:16px;padding:26px!important}.process article{grid-template-columns:1fr;gap:6px}.pgh{padding:48px 0 24px}.pgh .shape-space{min-height:280px}.form .row{grid-template-columns:1fr}.hero-dash .glass{transform:none}}
 """

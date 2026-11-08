@@ -283,3 +283,18 @@
 .pcams .vl-cam{opacity:1;pointer-events:auto}.vl-cam.on{background:#a77bff;border-color:#fff;box-shadow:0 0 0 0 rgba(167,123,255,.7);animation:vlc 1.6s ease-out infinite}
 @keyframes vlc{to{box-shadow:0 0 0 16px rgba(167,123,255,0)}}
 .pcams .vl-h{opacity:0;pointer-events:none}
+
+/* jedan dan u kući */
+.dan-wrap{margin-top:28px;display:grid;gap:10px}
+.dan-h{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.dan-h b{font:500 1rem Jost,sans-serif;color:var(--ink,#e9eef5)}
+.dan-play{font:500 .85rem Jost,sans-serif;color:#0b1220;background:var(--gold,#d9ad52);border:0;border-radius:99px;padding:8px 16px;cursor:pointer;white-space:nowrap}
+.dan-row{display:grid;grid-template-columns:repeat(6,1fr);gap:8px}
+.dan-row button{display:grid;gap:2px;text-align:left;font:inherit;color:var(--text,#e9eef5);background:rgba(17,29,48,.66);border:1px solid var(--line,rgba(190,205,228,.16));border-radius:14px;padding:12px 14px;cursor:pointer;transition:border-color .3s,background .3s}
+.dan-row button:hover{border-color:rgba(217,173,82,.5)}
+.dan-row button.on{border-color:var(--gold,#d9ad52);background:linear-gradient(160deg,rgba(217,173,82,.22),rgba(17,29,48,.75))}
+.dan-row time{font:500 .8rem "IBM Plex Mono",monospace;color:#f3c66b}
+.dan-row b{font:500 .98rem Jost,sans-serif}.dan-row small{color:var(--muted);font-size:.85rem;line-height:1.35}
+@media (max-width:960px){.dan-row{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:6px;scrollbar-width:thin}.dan-row button{flex:0 0 min(170px,44vw);scroll-snap-align:start}}
+@media (max-width:560px){.dan-wrap{margin-top:18px}.dan-row small{display:none}.dan-row button{flex-basis:118px;padding:10px 12px}}
+.prikaz-note{color:var(--muted);font-size:.95rem;margin:4px 0 0;max-width:34em}

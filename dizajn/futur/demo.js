@@ -414,6 +414,20 @@ cardVis=false;buildVila();
 if('IntersectionObserver' in window){var pio=new IntersectionObserver(function(es){if(es[0].isIntersecting){pio.disconnect();setTimeout(preload,400);}},{rootMargin:'900px 0px'});pio.observe(host);}else setTimeout(preload,3000);
 host.addEventListener('pointerover',function(e){if(e.target.closest&&e.target.closest('[data-vmode="3d"]'))preload();});
 
+/* ---------- jedan dan u kući ---------- */
+var DAN=[function(){applyScene('dan');go('home');},
+ function(){applyScene('van');go('security');},
+ function(){sun='above_horizon';set('sun.sun',sun);cam=0;go('cams');},
+ function(){heat=true;go('climate');},
+ function(){applyScene('vecer');go('home');},
+ function(){applyScene('noc');go('home');}];
+var danI=-1,danT=0,dPlay=document.querySelector('[data-dan-play]');
+function danMark(i){danI=i;[].forEach.call(document.querySelectorAll('[data-dan]'),function(b){var on=+b.dataset.dan===i;b.classList.toggle('on',on);var r=b.parentNode;if(on&&r.scrollWidth>r.clientWidth&&r.scrollTo)r.scrollTo({left:r.scrollLeft+b.getBoundingClientRect().left-r.getBoundingClientRect().left-4,behavior:'smooth'});});}
+function danStep(i){DAN[i]();push();danMark(i);}
+function danStop(){clearInterval(danT);danT=0;if(dPlay){dPlay.textContent='▶ Pusti cijeli dan';dPlay.setAttribute('aria-pressed','false');}}
+[].forEach.call(document.querySelectorAll('[data-dan]'),function(b){b.addEventListener('click',function(){danStop();danStep(+b.dataset.dan);});});
+if(dPlay)dPlay.addEventListener('click',function(){if(danT){danStop();return;}dPlay.textContent='❚❚ Zaustavi';dPlay.setAttribute('aria-pressed','true');danStep((danI+1)%DAN.length);danT=setInterval(function(){if(danI>=DAN.length-1){danStop();return;}danStep(danI+1);},3800);});
+
 init();render();
 function dustNow(){if(window.fielTabDust)window.fielTabDust();}setTimeout(dustNow,60);setTimeout(dustNow,600);if(document.fonts&&document.fonts.ready)document.fonts.ready.then(dustNow);
 })();

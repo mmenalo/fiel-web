@@ -456,6 +456,15 @@ _IC = {"home": "M3 11l9-7 9 7v9h-6v-6H9v6H3z", "grid": "M4 4h7v7H4zM13 4h7v7h-7z
 DEMO = f"""<section class="demo-sec" id="demo-sekcija" data-shape="dust"><div class="wrap">
 <div class="head"><div><span class="label">Isprobajte</span><h2 style="margin-top:14px">Upravljajte kućom <em>s mobitela</em></h2></div>
 <p>Vizualizacija kuće i aplikacija kakvu dobiju naši klijenti. Upalite svjetlo, spustite rolete ili odaberite scenu i pogledajte što se događa na kući. Možete kliknuti i prozor na slici. Demo radi samo u vašem pregledniku.</p></div>
+<div class="dan-wrap"><div class="dan-h"><b>Jedan dan u kući</b><button class="dan-play" data-dan-play aria-pressed="false">▶ Pusti cijeli dan</button></div>
+<div class="dan-row" role="group" aria-label="Jedan dan u kući, odaberite doba dana">
+<button data-dan="0"><time>07:00</time><b>Buđenje</b><small>Rolete se dižu.</small></button>
+<button data-dan="1"><time>08:15</time><b>Odlazak</b><small>Sve se gasi, alarm se uključuje.</small></button>
+<button data-dan="2"><time>14:00</time><b>Kurir zvoni</b><small>Vidite ga na mobitelu.</small></button>
+<button data-dan="3"><time>17:30</time><b>Krenuli ste kući</b><small>Grijanje se uključuje.</small></button>
+<button data-dan="4"><time>19:00</time><b>Dolazak</b><small>Večernja rasvjeta.</small></button>
+<button data-dan="5"><time>23:00</time><b>Laku noć</b><small>Rolete dolje, noćni alarm.</small></button>
+</div></div>
 <div class="demo-stage" id="demo">
 <div class="house"><div class="house-load">UČITAVAM 3D MODEL</div><span class="house-hint">Prizemlje i Kat gore desno: pogled u sobe, klik pali svjetlo</span></div>
 <div class="ph" aria-label="Demo aplikacije"><div class="ph-in"><div class="ph-notch"></div><div class="ph-screen" aria-live="polite"></div>
@@ -489,7 +498,7 @@ def page(theme, name, ghost=False, particles=False, dark_band=False):
 <div class="grid4">
 <div class="card"><div class="icon">{ICONS['net']}</div><h3>Radi bez interneta</h3><p>Rasvjeta, grijanje, alarm i brave rade i kad veza padne.</p></div>
 <div class="card"><div class="icon">{ICONS['sub']}</div><h3>Bez pretplate</h3><p>Za rad sustava ne plaćate ništa mjesečno.</p></div>
-<div class="card"><div class="icon">{ICONS['free']}</div><h3>Bez vezanosti</h3><p>Opremu različitih proizvođača možete kombinirati i mijenjati.</p></div>
+<div class="card"><div class="icon">{ICONS['free']}</div><h3>Bez vezanosti</h3><p>Ako proizvođač ukine uređaj ili aplikaciju, mijenja se samo taj uređaj, a ne cijeli sustav.</p></div>
 <div class="card"><div class="icon">{ICONS['home']}</div><h3>Podaci kod vas</h3><p>Snimke kamera i podaci spremaju se u objektu.</p></div>
 </div></div></section>
 <section class="band"><div class="wrap"><span class="label">Kako radimo</span><h2 style="margin-top:14px">Od prvog razgovora <em>do predaje</em></h2>
@@ -497,10 +506,10 @@ def page(theme, name, ghost=False, particles=False, dark_band=False):
 <div class="card"><span class="n">01</span><h3>Dolazak</h3><p>Pogledamo objekt i dogovorimo što vam treba. Besplatno.</p></div>
 <div class="card"><span class="n">02</span><h3>Projekt i ponuda</h3><p>Točna ponuda s popisom opreme i radova.</p></div>
 <div class="card"><span class="n">03</span><h3>Ugradnja</h3><p>Ugradimo, povežemo i podesimo sustav.</p></div>
-<div class="card"><span class="n">04</span><h3>Predaja i podrška</h3><p>Pokažemo kako se koristi i ostajemo dostupni.</p></div>
+<div class="card"><span class="n">04</span><h3>Predaja i podrška</h3><p>Pokažemo kako se koristi i predamo dokumentaciju i pristup. Sustav je vaš.</p></div>
 </div></div></section>
 <section class="contact" id="kontakt"><div class="wrap"><div><span class="label">Kontakt</span><h2 style="margin-top:14px">Recite nam <em>što planirate</em></h2><a class="phone" href="tel:+38598802490">+385 98 802 490</a></div>
-<div class="row" style="display:flex;gap:12px;flex-wrap:wrap"><a class="btn gold" href="tel:+38598802490">Nazovite</a><a class="btn" href="#">Pošaljite upit</a></div></div></section>
+<div class="row" style="display:flex;gap:12px;flex-wrap:wrap"><a class="btn gold" href="tel:+38598802490">Nazovite</a><a class="btn" href="#">Pošaljite upit</a><a class="btn" href="kontakt.html#prikaz">Dogovorite prikaz sustava</a></div><p class="prikaz-note">Prije odluke možemo vam pokazati kako sustav radi, na tabletu na sastanku ili kratkim videopozivom.</p></div></section>
 </main>
 <footer><div class="wrap">© 2026 Fiel d.o.o. · Rušiščak 5b, Zagreb{'<div class="big" aria-hidden="true">FIEL</div>' if ghost else ''}</div></footer>
 <script>{JS}{PARTICLES if particles else ''}</script>"""
@@ -531,12 +540,12 @@ def page3():
 <p style="color:var(--muted);margin-top:16px;max-width:28em">Prijeđite mišem ili dodirnite karticu.</p></div>
 <div class="mslot" aria-hidden="true"></div>
 <div class="sol-list">
-<button data-s="lamp" class="act"><b>Rasvjeta</b><span>Scene, raspored po dobu dana i prisutnost.</span></button>
-<button data-s="heat"><b>Grijanje i hlađenje</b><span>Temperatura po prostorijama i raspored po danima.</span></button>
-<button data-s="blind"><b>Rolete</b><span>Prema suncu, dobu dana ili jednim dodirom.</span></button>
-<button data-s="door"><b>Alarm i brave</b><span>Jedan dodir: sve zaključano, alarm uključen.</span></button>
-<button data-s="cam"><b>Kamere i portafon</b><span>Slika s ulaza i kamera na zaslonu i mobitelu.</span></button>
-<button data-s="villa"><b>Cijela kuća</b><span>Sve na jednom zaslonu, radi i bez interneta.</span></button>
+<button data-s="lamp" class="act"><b>Rasvjeta</b><span>Noću se u hodniku pali prigušeno svjetlo, a kad izađete, sve se gasi.</span></button>
+<button data-s="heat"><b>Grijanje i hlađenje</b><span>Toplo je kad stignete, a prazna kuća se ne grije.</span></button>
+<button data-s="blind"><b>Rolete</b><span>Ljeti ne griju sobu, a ujutro se dižu same.</span></button>
+<button data-s="door"><b>Alarm i brave</b><span>Na izlazu jedan dodir: vrata zaključana, alarm uključen.</span></button>
+<button data-s="cam"><b>Kamere i portafon</b><span>Znate tko je pred vratima, i kad niste kod kuće.</span></button>
+<button data-s="villa"><b>Cijela kuća</b><span>Sve na jednom zaslonu i mobitelu, i kad internet ne radi.</span></button>
 </div></div></section>"""
     html = html.replace('<section class="band">', sol + '\n<section class="band" data-shape="villa" data-x="2.6">')
     html = html.replace('<section class="band" data-shape="villa" data-x="2.6"><div class="wrap"><span class="label">Kako radimo</span><h2 style="margin-top:14px">Od prvog razgovora <em>do predaje</em></h2>','<section class="band" data-shape="villa" data-x="2.6"><div class="wrap"><span class="label">Kako radimo</span><h2 style="margin-top:14px">Od prvog razgovora <em>do predaje</em></h2><div class="mslot band-slot" aria-hidden="true"></div>',1)
