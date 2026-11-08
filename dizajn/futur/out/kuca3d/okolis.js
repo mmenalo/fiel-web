@@ -11,7 +11,7 @@ export function pripremi(card) {
     applyFloor.call(this);
     const both = this._floor === 'both', [g, k] = this._floors || [];
     if (both && g && k) { g.position.set(0, 0, 0); k.position.set(0, UP, 0); }
-    if (this._env3) { this._env3.roof.visible = both; if (this._env3.clad) this._env3.clad.visible = both; }
+    if (this._env3) { this._env3.roof.visible = both; if (this._env3.clad) this._env3.clad.visible = both; if (this._env3.env) this._env3.env.visible = both; }
     if (this._labelsEl) this._labelsEl.style.display = both ? 'none' : '';
     this._shadowDirty = true; this._placeCamera();
   };
@@ -77,7 +77,7 @@ export function okolis(card) {
   };
   edge(10.32, 10.42, ROOF + .41, .05, -.45, roof);
   env.add(roof);
-  card._env3 = { roof };
+  card._env3 = { roof, env };
 
   /* terasa i bazen ispred dnevnog boravka */
   add(plane(9.4, 1.2), M.deck, 0, .02, 8.4, { cast: false });

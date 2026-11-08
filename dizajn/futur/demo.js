@@ -330,7 +330,7 @@ setInterval(function(){if(TB&&(!tpop||tpop==='navodnjavanje'))renderTab();},1500
 
 /* ---------- 3D kuća se učitava tek kad se približi ---------- */
 function load(){
- Promise.all([import('./kuca3d/kuca3d-card.js'),import('./kuca3d/okolis.js')]).then(function(r){var O=r[1];CFG.height=host.clientHeight;card=document.createElement('kuca3d-card');O.pripremi(card);card.setConfig(CFG);card._floor='both';addEventListener('resize',function(){if(card._config&&card._resize){card._config.height=host.clientHeight;card._resize();}});host.appendChild(card);toCard();O.okolis(card);host.classList.add('ready');})
+ Promise.all([import('./kuca3d/kuca3d-card.js'),import('./kuca3d/okolis.js')]).then(function(r){var O=r[1];CFG.height=host.clientHeight;card=document.createElement('kuca3d-card');O.pripremi(card);card.setConfig(CFG);card._floor='gf';addEventListener('resize',function(){if(card._config&&card._resize){card._config.height=host.clientHeight;card._resize();}});host.appendChild(card);toCard();O.okolis(card);card._applyFloor();host.classList.add('ready');})
  .catch(function(){host.classList.add('fail');});}
 /* ---------- foto prikaz vile: slojevi po sobama i roletama ---------- */
 var VR={dnevni:{b:[585,367,915,712],l:['light.dnevni','light.blagovaonica','light.traka_tv'],c:['cover.dnevni_l','cover.dnevni_d'],s:[650,413,861,598],n:'Dnevni boravak'},
