@@ -331,6 +331,14 @@ html,body{overflow-x:clip}.pgh{overflow-x:clip}.mslot{display:none}@media (max-w
 .pmass .vl-jets i{opacity:1;animation:vljet .7s ease-in-out infinite alternate}.pmass .vl-jets i:nth-child(2){animation-delay:.25s}.pmass .vl-jets i:nth-child(3){animation-delay:.5s}
 @keyframes vljet{from{transform:translate(-50%,-50%) scale(.75)}to{transform:translate(-50%,-50%) scale(1.15)}}
 .vl-st{transition:left .8s ease,top .8s ease,width .8s ease,height .8s ease}
+.ph-fsb{position:relative;height:22px;border-radius:8px;background:rgba(255,255,255,.07);margin-top:12px;overflow:hidden}.ph-fsb.dim i{opacity:.35}
+.ph-fsb i{position:absolute;top:0;bottom:0;background:linear-gradient(90deg,#3fb6d9,#6fe0f5);border-radius:6px;transition:left .25s,width .25s}
+.ph-fsb b{position:absolute;top:-2px;bottom:-2px;width:2px;background:#f3c66b;box-shadow:0 0 6px #f3c66b}
+.ph-fp{display:flex;align-items:center;gap:4px;margin-top:10px;font-size:.78rem}.ph-fp.off .ph-pm{opacity:.45}.ph-fp em{font-style:normal;color:rgba(238,240,255,.55)}
+.ph-fp .ph-pm{gap:2px}.ph-fp .ph-pm button{width:22px;height:26px;border-radius:8px;font-size:1rem}.ph-fp .ph-pm span{min-width:36px;font-size:.76rem;text-align:center;font-variant-numeric:tabular-nums}
+.ph-fp .sw{flex:none;transform:scale(.8);transform-origin:left center;margin-right:-8px}.ph-x{margin-left:auto;flex:none;width:22px;height:22px;border-radius:8px;background:rgba(255,255,255,.08)!important;color:rgba(238,240,255,.7)}
+.ph-add{margin-top:10px;width:100%;padding:8px;border-radius:12px;border:1px dashed rgba(255,255,255,.2)!important;color:rgba(238,240,255,.75);font-size:.8rem}
+.ph-seg.sm{margin-top:10px}.ph-seg.sm button{font-size:.78rem;padding:7px 4px}.ph-tag.on{background:rgba(63,182,217,.25);color:#9be6f7}
 
 #fx{position:fixed;inset:0;width:100vw;height:100vh;z-index:0;pointer-events:none}
 .fx main,.fx footer,.fx .top{position:relative;z-index:1}.fx .top{position:sticky}
@@ -455,7 +463,7 @@ var ROOMS=[
  {k:'kup',n:'Kupaonice',l:['light.kupaonica','light.kupaonica_kat'],t:'kupaonica'}];
 var TN={dnevni:'Dnevni boravak',kupaonica:'Kupaonica',ured:'Ured',toni:'Soba 1',ana:'Soba 2',mz:'Spavaća soba',jopa:'Soba 3',kupaonica_kat:'Kupaonica kat'};
 var CUR={dnevni:22.0,kupaonica:22.6,ured:21.4,toni:21.2,ana:22.2,mz:22.8,jopa:20.9,kupaonica_kat:22.3},TGT={dnevni:22,kupaonica:23,ured:21.5,toni:21.5,ana:21.5,mz:21,jopa:21.5,kupaonica_kat:23};
-var PL={t:26.8,tgt:28,ph:7.24,orp:706,sp:720,heat:false,light:true,mass:false,fall:false,sl:false};
+var PL={fm:'auto',fs:[[8,12,1],[16,20,1]],t:26.8,tgt:28,ph:7.24,orp:706,sp:720,heat:false,light:true,mass:false,fall:false,sl:false};
 var heat=true, alarm='off', scene='', sun=(new Date().getHours()>=7&&new Date().getHours()<17)?'above_horizon':'below_horizon', room='dnevni', tab='home', sub='', zone=0, play=false, vol=42, water=-1, wleft=0, cam=0;
 
 function on(id){return S[id]&&S[id].state==='on';}
@@ -572,6 +580,17 @@ V.security=function(){var ow=openWins();return head('Sigurnost',ow.length?ow.len
  '<div class="ph-seg">'+[['off','Isključen'],['on','Uključen'],['night','Noćni']].map(function(a){return '<button data-alarm="'+a[0]+'" class="'+(alarm===a[0]?'on':'')+'">'+a[1]+'</button>';}).join('')+'</div>'+
  (alarm!=='off'&&ow.length?'<div class="ph-warn static">'+I('shield')+'<span><small>Alarm</small>Zone s otvorenim prozorima su isključene iz zaštite</span></div>':'')+
  '<div class="ph-lbl">Prozori i vrata · dodirnite za simulaciju</div><div class="ph-card wide">'+WIN.map(function(w){var o=on(w[0]);return '<button class="ph-wr" data-win="'+w[0]+'"><span>'+w[1]+'</span><em class="'+(o?'bad':'')+'">'+(o?'otvoreno':'zatvoreno')+'</em></button>';}).join('')+'</div>';};
+function hm(x){return ('0'+Math.floor(x)).slice(-2)+':'+(x%1?'30':'00');}
+function nowH(){var d=new Date();return d.getHours()+d.getMinutes()/60;}
+function fOn(){if(PL.fm!=='auto')return PL.fm==='on';var n=nowH();return PL.fs.some(function(p){return p[2]&&n>=p[0]&&n<p[1];});}
+function fTxt(){if(PL.fm==='on')return 'radi stalno (ručno)';if(PL.fm==='off')return 'isključena';var n=nowH(),cur=PL.fs.filter(function(p){return p[2]&&n>=p[0]&&n<p[1];})[0];if(cur)return 'radi do '+hm(cur[1]);
+ var nx=PL.fs.filter(function(p){return p[2];}).map(function(p){return p[0];}).sort(function(a,b){return a-b;}),f=nx.filter(function(x){return x>n;})[0];return nx.length?'miruje · uključuje se u '+hm(f!=null?f:nx[0]):'nema razdoblja';}
+function fSched(){var n=nowH();return '<div class="ph-fsb'+(PL.fm!=='auto'?' dim':'')+'">'+PL.fs.map(function(p){return p[2]?'<i style="left:'+(p[0]/24*100)+'%;width:'+((p[1]-p[0])/24*100)+'%"></i>':'';}).join('')+'<b style="left:'+(n/24*100)+'%"></b></div><div class="ph-rng"><span>00</span><span>06</span><span>12</span><span>18</span><span>24</span></div>'+
+ PL.fs.map(function(p,i){return '<div class="ph-fp'+(p[2]?'':' off')+'"><button class="sw'+(p[2]?' on':'')+'" data-fs="'+i+':t" role="switch" aria-checked="'+!!p[2]+'" aria-label="Razdoblje '+(i+1)+'"><i></i></button>'+
+  '<div class="ph-pm"><button data-fs="'+i+':0:-0.5" aria-label="Ranije početak">−</button><span>'+hm(p[0])+'</span><button data-fs="'+i+':0:0.5" aria-label="Kasnije početak">+</button></div><em>do</em>'+
+  '<div class="ph-pm"><button data-fs="'+i+':1:-0.5" aria-label="Ranije kraj">−</button><span>'+hm(p[1])+'</span><button data-fs="'+i+':1:0.5" aria-label="Kasnije kraj">+</button></div>'+
+  (PL.fs.length>1?'<button class="ph-x" data-fs="'+i+':x" aria-label="Ukloni razdoblje">×</button>':'')+'</div>';}).join('')+
+ (PL.fs.length<3?'<button class="ph-add" data-fs="add">+ Dodaj razdoblje</button>':'');}
 function plRow(k,ic,n,st){return '<div class="ph-row"><span class="ph-li'+(PL[k]?' lit':'')+'">'+I(ic)+'</span><span class="ph-ln"><b>'+n+'</b><small>'+st+'</small></span>'+sw('P:'+k,PL[k],n)+'</div>';}
 V.pool=function(){var phOk=PL.ph>=7&&PL.ph<=7.6,orOk=PL.orp>=650,prod=PL.orp<PL.sp-3?Math.min(100,Math.round((PL.sp-PL.orp)*4+30)):0;
  return head('Bazen',phOk&&orOk?'Kvaliteta vode u redu':'Provjerite kvalitetu vode',1)+
@@ -580,12 +599,13 @@ V.pool=function(){var phOk=PL.ph>=7&&PL.ph<=7.6,orOk=PL.orp>=650,prod=PL.orp<PL.
  '<div class="ph-row ph-ptg"><span></span><span class="ph-ln"><small>Željena temperatura</small></span><div class="ph-pm"><button data-ptgt="-0.5" aria-label="Snizi">−</button><span>'+fmt(PL.tgt)+'°</span><button data-ptgt="0.5" aria-label="Povisi">+</button></div></div></div>'+
  '<div class="ph-card wide">'+plRow('light','bulb','Rasvjeta bazena',PL.light?'upaljena':'ugašena')+plRow('mass','jet','Masažeri',PL.mass?'rade':'isključeni')+plRow('fall','fall','Vodopad',PL.fall?'radi':'isključen')+'</div>'+
  '<div class="ph-card wide"><div class="ph-cvh"><span>Elektroliza · set point<small>proizvodnja klora '+prod+' %</small></span><b class="ph-spv">'+PL.sp+' mV</b></div><input type="range" min="600" max="800" step="10" value="'+PL.sp+'" data-orp aria-label="Set point elektrolize"><div class="ph-rng"><span>600</span><span>preporuka 700 do 750</span><span>800</span></div></div>'+
- '<div class="ph-lbl">Strojarnica</div><div class="ph-card wide">'+plRow('sl','bulb','Rasvjeta strojarnice',PL.sl?'upaljena':'ugašena')+'<div class="ph-row"><span class="ph-li">'+I('gear')+'</span><span class="ph-ln"><b>Filtracija</b><small>radi po rasporedu · 8 do 20 h</small></span><span class="ph-tag">'+(new Date().getHours()>=8&&new Date().getHours()<20?'radi':'miruje')+'</span></div></div>';};
+ '<div class="ph-lbl">Strojarnica</div><div class="ph-card wide">'+plRow('sl','bulb','Rasvjeta strojarnice',PL.sl?'upaljena':'ugašena')+'</div><div class="ph-lbl">Filtracija</div><div class="ph-card wide"><div class="ph-row"><span class="ph-li'+(fOn()?' lit':'')+'">'+I('gear')+'</span><span class="ph-ln"><b>Pumpa filtracije</b><small>'+fTxt()+'</small></span><span class="ph-tag'+(fOn()?' on':'')+'">'+(fOn()?'radi':'miruje')+'</span></div>'+
+ '<div class="ph-seg sm">'+[['auto','Raspored'],['on','Uvijek'],['off','Isključeno']].map(function(m){return '<button data-fm="'+m[0]+'" class="'+(PL.fm===m[0]?'on':'')+'">'+m[1]+'</button>';}).join('')+'</div>'+fSched()+'</div>';};
 var WZ=['Travnjak ispred','Travnjak iza','Živica','Vrt','Kap po kap · stabla'];
 V.water=function(){return head('Navodnjavanje',water>=0?'Radi: '+WZ[water]:'Sve zone miruju',1)+'<div class="ph-card wide">'+WZ.map(function(z,i){var r=water===i;return '<div class="ph-row ph-wz"><span class="ph-li'+(r?' lit':'')+'">'+I('drop')+'</span><span class="ph-ln">'+z+'<small>'+(r?Math.floor(wleft/60)+':'+('0'+wleft%60).slice(-2)+' preostalo':'10 min')+'</small></span><button class="ph-pill'+(r?' on':'')+'" data-water="'+i+'">'+(r?'Zaustavi':'Pokreni')+'</button></div>';}).join('')+'</div>';};
 V.energy=function(){var w=watts(),lw=0;LIGHTS.forEach(function(l){if(on(l[0]))lw+=Math.round(6+pct(l[0])*.14);});
  return head('Energija','Potrošnja kuće',1)+'<div class="ph-card wide ph-big"><small>Sada</small><b>'+w+'<small> W</small></b><div class="ph-prog"><i style="width:'+Math.min(100,w/55)+'%"></i></div><small>ograničenje priključka 5,5 kW</small></div>'+
- '<div class="ph-card wide">'+[['Grijanje',heat?620:0],['Rasvjeta',lw],['Bazen',(PL.heat&&PL.t<PL.tgt?1900:0)+(new Date().getHours()>=8&&new Date().getHours()<20?450:0)+(PL.mass?750:0)+(PL.fall?300:0)],['Navodnjavanje',water>=0?90:0],['Glazba',play?25:0],['Ostalo',140]].map(function(r){return '<div class="ph-wr"><span>'+r[0]+'</span><em>'+r[1]+' W</em></div>';}).join('')+'</div>';};
+ '<div class="ph-card wide">'+[['Grijanje',heat?620:0],['Rasvjeta',lw],['Bazen',(PL.heat&&PL.t<PL.tgt?1900:0)+(fOn()?450:0)+(PL.mass?750:0)+(PL.fall?300:0)],['Navodnjavanje',water>=0?90:0],['Glazba',play?25:0],['Ostalo',140]].map(function(r){return '<div class="ph-wr"><span>'+r[0]+'</span><em>'+r[1]+' W</em></div>';}).join('')+'</div>';};
 function feedSvg(i){var tint=['#f3c66b','#9fd1ff','#c8b6ff'][i];
  return '<svg viewBox="0 0 320 180" preserveAspectRatio="xMidYMid slice"><defs><radialGradient id="lmp'+i+'" cx="'+(i===1?'30%':'78%')+'" cy="22%" r="40%"><stop offset="0" stop-color="'+tint+'" stop-opacity=".55"/><stop offset="1" stop-color="'+tint+'" stop-opacity="0"/></radialGradient></defs>'+
  '<rect width="320" height="180" fill="#0d1420"/><rect width="320" height="180" fill="url(#lmp'+i+')"/>'+
@@ -612,6 +632,8 @@ function handleBtn(b){var d=b.dataset;
  if(d.win){set(d.win,on(d.win)?'off':'on');push();return;}
  if(d.cover){moveCover(d.cover,d.to==='stop'?null:+d.to);scene='';render();return;}
  if(d.tgt){TGT[d.tgt]=Math.min(28,Math.max(16,TGT[d.tgt]+ +d.d));render();return;}
+ if(d.fm){PL.fm=d.fm;render();return;}
+ if(d.fs){var q=d.fs.split(':');if(q[0]==='add'){var l=PL.fs[PL.fs.length-1];PL.fs.push([Math.min(22,l[1]+1),Math.min(24,l[1]+3),1]);}else{var P=PL.fs[+q[0]];if(q[1]==='t')P[2]=P[2]?0:1;else if(q[1]==='x')PL.fs.splice(+q[0],1);else{var j=+q[1];P[j]=Math.min(24,Math.max(0,P[j]+ +q[2]));if(P[1]<=P[0]){if(j===0)P[1]=Math.min(24,P[0]+.5);else P[0]=Math.max(0,P[1]-.5);}}}render();return;}
  if(d.ptgt){PL.tgt=Math.min(32,Math.max(20,PL.tgt+ +d.ptgt));render();return;}
  if(d.water){var i=+d.water;water=water===i?-1:i;wleft=600;render();return;}
  var a=d.act;if(!a)return;
