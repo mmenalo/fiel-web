@@ -406,14 +406,14 @@ footer .big{font:500 clamp(6rem,22vw,16rem)/0.8 Jost,sans-serif;letter-spacing:.
 .glow-beam{position:absolute;width:900px;height:900px;left:-300px;top:-400px;background:radial-gradient(closest-side,rgba(66,92,122,.45),transparent);filter:blur(40px);pointer-events:none;z-index:0}
 @media (max-width:960px){.sol .wrap{grid-template-columns:1fr}.sol-list{grid-template-columns:1fr}}
 @media (prefers-reduced-motion:reduce){.up{opacity:1;transform:none}.fx h1 em{animation:none}}
-</style><script src="three.min.js"></script><script>(function(){var q=(location.search.match(/[?&]tema=(\w+)/)||[])[1],t;try{t=q||localStorage.getItem('fielTema');}catch(e){t=q;}t='tamna';document.documentElement.setAttribute('data-tema',t);
+</style><script src="three.min.js"></script><script>(function(){var q=(location.search.match(/[?&]tema=(\w+)/)||[])[1],t;try{t=q||localStorage.getItem('fielTema');}catch(e){t=q;}if(t!=='svijetla'&&t!=='mjesano')t='tamna';document.documentElement.setAttribute('data-tema',t);
 var DARK='.demo-sec,.contact,.upit,.sol,.gal';
 function apply(t){document.documentElement.setAttribute('data-tema',t);try{localStorage.setItem('fielTema',t);}catch(e){}
  [].forEach.call(document.querySelectorAll('main section, body > section'),function(s){s.classList.toggle('lt',t==='mjesano'&&!s.matches(DARK));});
  [].forEach.call(document.querySelectorAll('img.logo-img'),function(i){i.src=t==='svijetla'?'fiel-logo-svijetla.svg':'fiel-logo.svg';});
  [].forEach.call(document.querySelectorAll('.tema-sw button'),function(b){b.classList.toggle('on',b.dataset.t===t);});}
 window.fielTema=apply;
-document.addEventListener('DOMContentLoaded',function(){if(1)return;var d=document.createElement('div');d.className='tema-sw';d.setAttribute('role','group');d.setAttribute('aria-label','Tema stranice');
+document.addEventListener('DOMContentLoaded',function(){var d=document.createElement('div');d.className='tema-sw';d.setAttribute('role','group');d.setAttribute('aria-label','Tema stranice');
  d.innerHTML='<span>Tema</span><button data-t="tamna">Tamna</button><button data-t="svijetla">Svijetla</button><button data-t="mjesano">Mješovita</button>';
  d.addEventListener('click',function(e){var b=e.target.closest('button');if(b)apply(b.dataset.t);});document.body.appendChild(d);apply(document.documentElement.getAttribute('data-tema'));});})();</script></head><body class="dark fx"><canvas id="fx" aria-hidden="true"></canvas><header class="top"><div class="wrap"><a href="#"><img class="logo logo-img" src="fiel-logo.svg" alt="Fiel d.o.o." width="1222" height="600"></a>
 <nav><a href="pametna-kuca.html">Pametna kuća</a><a href="video-nadzor-i-portafoni.html">Video nadzor i portafoni</a><a href="za-investitore.html">Za investitore</a><a href="kako-radimo.html">Kako radimo</a><a href="o-nama.html">O nama</a></nav>
