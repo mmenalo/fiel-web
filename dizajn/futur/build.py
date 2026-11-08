@@ -280,7 +280,7 @@ THREE_FX = """
   window.fielShape=shape;
   var secs=[].slice.call(document.querySelectorAll('[data-shape]'));
   function pick(){var best=null,bv=0;secs.forEach(function(s){var b=s.getBoundingClientRect(),v=Math.min(b.bottom,innerHeight)-Math.max(b.top,0);if(v>bv){bv=v;best=s;}});
-    if(best&&!best.dataset.locked){var x=mob?0:parseFloat(best.dataset.x||0);shape(best.dataset.shape,x);}}
+    if(best&&!best.dataset.locked){var x=mob?0:parseFloat(best.dataset.x||0);shape(mob&&best.dataset.mshape||best.dataset.shape,x);}}
   addEventListener('scroll',pick,{passive:true});pick();
   var mx=0,my=0;addEventListener('pointermove',function(e){mx=e.clientX/innerWidth-.5;my=e.clientY/innerHeight-.5;});
   var t=0,ry=0,rx=0;(function f(){t+=.003;var p=g.attributes.position.array;
@@ -461,7 +461,7 @@ def page3():
     html = html.replace(APP, '<div class="tab-col"><div class="tab-wrap" id="tabwrap"><div class="tab" id="tablet" aria-label="Demo zidnog zaslona"><div class="tb-in"><nav class="tb-nav"></nav><div class="tb-body"></div><div class="tb-pop" hidden></div></div></div></div><p class="tab-hint">Zidni zaslon u kući · sve se može kliknuti</p></div>')
     html = html.replace('.hero .wrap{display:grid;grid-template-columns:1fr 1.05fr;', '.hero .wrap{display:grid;grid-template-columns:.82fr 1.18fr;')
     html = html.replace(LOGO_DARK, '<img class="logo logo-img" src="fiel-logo.svg" alt="Fiel d.o.o." width="1222" height="600">', 1)
-    html = html.replace('</style>', '.fx .top,.fx .top.scrolled{z-index:50;background:#070d17;backdrop-filter:none;-webkit-backdrop-filter:none;box-shadow:0 10px 30px -12px rgba(0,0,0,.8)}.top .logo-img{height:68px;width:auto;display:block}.top .wrap{height:86px}@media (max-width:560px){.top .logo-img{height:50px}.top .wrap{height:70px}}</style>', 1)
+    html = html.replace('</style>', '.fx .top,.fx .top.scrolled{z-index:50;background:#070d17;backdrop-filter:none;-webkit-backdrop-filter:none;box-shadow:0 10px 30px -12px rgba(0,0,0,.8)}.fx .contact .wrap{grid-template-columns:minmax(0,600px);align-items:start;gap:28px}.fx .contact .row{margin-top:4px}.fx .contact{min-height:420px}.top .logo-img{height:68px;width:auto;display:block}.top .wrap{height:86px}@media (max-width:560px){.top .logo-img{height:50px}.top .wrap{height:70px}}</style>', 1)
     html = html.replace('<a class="btn" href="#">Za investitore</a>', '<a class="btn" href="#demo-sekcija">Isprobajte demo ↓</a>', 1)
     html = html.replace('<section><div class="wrap"><span class="label">Zašto lokalno</span>', DEMO + '<section><div class="wrap"><span class="label">Zašto lokalno</span>', 1)
     html = html.replace('</style>', DEMO_CSS + '</style>', 1)
@@ -480,10 +480,10 @@ def page3():
 <button data-s="blind"><b>Rolete</b><span>Prema suncu, dobu dana ili jednim dodirom.</span></button>
 <button data-s="door"><b>Alarm i brave</b><span>Jedan dodir: sve zaključano, alarm uključen.</span></button>
 <button data-s="cam"><b>Kamere i portafon</b><span>Slika s ulaza i kamera na zaslonu i mobitelu.</span></button>
-<button data-s="house"><b>Cijela kuća</b><span>Sve na jednom zaslonu, radi i bez interneta.</span></button>
+<button data-s="villa"><b>Cijela kuća</b><span>Sve na jednom zaslonu, radi i bez interneta.</span></button>
 </div></div></section>"""
     html = html.replace('<section class="band">', sol + '\n<section class="band" data-shape="villa" data-x="2.6">')
-    html = html.replace('<section class="contact" id="kontakt">','<section class="contact" id="kontakt" data-shape="villa" data-x="2.9">')
+    html = html.replace('<section class="contact" id="kontakt">','<section class="contact" id="kontakt" data-shape="villa" data-x="2.9" data-mshape="dust">')
     html = html.replace('© 2026 Fiel d.o.o. · Rušiščak 5b, Zagreb','© 2026 Fiel d.o.o. · Rušiščak 5b, Zagreb · <span class="clock">ZAGREB, SADA <span id="sat"></span></span>')
     html = html.replace('<script>','<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script><script>')
     html = html.replace('</script></body>', THREE_FX + '</script></body>')

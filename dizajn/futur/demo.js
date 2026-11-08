@@ -252,7 +252,7 @@ TV.home=function(){var d=new Date(),w=watts(),ow=openWins(),lp=pct('light.dnevni
  '<div class="tc gg g1" data-tpop="grijanje"><small>'+I('therm')+'Dnevni</small>'+gauge(CUR.dnevni,15,30,fmt(CUR.dnevni),'°C',1)+'<small class="b">Vlaga 42 %</small></div>'+
  '<div class="tc gg g2" data-tpop="energija"><small>'+I('bolt')+'Potrošnja</small>'+gauge(w,0,5500,w,'W')+'<small class="b">Limit 5,5 kW</small></div>'+
  '<div class="tc st'+(ow.length?' warn':'')+'"><span class="ok">'+(ow.length?'!':'✓')+'</span><span><small>'+(ow.length?'UPOZORENJE':'SVE U REDU')+'</small>'+(ow.length?ow.map(function(x){return x[1];}).join(', ')+' otvoreno':'Prozori i vrata zatvoreni')+'</span></div>'+
- '<div class="tc cvs">'+cvrow('cover.dnevni_l','Zavjesa dnevni')+cvrow('cover.dnevni_d','Desna žaluzina')+
+ '<div class="tc cvs">'+cvrow('cover.zavjesa_dnevni','Zavjesa dnevni')+cvrow('cover.dnevni_d','Desna žaluzina')+
  '<button class="cvr dim'+(lo?' on':'')+'" data-act="L:light.dnevni"><span class="fill" style="width:'+(lo?lp:0)+'%"></span><span class="ci">'+I('bulb')+'</span><span class="cn">Strop dnevni<small>'+(lo?lp+' %':'Ugašeno')+'</small></span></button></div>'+
  '<div class="tc inf"><button class="ir" data-tact="robo"><span class="ci">'+I('home')+'</span><span>Usisavač<small>'+(robo?'Usisava prizemlje':'Na punjaču')+'</small></span></button><button class="ir" data-tpop="navodnjavanje"><span class="ci">'+I('drop')+'</span><span>Navodnjavanje<small>'+(water>=0?'Radi: '+WZ[water]:'Sljedeće u 06:00')+'</small></span></button></div>'+
  '<div class="tc bts"><button data-tact="gate">'+I('key')+'<span>Otvori</span></button><button data-tact="hold" class="'+(hold?'on':'')+'">'+I('door')+'<span>Drži otvoreno</span></button><button data-tscene="noc" class="'+(scene==='noc'?'on':'')+'">'+I('moon')+'<span>Laku noć</span></button></div>'+
@@ -333,6 +333,7 @@ function load(){
  Promise.all([import('./kuca3d/kuca3d-card.js'),import('./kuca3d/okolis.js')]).then(function(r){var O=r[1];CFG.height=host.clientHeight;card=document.createElement('kuca3d-card');O.pripremi(card);card.setConfig(CFG);card._floor='gf';addEventListener('resize',function(){if(card._config&&card._resize){card._config.height=host.clientHeight;card._resize();}});host.appendChild(card);toCard();O.okolis(card);card._applyFloor();host.classList.add('ready');})
  .catch(function(){host.classList.add('fail');});}
 /* ---------- foto prikaz vile: slojevi po sobama i roletama ---------- */
+var SHL=[['dnevni','cover.dnevni_l',0,50,-.22],['dnevni','cover.dnevni_d',50,100,-.22],['kuhinja','cover.kuhinja',0,100,-.08],['gl','cover.toni',0,100,-.07],['gs','cover.ana',0,100,-.07],['gd','cover.mz',0,100,-.07]];
 var VR={dnevni:{b:[585,367,915,712],l:['light.dnevni','light.blagovaonica','light.traka_tv'],c:['cover.dnevni_l','cover.dnevni_d'],s:[650,413,861,598],n:'Dnevni boravak'},
  kuhinja:{b:[875,369,1013,533],l:['light.kuhinja','light.traka_ormar'],c:['cover.kuhinja'],s:[911,398,985,489],n:'Kuhinja'},
  gl:{b:[640,256,752,433],l:['light.toni'],c:['cover.toni'],s:[659,274,722,396],n:'Soba 1'},
@@ -342,7 +343,8 @@ var vrt=true,vmode='foto',VS=null;
 function pc(b){return 'left:'+(b[0]/15.36)+'%;top:'+(b[1]/10.24)+'%;width:'+((b[2]-b[0])/15.36)+'%;height:'+((b[3]-b[1])/10.24)+'%';}
 function buildVila(){var h='<div class="vila"><div class="vl-st"><img src="vila/baza.jpg" alt="Vizualizacija kuće noću" class="vl-b"><img src="vila/vrt-ugasen.jpg" alt="" class="vl-vrt"><img src="vila/dan.jpg" alt="" class="vl-dan">';
  Object.keys(VR).forEach(function(k){var r=VR[k];h+='<img src="vila/s-'+k+'.png" alt="" class="vl-s" data-k="'+k+'" style="'+pc(r.b)+'">';});
- Object.keys(VR).forEach(function(k){var r=VR[k];h+='<div class="vl-r" data-k="'+k+'" style="'+pc(r.s)+'"><img src="vila/r-'+k+'.png" alt="" class="n"><img src="vila/rd-'+k+'.png" alt="" class="d"></div>';});
+ h+='<div class="vl-cur" style="'+pc([659,419,852,586])+'"></div>';
+ SHL.forEach(function(q,i){var r=VR[q[0]];h+='<div class="vl-r" data-i="'+i+'" style="'+pc(r.s)+'"><img src="vila/r-'+q[0]+'.png" alt="" class="n"><img src="vila/rd-'+q[0]+'.png" alt="" class="d"></div>';});
  Object.keys(VR).forEach(function(k){var r=VR[k];h+='<button class="vl-h" data-vroom="'+k+'" style="left:'+((r.s[0]+r.s[2])/2/15.36)+'%;top:'+((r.s[1]+r.s[3])/2/10.24)+'%"><i></i><span>'+r.n+'</span></button>';});
  h+='</div><span class="vl-tag">Vizualizacija</span></div>';
  host.insertAdjacentHTML('afterbegin',h);
@@ -360,8 +362,10 @@ function fitVila(){if(!VS)return;var w=host.clientWidth,h=host.clientHeight,s=Ma
 function vilaUpd(){if(!VS)return;
  Object.keys(VR).forEach(function(k){var r=VR[k],o=0;r.l.forEach(function(id){if(on(id))o=Math.max(o,.5+.5*(pct(id)||100)/100);});
   VS.querySelector('.vl-s[data-k="'+k+'"]').style.opacity=o;
-  var p=0;r.c.forEach(function(c){p+=pos(c);});p/=r.c.length;VS.querySelector('.vl-r[data-k="'+k+'"]').style.clipPath='inset(0 0 '+p+'% 0)';
   VS.querySelector('.vl-h[data-vroom="'+k+'"]').classList.toggle('on',o>0);});
+ SHL.forEach(function(q,i){var r=VR[q[0]],w=r.s[2]-r.s[0],h=r.s[3]-r.s[1],d=-q[4]*w/h*100,Yl=(100-pos(q[1]))*(1+d/100),xa=q[2],xb=q[3],f=function(x){return (Yl-d*x/100).toFixed(2)+'%';};
+  VS.querySelector('.vl-r[data-i="'+i+'"]').style.clipPath='polygon('+xa+'% 0%,'+xb+'% 0%,'+xb+'% '+f(xb)+','+xa+'% '+f(xa)+')';});
+ var cf=1-pos('cover.zavjesa_dnevni')/100,X=(cf*100).toFixed(2),cu=VS.querySelector('.vl-cur');cu.style.clipPath='polygon(0% 26.9%,'+X+'% '+(26.9*(1-cf)).toFixed(2)+'%,'+X+'% '+(100-25.7*cf).toFixed(2)+'%,0% 100%)';cu.classList.toggle('lit',VR.dnevni.l.some(on));
  var day=sun==='above_horizon';host.classList.toggle('vday',day);var sb=host.querySelector('[data-vsun]');if(sb)sb.textContent=day?'Noć':'Dan';
  VS.querySelector('.vl-vrt').style.opacity=vrt||day?0:1;var vb=host.querySelector('[data-vrt]');if(vb)vb.classList.toggle('on',vrt);}
 

@@ -232,3 +232,6 @@
 .house.vday .vl-dan{opacity:1}.house.vday .vl-s{opacity:0!important}.house.vday .vl-ctl .vrt{display:none}
 .vl-r .d{display:none}.house.vday .vl-r .d{display:block}.house.vday .vl-r .n{display:none}
 .house.m3d .vl-ctl .vsun{display:none}
+.vl-cur{position:absolute;pointer-events:none;transition:clip-path .14s linear,filter .5s;background:linear-gradient(180deg,rgba(40,30,20,.25),transparent 18%,transparent 82%,rgba(40,30,20,.3)),repeating-linear-gradient(90deg,#efe6d3 0 7px,#d9cbb0 7px 10px,#f4ede0 10px 15px,#e0d3ba 15px 18px);filter:brightness(.42) saturate(.8);opacity:.86}
+.vl-cur.lit{filter:brightness(.98) sepia(.25) saturate(1.2)}
+.house.vday .vl-cur{filter:brightness(.92)}
