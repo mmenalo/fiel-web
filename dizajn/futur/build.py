@@ -371,7 +371,7 @@ FX_CSS = """
 .sol-list{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .sol-list [data-s]{cursor:pointer;text-align:left;font:inherit;color:inherit;background:rgba(17,29,48,.6);border:1px solid var(--line);border-radius:18px;padding:22px;display:grid;gap:8px;transition:background .3s,border-color .3s,transform .3s}
 .sol-list [data-s].act{background:linear-gradient(160deg,rgba(217,173,82,.22),rgba(17,29,48,.7));border-color:rgba(217,173,82,.6);transform:translateY(-3px)}
-.sol-list b{font:500 1.1rem Jost,sans-serif;color:var(--ink)}.sol-list span{color:var(--muted);font-size:.95rem}
+.sol-list b{font:500 1.1rem Jost,sans-serif;color:var(--ink)}.sol-more{font:500 .85rem Jost,sans-serif;color:var(--gold);text-decoration:none;justify-self:start;opacity:0;transition:opacity .3s}.sol-list [data-s].act .sol-more,.sol-list [data-s]:focus-within .sol-more{opacity:1}@media (max-width:700px){.sol-more{opacity:1}}.sol-list span{color:var(--muted);font-size:.95rem}
 .clock{font:500 .8rem "IBM Plex Mono",monospace;color:var(--muted);letter-spacing:.08em}
 .glow-beam{position:absolute;width:900px;height:900px;left:-300px;top:-400px;background:radial-gradient(closest-side,rgba(66,92,122,.45),transparent);filter:blur(40px);pointer-events:none;z-index:0}
 @media (max-width:960px){.sol .wrap{grid-template-columns:1fr}.sol-list{grid-template-columns:1fr}}
@@ -380,9 +380,9 @@ FX_CSS = """
 
 CSS = """
 *{box-sizing:border-box}html{scroll-behavior:smooth}
-body{margin:0;font:400 17px/1.6 "Source Sans 3",system-ui,sans-serif;background:var(--bg);color:var(--text)}
+body{margin:0;font:400 18px/1.6 "Source Sans 3",system-ui,sans-serif;background:var(--bg);color:var(--text)}
 :root{--gold:#d9ad52;--gold2:#f3c66b}
-.dark{--bg:#080f1a;--bg2:#0e1828;--card:#111d30;--text:#e9eef5;--muted:rgba(233,238,245,.62);--line:rgba(190,205,228,.12);--line2:rgba(190,205,228,.22);--ink:#f4f6fa}
+.dark{--bg:#080f1a;--bg2:#0e1828;--card:#111d30;--text:#e9eef5;--muted:rgba(233,238,245,.78);--line:rgba(190,205,228,.12);--line2:rgba(190,205,228,.22);--ink:#f4f6fa}
 .light{--bg:#fbfbfa;--bg2:#eef1f5;--card:#fff;--text:#33404f;--muted:#64717f;--line:#d9dfe7;--line2:#c3ccd8;--ink:#1f3550}
 h1,h2,h3{font-family:Jost,system-ui,sans-serif;color:var(--ink);margin:0;font-weight:300;letter-spacing:-.025em;text-wrap:balance}
 h1{font-size:clamp(2.4rem,6vw,4.6rem);line-height:1.02}h2{font-size:clamp(1.7rem,3.6vw,2.7rem);line-height:1.1}h3{font-weight:500;font-size:1.12rem;letter-spacing:0}
@@ -398,7 +398,7 @@ p{margin:0}a{color:inherit}
 .btn.gold{background:var(--gold);border-color:var(--gold);color:#0b1220;box-shadow:0 12px 40px -14px rgba(217,173,82,.75)}
 .hero{position:relative;padding:72px 0 88px;overflow:hidden}
 .hero .wrap{display:grid;grid-template-columns:1fr 1.05fr;gap:56px;align-items:center;position:relative;z-index:2}
-.hero p.lead{color:var(--muted);font-size:1.12rem;max-width:32em;margin-top:22px}
+.hero p.lead{color:var(--text);font-size:1.15rem;max-width:32em;margin-top:22px}
 .hero .row{display:flex;gap:12px;flex-wrap:wrap;margin-top:30px}
 .facts{display:grid;grid-template-columns:repeat(3,auto);gap:28px;margin-top:44px;justify-content:start}
 .facts b{display:block;font:400 1.35rem Jost,sans-serif;color:var(--ink)}.facts small{color:var(--muted);font-size:.85rem}
@@ -427,7 +427,7 @@ section{padding:96px 0;position:relative}
 .reveal span{opacity:.18;transition:opacity .35s}.reveal span.lit{opacity:1}
 .grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:44px}
 .card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:26px;display:grid;gap:10px;align-content:start}
-.card p{color:var(--muted);font-size:.97rem}.card .n{font:300 2.4rem Jost,sans-serif;color:var(--gold)}
+.card p{color:var(--muted);font-size:1rem}.card .n{font:300 2.4rem Jost,sans-serif;color:var(--gold)}
 .icon{width:38px;height:38px;border-radius:12px;border:1px solid var(--line2);display:grid;place-items:center;color:var(--gold)}
 .band{background:var(--bg2);border-block:1px solid var(--line)}
 .contact .wrap{display:grid;grid-template-columns:1.2fr .8fr;gap:40px;align-items:end}
@@ -454,9 +454,9 @@ _IC = {"home": "M3 11l9-7 9 7v9h-6v-6H9v6H3z", "grid": "M4 4h7v7H4zM13 4h7v7h-7z
        "music": "M9 18V5l11-2v13M9 18a3 3 0 1 1-6 0 3 3 0 0 1 6 0zM20 16a3 3 0 1 1-6 0 3 3 0 0 1 6 0z",
        "dots": "M5 5h2v2H5zM11 5h2v2h-2zM17 5h2v2h-2zM5 11h2v2H5zM11 11h2v2h-2zM17 11h2v2h-2zM5 17h2v2H5zM11 17h2v2h-2zM17 17h2v2h-2z"}
 DEMO = f"""<section class="demo-sec" id="demo-sekcija" data-shape="dust"><div class="wrap">
-<div class="head"><div><span class="label">Isprobajte</span><h2 style="margin-top:14px">Upravljajte kućom <em>s mobitela</em></h2></div>
+<div class="head"><div><span class="label">Isprobajte</span><h2 style="margin-top:14px">Upravljajte kućom s mobitela</h2></div>
 <p>Vizualizacija kuće i aplikacija kakvu dobiju naši klijenti. Upalite svjetlo, spustite rolete ili odaberite scenu i pogledajte što se događa na kući. Možete kliknuti i prozor na slici. Demo radi samo u vašem pregledniku.</p></div>
-<div class="dan-wrap"><div class="dan-h"><b>Jedan dan u kući</b><button class="dan-play" data-dan-play aria-pressed="false">▶ Pusti cijeli dan</button></div>
+<div class="dan-wrap"><div class="dan-h"><div><b>Jedan dan u kući</b><small class="dan-hint">Počnite ovdje: odaberite doba dana ili pustite cijeli dan.</small></div><button class="dan-play" data-dan-play aria-pressed="false">▶ Pusti cijeli dan</button></div>
 <div class="dan-row" role="group" aria-label="Jedan dan u kući, odaberite doba dana">
 <button data-dan="0"><time>07:00</time><b>Buđenje</b><small>Rolete se dižu.</small></button>
 <button data-dan="1"><time>08:15</time><b>Odlazak</b><small>Sve se gasi, alarm se uključuje.</small></button>
@@ -490,7 +490,7 @@ def page(theme, name, ghost=False, particles=False, dark_band=False):
 <span class="label">Zagreb i okolica</span>
 <h1 style="margin-top:18px">Pametna kuća koja radi <em>i kad internet ne radi.</em></h1>
 <p class="lead">Projektiramo i ugrađujemo pametne instalacije, video nadzor i portafone za stambene zgrade, kuće i poslovne prostore. Sustav radi u vašem objektu, bez mjesečne pretplate.</p>
-<div class="row"><a class="btn gold" href="#kontakt">Dogovorite besplatan dolazak</a><a class="btn" href="#">Za investitore</a></div>
+<div class="row"><a class="btn gold" href="kontakt.html#upit">Dogovorite besplatan dolazak</a><a class="btn" href="#">Za investitore</a></div>
 <div class="facts"><div><b>2 god.</b><small>jamstvo</small></div><div><b>0 €</b><small>pretplate</small></div><div><b>1 ekipa</b><small>ugradnja i održavanje</small></div></div>
 </div>{APP}</div></div>
 <section><div class="wrap"><span class="label">Zašto lokalno</span>
@@ -508,7 +508,7 @@ def page(theme, name, ghost=False, particles=False, dark_band=False):
 <div class="card"><span class="n">03</span><h3>Ugradnja</h3><p>Ugradimo, povežemo i podesimo sustav.</p></div>
 <div class="card"><span class="n">04</span><h3>Predaja i podrška</h3><p>Pokažemo kako se koristi i predamo dokumentaciju i pristup. Sustav je vaš.</p></div>
 </div></div></section>
-<section class="contact" id="kontakt"><div class="wrap"><div><span class="label">Kontakt</span><h2 style="margin-top:14px">Recite nam <em>što planirate</em></h2><a class="phone" href="tel:+38598802490">+385 98 802 490</a></div>
+<section class="contact" id="kontakt"><div class="wrap"><div><span class="label">Kontakt</span><h2 style="margin-top:14px">Recite nam što planirate</h2><a class="phone" href="tel:+38598802490">+385 98 802 490</a></div>
 <div class="row" style="display:flex;gap:12px;flex-wrap:wrap"><a class="btn gold" href="tel:+38598802490">Nazovite</a><a class="btn" href="#">Pošaljite upit</a><a class="btn" href="kontakt.html#prikaz">Dogovorite prikaz sustava</a></div><p class="prikaz-note">Prije odluke možemo vam pokazati kako sustav radi, na tabletu na sastanku ili kratkim videopozivom.</p></div></section>
 </main>
 <footer><div class="wrap">© 2026 Fiel d.o.o. · Rušiščak 5b, Zagreb{'<div class="big" aria-hidden="true">FIEL</div>' if ghost else ''}</div></footer>
@@ -536,16 +536,16 @@ def page3():
     html = html.replace('<section><div class="wrap"><span class="label">Zašto lokalno</span>','<section data-shape="dust"><div class="wrap"><span class="label">Zašto lokalno</span>')
     html = html.replace('class="manifest "','class="manifest reveal"')
     html = html.replace('<div class="card">','<div class="card up">')
-    sol = """<section class="sol" data-shape="lamp" data-x="-2.6"><div class="wrap"><div><span class="label">Rješenja</span><h2 style="margin-top:14px">Jedan sustav <em>za cijeli objekt</em></h2>
+    sol = """<section class="sol" data-shape="lamp" data-x="-2.6"><div class="wrap"><div><span class="label">Rješenja</span><h2 style="margin-top:14px">Jedan sustav za cijeli objekt</h2>
 <p style="color:var(--muted);margin-top:16px;max-width:28em">Prijeđite mišem ili dodirnite karticu.</p></div>
 <div class="mslot" aria-hidden="true"></div>
 <div class="sol-list">
-<button data-s="lamp" class="act"><b>Rasvjeta</b><span>Noću se u hodniku pali prigušeno svjetlo, a kad izađete, sve se gasi.</span></button>
-<button data-s="heat"><b>Grijanje i hlađenje</b><span>Toplo je kad stignete, a prazna kuća se ne grije.</span></button>
-<button data-s="blind"><b>Rolete</b><span>Ljeti ne griju sobu, a ujutro se dižu same.</span></button>
-<button data-s="door"><b>Alarm i brave</b><span>Na izlazu jedan dodir: vrata zaključana, alarm uključen.</span></button>
-<button data-s="cam"><b>Kamere i portafon</b><span>Znate tko je pred vratima, i kad niste kod kuće.</span></button>
-<button data-s="villa"><b>Cijela kuća</b><span>Sve na jednom zaslonu i mobitelu, i kad internet ne radi.</span></button>
+<button data-s="lamp" class="act"><b>Rasvjeta</b><span>Noću se u hodniku pali prigušeno svjetlo, a kad izađete, sve se gasi.</span><a class="sol-more" href="pametna-kuca.html#rasvjeta">Više o tome ↗</a></button>
+<button data-s="heat"><b>Grijanje i hlađenje</b><span>Toplo je kad stignete, a prazna kuća se ne grije.</span><a class="sol-more" href="pametna-kuca.html#grijanje">Više o tome ↗</a></button>
+<button data-s="blind"><b>Rolete</b><span>Ljeti ne griju sobu, a ujutro se dižu same.</span><a class="sol-more" href="pametna-kuca.html#rolete">Više o tome ↗</a></button>
+<button data-s="door"><b>Alarm i brave</b><span>Na izlazu jedan dodir: vrata zaključana, alarm uključen.</span><a class="sol-more" href="pametna-kuca.html#alarm">Više o tome ↗</a></button>
+<button data-s="cam"><b>Kamere i portafon</b><span>Znate tko je pred vratima, i kad niste kod kuće.</span><a class="sol-more" href="video-nadzor-i-portafoni.html">Više o tome ↗</a></button>
+<button data-s="villa"><b>Cijela kuća</b><span>Sve na jednom zaslonu i mobitelu, i kad internet ne radi.</span><a class="sol-more" href="pametna-kuca.html">Više o tome ↗</a></button>
 </div></div></section>"""
     html = html.replace('<section class="band">', sol + '\n<section class="band" data-shape="villa" data-x="2.6">')
     html = html.replace('<section class="band" data-shape="villa" data-x="2.6"><div class="wrap"><span class="label">Kako radimo</span><h2 style="margin-top:14px">Od prvog razgovora <em>do predaje</em></h2>','<section class="band" data-shape="villa" data-x="2.6"><div class="wrap"><span class="label">Kako radimo</span><h2 style="margin-top:14px">Od prvog razgovora <em>do predaje</em></h2><div class="mslot band-slot" aria-hidden="true"></div>',1)

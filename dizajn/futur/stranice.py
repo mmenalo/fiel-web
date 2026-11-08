@@ -29,6 +29,7 @@ def phone(src, alt, cap):
 
 
 GALLERY = """<section class="gal" data-shape="dust"><div class="wrap"><div class="head"><span class="label">Stvarni zaslon</span><h2>Ovako izgleda <em>zidni zaslon</em> u kući</h2><p>Snimke zaslona iz kuće koju smo opremili. Imena ukućana i slike s kamera su skriveni.</p></div></div>
+<div class="gal-ctl"><button class="gal-ar" data-gal="-1" aria-label="Prethodna snimka">‹</button><button class="gal-ar" data-gal="1" aria-label="Sljedeća snimka">›</button><span class="gal-hint">Kliknite snimku za povećanje</span></div>
 <div class="gal-row" tabindex="0" aria-label="Snimke zaslona, pomaknite vodoravno">""" + "".join(
     fig(s, a, c, "dash slide") for s, a, c in [
         ("tab-rasvjeta.jpg", "Zaslon rasvjete po prostorijama", "Rasvjeta po katovima i scene"),
@@ -36,7 +37,7 @@ GALLERY = """<section class="gal" data-shape="dust"><div class="wrap"><div class
         ("tab-zaluzine.jpg", "Zaslon žaluzina", "Žaluzine i lamele"),
         ("tab-navodnjavanje.jpg", "Zaslon navodnjavanja", "Navodnjavanje po zonama"),
         ("tab-tv.jpg", "Zaslon TV daljinskog", "TV i glazba s istog zaslona"),
-    ]) + "</div></section>"
+    ]) + "</div><div class=\"gal-lb\" hidden><button class=\"gal-x\" aria-label=\"Zatvori\">×</button><img alt=\"\"><figcaption></figcaption></div></section>"
 
 CONTACT = """<section class="upit" id="kontakt" data-shape="villa" data-x="2.9" data-mshape="dust">
   <div class="wrap upit-grid">
@@ -46,7 +47,7 @@ CONTACT = """<section class="upit" id="kontakt" data-shape="villa" data-x="2.9" 
       <p style="margin-top:16px">Nazovite ili pošaljite upit. Dogovorit ćemo besplatan dolazak na lokaciju, bez obveze.</p>
       <a class="phone" href="tel:+38598802490">+385 98 802 490</a>
     </div>
-    <form class="form" novalidate>
+    <form class="form" id="upit" novalidate>
       <div class="row">
         <label for="k-ime">Ime i prezime<input id="k-ime" name="ime" autocomplete="name" required></label>
         <label for="k-kontakt">Telefon ili e-mail<input id="k-kontakt" name="kontakt" required></label>
@@ -144,11 +145,12 @@ CSS = """
 .dash.wide{margin:40px auto 0;max-width:1140px;padding:0 20px}
 .dphone{margin:0;display:grid;gap:10px;justify-items:center}.pframe{width:min(300px,80vw);border-radius:42px;padding:10px;background:#05070d;border:1px solid rgba(190,205,228,.2);box-shadow:0 40px 100px -40px rgba(0,0,0,.9),0 0 70px -25px rgba(124,92,255,.5)}
 .pframe img{display:block;width:100%;border-radius:32px}
-.gal{padding-bottom:40px!important}.gal-row{display:flex;gap:20px;overflow-x:auto;scroll-snap-type:x mandatory;padding:10px max(20px,calc((100vw - 1180px)/2)) 30px;scrollbar-width:thin}
+.gal{padding-bottom:40px!important}.gal-ctl{display:flex;align-items:center;gap:8px;max-width:1180px;margin:0 auto;padding:0 20px}.gal-ar{width:42px;height:42px;border-radius:50%;border:1px solid var(--line2);background:rgba(17,29,48,.8);color:var(--ink);font-size:1.5rem;line-height:1;cursor:pointer}.gal-ar:hover{border-color:#f3c66b}.gal-hint{color:var(--muted);font-size:.9rem;margin-left:8px}.gal .slide .glass{cursor:zoom-in}.gal-lb{position:fixed;inset:0;z-index:90;background:rgba(5,9,16,.94);display:grid;place-items:center;padding:24px;gap:10px;grid-template-rows:1fr auto}.gal-lb[hidden]{display:none}.gal-lb img{max-width:min(1400px,96vw);max-height:84vh;border-radius:14px;box-shadow:0 40px 100px -30px #000}.gal-lb figcaption{color:var(--muted);font:500 .8rem 'IBM Plex Mono',monospace;letter-spacing:.1em;text-transform:uppercase}.gal-x{position:absolute;top:14px;right:18px;width:44px;height:44px;border-radius:50%;border:1px solid var(--line2);background:rgba(17,29,48,.8);color:var(--ink);font-size:1.6rem;cursor:pointer}.gal-row{display:flex;gap:20px;overflow-x:auto;scroll-snap-type:x mandatory;padding:10px max(20px,calc((100vw - 1180px)/2)) 30px;scrollbar-width:thin}
 .gal-row .slide{flex:0 0 min(720px,86vw);scroll-snap-align:center}
 .dplan{margin:0}.dplan svg{width:100%;height:auto;background:rgba(14,24,40,.6);border:1px solid var(--line);border-radius:20px;padding:10px}
 .legal .wrap{max-width:820px}.legal h2{font-size:1.4rem;margin:28px 0 8px}.legal p,.legal li{color:var(--muted)}
 .top nav a[aria-current]{color:#f3c66b}
+.sub .lined>div[id]{scroll-margin-top:110px}
 .sub .lined.scen ul{margin:0;padding-left:18px;display:grid;gap:8px;color:var(--muted);font-size:.97rem}.sub .scen li b{color:#f3c66b;font-weight:600}
 [data-tema=svijetla] .fx .scen li b,[data-tema=mjesano] .fx .lt .scen li b{color:#a87a22}
 .info.one{grid-template-columns:1fr}.info p{color:var(--muted);margin:0;font-size:.97rem}.info p a{color:#f3c66b}
@@ -159,6 +161,9 @@ CSS = """
 FORM_JS = """<script>[].forEach.call(document.querySelectorAll('form.form'),function(f){f.addEventListener('submit',function(e){e.preventDefault();var s=f.querySelector('.sent');if(s)s.hidden=false;});});
 (function(){var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:.12});[].forEach.call(document.querySelectorAll('.up'),function(el){io.observe(el);});
 var t=document.querySelector('.top');addEventListener('scroll',function(){t.classList.toggle('scrolled',scrollY>10);},{passive:true});
+var gr=document.querySelector('.gal-row');if(gr){[].forEach.call(document.querySelectorAll('[data-gal]'),function(b){b.addEventListener('click',function(){var sl=gr.querySelector('.slide');gr.scrollBy({left:(+b.dataset.gal)*(sl?sl.offsetWidth+20:600),behavior:'smooth'});});});
+ var lb=document.querySelector('.gal-lb');gr.addEventListener('click',function(e){var f=e.target.closest('.slide');if(!f||!lb)return;lb.querySelector('img').src=f.querySelector('img').src;lb.querySelector('img').alt=f.querySelector('img').alt;lb.querySelector('figcaption').textContent=f.querySelector('figcaption').textContent;lb.hidden=false;lb.querySelector('.gal-x').focus();});
+ if(lb){lb.addEventListener('click',function(e){if(e.target===lb||e.target.closest('.gal-x'))lb.hidden=true;});addEventListener('keydown',function(e){if(e.key==='Escape')lb.hidden=true;});}}
 var s=document.getElementById('sat');function tick(){if(s)s.textContent=new Date().toLocaleTimeString('hr-HR');}tick();setInterval(tick,1000);})();</script>"""
 
 
@@ -189,7 +194,7 @@ def convert(slug, body, P):
     # zadnju riječ ili dvije naslova u zlatni kurziv
     w = title.split(" ")
     if len(w) > 3:
-        k = 2 if len(w) > 5 else 1
+        k = 1
         title = " ".join(w[:-k]) + " <em>" + " ".join(w[-k:]) + "</em>"
     hero = (f'<div class="pgh" data-shape="{P["shape"]}" data-x="{P["x"]}" data-mshape="dust"><div class="glow-beam" aria-hidden="true"></div><div class="wrap"><div>'
             f'<span class="label">{label.group(1) if label else ""}</span><h1>{title}</h1>'
@@ -202,7 +207,7 @@ def convert(slug, body, P):
     rest = re.sub(r'<figure class="photo">.*?</figure>', '', rest, flags=re.S)
     rest = rest.replace('class="btn btn-solid"', 'class="btn gold"').replace('<section class="contact" id="kontakt">', '<section class="upit" id="kontakt" data-shape="villa" data-x="2.9" data-mshape="dust">')
     rest = rest.replace('class="wrap contact-grid"', 'class="wrap upit-grid"')
-    rest = rest.replace('<form class="form" novalidate>', '<form class="form up" novalidate>')
+    rest = rest.replace('<form class="form" novalidate>', '<form class="form up" id="upit" novalidate>')
     rest = rest.replace('<button class="btn" type="submit">', '<button class="btn gold" type="submit">')
     # oblici po sekcijama
     shapes = iter(P["shapes"] * 4)

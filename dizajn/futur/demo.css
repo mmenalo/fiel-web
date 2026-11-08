@@ -298,3 +298,10 @@
 @media (max-width:960px){.dan-row{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:6px;scrollbar-width:thin}.dan-row button{flex:0 0 min(170px,44vw);scroll-snap-align:start}}
 @media (max-width:560px){.dan-wrap{margin-top:18px}.dan-row small{display:none}.dan-row button{flex-basis:118px;padding:10px 12px}}
 .prikaz-note{color:var(--muted);font-size:.95rem;margin:4px 0 0;max-width:34em}
+.dan-h>div{display:grid;gap:2px}.dan-hint{color:var(--muted);font-size:.9rem}
+.demo-sec:not(.dirao) .dan-play{animation:danPulse 1.8s ease-in-out infinite}
+@keyframes danPulse{0%,100%{box-shadow:0 0 0 0 rgba(217,173,82,.55)}50%{box-shadow:0 0 0 10px rgba(217,173,82,0)}}
+@media (prefers-reduced-motion:reduce){.demo-sec:not(.dirao) .dan-play{animation:none}}
+.dm-toast{position:absolute;left:50%;bottom:16px;transform:translate(-50%,12px);width:min(92%,520px);z-index:9;background:rgba(7,13,23,.92);border:1px solid rgba(217,173,82,.55);color:#e9eef5;border-radius:14px;padding:10px 14px;font:400 .95rem/1.4 "Source Sans 3",sans-serif;opacity:0;pointer-events:none;transition:opacity .3s,transform .3s;box-shadow:0 14px 30px -12px rgba(0,0,0,.8)}
+.dm-toast.on{opacity:1;transform:translate(-50%,0)}
+@media (max-width:560px){.dm-toast{bottom:8px;font-size:.82rem;padding:7px 10px}.dan-hint{font-size:.82rem}}

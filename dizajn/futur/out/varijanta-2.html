@@ -3,9 +3,9 @@
 <link href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,300;0,400;0,500;1,500&family=Source+Sans+3:wght@400;600&family=IBM+Plex+Mono:wght@500&family=Orbitron:wght@500&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box}html{scroll-behavior:smooth}
-body{margin:0;font:400 17px/1.6 "Source Sans 3",system-ui,sans-serif;background:var(--bg);color:var(--text)}
+body{margin:0;font:400 18px/1.6 "Source Sans 3",system-ui,sans-serif;background:var(--bg);color:var(--text)}
 :root{--gold:#d9ad52;--gold2:#f3c66b}
-.dark{--bg:#080f1a;--bg2:#0e1828;--card:#111d30;--text:#e9eef5;--muted:rgba(233,238,245,.62);--line:rgba(190,205,228,.12);--line2:rgba(190,205,228,.22);--ink:#f4f6fa}
+.dark{--bg:#080f1a;--bg2:#0e1828;--card:#111d30;--text:#e9eef5;--muted:rgba(233,238,245,.78);--line:rgba(190,205,228,.12);--line2:rgba(190,205,228,.22);--ink:#f4f6fa}
 .light{--bg:#fbfbfa;--bg2:#eef1f5;--card:#fff;--text:#33404f;--muted:#64717f;--line:#d9dfe7;--line2:#c3ccd8;--ink:#1f3550}
 h1,h2,h3{font-family:Jost,system-ui,sans-serif;color:var(--ink);margin:0;font-weight:300;letter-spacing:-.025em;text-wrap:balance}
 h1{font-size:clamp(2.4rem,6vw,4.6rem);line-height:1.02}h2{font-size:clamp(1.7rem,3.6vw,2.7rem);line-height:1.1}h3{font-weight:500;font-size:1.12rem;letter-spacing:0}
@@ -21,7 +21,7 @@ p{margin:0}a{color:inherit}
 .btn.gold{background:var(--gold);border-color:var(--gold);color:#0b1220;box-shadow:0 12px 40px -14px rgba(217,173,82,.75)}
 .hero{position:relative;padding:72px 0 88px;overflow:hidden}
 .hero .wrap{display:grid;grid-template-columns:1fr 1.05fr;gap:56px;align-items:center;position:relative;z-index:2}
-.hero p.lead{color:var(--muted);font-size:1.12rem;max-width:32em;margin-top:22px}
+.hero p.lead{color:var(--text);font-size:1.15rem;max-width:32em;margin-top:22px}
 .hero .row{display:flex;gap:12px;flex-wrap:wrap;margin-top:30px}
 .facts{display:grid;grid-template-columns:repeat(3,auto);gap:28px;margin-top:44px;justify-content:start}
 .facts b{display:block;font:400 1.35rem Jost,sans-serif;color:var(--ink)}.facts small{color:var(--muted);font-size:.85rem}
@@ -50,7 +50,7 @@ section{padding:96px 0;position:relative}
 .reveal span{opacity:.18;transition:opacity .35s}.reveal span.lit{opacity:1}
 .grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:44px}
 .card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:26px;display:grid;gap:10px;align-content:start}
-.card p{color:var(--muted);font-size:.97rem}.card .n{font:300 2.4rem Jost,sans-serif;color:var(--gold)}
+.card p{color:var(--muted);font-size:1rem}.card .n{font:300 2.4rem Jost,sans-serif;color:var(--gold)}
 .icon{width:38px;height:38px;border-radius:12px;border:1px solid var(--line2);display:grid;place-items:center;color:var(--gold)}
 .band{background:var(--bg2);border-block:1px solid var(--line)}
 .contact .wrap{display:grid;grid-template-columns:1.2fr .8fr;gap:40px;align-items:end}
@@ -73,7 +73,7 @@ footer .big{font:500 clamp(6rem,22vw,16rem)/0.8 Jost,sans-serif;letter-spacing:.
 <span class="label">Zagreb i okolica</span>
 <h1 style="margin-top:18px">Pametna kuća koja radi <em>i kad internet ne radi.</em></h1>
 <p class="lead">Projektiramo i ugrađujemo pametne instalacije, video nadzor i portafone za stambene zgrade, kuće i poslovne prostore. Sustav radi u vašem objektu, bez mjesečne pretplate.</p>
-<div class="row"><a class="btn gold" href="#kontakt">Dogovorite besplatan dolazak</a><a class="btn" href="#">Za investitore</a></div>
+<div class="row"><a class="btn gold" href="kontakt.html#upit">Dogovorite besplatan dolazak</a><a class="btn" href="#">Za investitore</a></div>
 <div class="facts"><div><b>2 god.</b><small>jamstvo</small></div><div><b>0 €</b><small>pretplate</small></div><div><b>1 ekipa</b><small>ugradnja i održavanje</small></div></div>
 </div><div class="app" id="app">
   <div class="app-top"><div><b id="pozdrav">Dobra večer</b><small id="brojac">3 od 6 prostorija upaljeno</small></div><span class="pill">21,5 °C</span></div>
@@ -99,7 +99,7 @@ footer .big{font:500 clamp(6rem,22vw,16rem)/0.8 Jost,sans-serif;letter-spacing:.
 <div class="card"><span class="n">03</span><h3>Ugradnja</h3><p>Ugradimo, povežemo i podesimo sustav.</p></div>
 <div class="card"><span class="n">04</span><h3>Predaja i podrška</h3><p>Pokažemo kako se koristi i predamo dokumentaciju i pristup. Sustav je vaš.</p></div>
 </div></div></section>
-<section class="contact" id="kontakt"><div class="wrap"><div><span class="label">Kontakt</span><h2 style="margin-top:14px">Recite nam <em>što planirate</em></h2><a class="phone" href="tel:+38598802490">+385 98 802 490</a></div>
+<section class="contact" id="kontakt"><div class="wrap"><div><span class="label">Kontakt</span><h2 style="margin-top:14px">Recite nam što planirate</h2><a class="phone" href="tel:+38598802490">+385 98 802 490</a></div>
 <div class="row" style="display:flex;gap:12px;flex-wrap:wrap"><a class="btn gold" href="tel:+38598802490">Nazovite</a><a class="btn" href="#">Pošaljite upit</a><a class="btn" href="kontakt.html#prikaz">Dogovorite prikaz sustava</a></div><p class="prikaz-note">Prije odluke možemo vam pokazati kako sustav radi, na tabletu na sastanku ili kratkim videopozivom.</p></div></section>
 </main>
 <footer><div class="wrap">© 2026 Fiel d.o.o. · Rušiščak 5b, Zagreb</div></footer>

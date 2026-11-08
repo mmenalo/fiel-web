@@ -62,9 +62,14 @@ function applyScene(k,quiet){scene=k;if(k==='noc'||k==='van'){PL.light=false;PL.
  set('sun.sun',sun);
  LIGHTS.forEach(function(l){var v=L[l[0]];if(v==null){light(l[0],false);return;}var p=v.length?v[0]:v,rgb=v.length?v[1]:null;light(l[0],true,p,rgb);});
  for(var id in C)moveCover(id,C[id]);
- if(!quiet)push();
+ if(!quiet){push();toast(TOAST[k]);}
 }
 
+var TOAST={dan:'Dan: sve rolete se dižu.',vecer:'Večer: upaljena rasvjeta u prizemlju i hodniku, rolete u spavaćim sobama spuštene.',
+ film:'Film: ostala svjetla se gase, TV traka svijetli prigušeno, rolete u dnevnom boravku i kuhinji se spuštaju.',noc:'Laku noć: sva svjetla ugašena, sve rolete dolje, alarm u noćnom načinu.',
+ van:'Odlazak: svjetla ugašena, rolete dolje, alarm uključen.',tv:'TV: dnevni boravak prigušen na 25 %, TV traka upaljena.',rom:'Romantika: prigušena topla rasvjeta u dnevnom boravku.',max:'Maks: sva svjetla na 100 %.'};
+var toastT=0;function toast(t){if(!t||!host)return;var r=host.getBoundingClientRect();if(r.bottom<0||r.top>innerHeight)return;var el=host.querySelector('.dm-toast');if(!el){el=document.createElement('div');el.className='dm-toast';el.setAttribute('role','status');host.appendChild(el);}
+ el.textContent=t;el.classList.add('on');clearTimeout(toastT);toastT=setTimeout(function(){el.classList.remove('on');},4200);}
 /* ---------- veza s 3D kućom ---------- */
 function callService(domain,service,data){
  [].concat(data.entity_id||[]).forEach(function(id){
@@ -138,7 +143,7 @@ V.climate=function(){return head('Klima i grijanje',heat?'Grijanje radi po raspo
  '<div class="ph-lbl">Termostati</div><div class="ph-thg">'+Object.keys(TN).map(function(k){var w=heat&&CUR[k]<TGT[k]-.1;return '<div class="ph-tc'+(w?' warm':'')+'"><small>'+TN[k]+'</small><b>'+fmt(CUR[k])+'°</b><div class="ph-pm"><button data-tgt="'+k+'" data-d="-0.5" aria-label="Snizi">−</button><span>'+fmt(TGT[k])+'°</span><button data-tgt="'+k+'" data-d="0.5" aria-label="Povisi">+</button></div></div>';}).join('')+'</div>';};
 var KAM=[['ulaz','Ulaz',[905,418]],['prilaz','Prilaz',[372,338]],['bazen','Bazen',[1040,522]],['vrt','Vrt iza kuće',[1032,226]]],CAMS=KAM.map(function(k){return k[1];});
 function feedImg(i,cls){var k=KAM[i];return '<img src="kam/'+k[0]+'-'+(sun==='above_horizon'?'d':'n')+'.jpg" alt="Kamera '+k[1]+', vizualizacija" class="kimg'+(cls?' '+cls:'')+'" loading="lazy">';}
-V.cams=function(){return head('Kamere i portafon',KAM.length+' kamere · '+CAMS[cam],1)+'<div class="ph-feed c'+cam+'">'+feedImg(cam)+'<span class="live">● UŽIVO</span><span class="demo">'+CAMS[cam]+'</span><span class="ts" id="ph-ts"></span></div>'+
+V.cams=function(){return head('Kamere i portafon',KAM.length+' kamere · '+CAMS[cam],1)+'<div class="ph-feed c'+cam+'">'+feedImg(cam)+'<span class="live">● SIMULACIJA</span><span class="demo">'+CAMS[cam]+'</span><span class="ts" id="ph-ts"></span></div>'+
  '<div class="ph-kg">'+KAM.map(function(c,i){return '<button data-cam="'+i+'" class="'+(cam===i?'on':'')+'">'+feedImg(i)+'<span>'+c[1]+'</span></button>';}).join('')+'</div>'+
  '<div class="ph-card wide"><div class="ph-row"><span class="ph-li big">'+I('phone')+'</span><span class="ph-ln"><b>Portafon · ulaz</b><small>'+(on('binary_sensor.vrata_ulaz')?'vrata otvorena':'nema poziva')+'</small></span><button class="ph-pill" data-act="opendoor">Otvori vrata</button></div></div>';};
 V.security=function(){var ow=openWins();return head('Sigurnost',ow.length?ow.length+' otvoreno':'Sve zatvoreno',1)+
@@ -265,7 +270,7 @@ TV.energija=function(){var w=watts(),lw=0;LIGHTS.forEach(function(l){if(on(l[0])
  return pophead('Potrošnja','bolt')+'<div class="tp-hz w"><div class="tp-card en">'+gauge(w,0,5500,w,'W')+'<small>ograničenje priključka 5,5 kW</small></div><div class="tp-card">'+[['Grijanje',heat?620:0],['Rasvjeta',lw],['Navodnjavanje',water>=0?90:0],['Klima',KL.filter(function(k){return k.mode!=='off';}).length*700],['Ostalo',140]].map(function(r){return '<div class="tt"><span>'+r[0]+'</span><b>'+r[1]+' W</b></div>';}).join('')+'</div></div>';};
 var TCAM=[0,1],CAMN=CAMS,robo=0,hold=false,rad='',mtab=0;
 var FC=[['Sub','sun',8,2],['Ned','cloud',8,2],['Pon','sun',11,2],['Uto','cloud',15,8],['Sri','sun',17,9]];
-function tcam(slot){var i=TCAM[slot];return '<div class="tc cam c'+slot+'">'+feedImg(i)+'<span class="live">● UŽIVO</span><span class="lbl">'+CAMN[i]+'</span><button class="ar l" data-tcam="'+slot+':-1" aria-label="Prethodna kamera">‹</button><button class="ar r" data-tcam="'+slot+':1" aria-label="Sljedeća kamera">›</button><span class="ts">'+new Date().toLocaleDateString('hr-HR')+' '+tclock()+'</span></div>';}
+function tcam(slot){var i=TCAM[slot];return '<div class="tc cam c'+slot+'">'+feedImg(i)+'<span class="live">● SIMULACIJA</span><span class="lbl">'+CAMN[i]+'</span><button class="ar l" data-tcam="'+slot+':-1" aria-label="Prethodna kamera">‹</button><button class="ar r" data-tcam="'+slot+':1" aria-label="Sljedeća kamera">›</button><span class="ts">'+new Date().toLocaleDateString('hr-HR')+' '+tclock()+'</span></div>';}
 function cvrow(id,name){var p=pos(id);return '<div class="cvr"><span class="ci">'+I('blind')+'</span><span class="cn">'+name+'<small>'+(p===0?'Zatvoreno':p===100?'Otvoreno':'Otvoreno · '+p+' %')+'</small></span><button data-cover="'+id+'" data-to="100" aria-label="Podigni">'+I('up')+'</button><button data-cover="'+id+'" data-to="stop" aria-label="Zaustavi">'+I('stop')+'</button><button data-cover="'+id+'" data-to="0" aria-label="Spusti">'+I('down')+'</button></div>';}
 TV.home=function(){var d=new Date(),w=watts(),ow=openWins(),lp=pct('light.dnevni'),lo=on('light.dnevni');
  return '<div class="tch">'+
@@ -384,7 +389,7 @@ function buildVila(){var h='<div class="vila"><div class="vl-st"><img src="vila/
  Object.keys(VR).forEach(function(k){var r=VR[k];h+='<button class="vl-h" data-vroom="'+k+'" style="left:'+((r.s[0]+r.s[2])/2/15.36)+'%;top:'+((r.s[1]+r.s[3])/2/10.24)+'%"><i></i><span>'+r.n+'</span></button>';});
  h+='</div><span class="vl-tag">Vizualizacija</span></div>';
  host.insertAdjacentHTML('afterbegin',h);
- host.insertAdjacentHTML('beforeend','<div class="vl-ctl"><button data-vmode="foto" class="on">Kuća</button><button data-vmode="3d">3D tlocrt</button><button data-vsun class="vsun">Dan</button><button data-vrt class="vrt on">Vrtna rasvjeta</button></div>');
+ host.insertAdjacentHTML('beforeend','<div class="vl-ctl"><button data-vmode="foto" class="on">Kuća</button><button data-vmode="3d">3D tlocrt</button><button data-vsun class="vsun">Dnevni prikaz</button><button data-vrt class="vrt on">Vrtna rasvjeta</button></div>');
  VS=host.querySelector('.vl-st');fitVila();addEventListener('resize',fitVila);
  host.addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;
   if(b.dataset.vroom){var r=VR[b.dataset.vroom],v=!r.l.some(on);r.l.forEach(function(id){light(id,v);});scene='';push();return;}
@@ -405,7 +410,7 @@ function vilaUpd(){if(!VS)return;if((sub==='pool')!==vfz)fitVila();
  SHL.forEach(function(q,i){var r=VR[q[0]],w=r.s[2]-r.s[0],h=r.s[3]-r.s[1],d=-q[4]*w/h*100,Yl=(100-pos(q[1]))*(1+d/100),xa=q[2],xb=q[3],f=function(x){return (Yl-d*x/100).toFixed(2)+'%';};
   VS.querySelector('.vl-r[data-i="'+i+'"]').style.clipPath='polygon('+xa+'% 0%,'+xb+'% 0%,'+xb+'% '+f(xb)+','+xa+'% '+f(xa)+')';});
  var cf=1-pos('cover.zavjesa_dnevni')/100,X=(cf*100).toFixed(2),cu=VS.querySelector('.vl-cur');cu.style.clipPath='polygon(0% 26.9%,'+X+'% '+(26.9*(1-cf)).toFixed(2)+'%,'+X+'% '+(100-25.7*cf).toFixed(2)+'%,0% 100%)';cu.classList.toggle('lit',VR.dnevni.l.some(on));
- var day=sun==='above_horizon';host.classList.toggle('vday',day);var sb=host.querySelector('[data-vsun]');if(sb)sb.textContent=day?'Noć':'Dan';
+ var day=sun==='above_horizon';host.classList.toggle('vday',day);var sb=host.querySelector('[data-vsun]');if(sb)sb.textContent=day?'Noćni prikaz':'Dnevni prikaz';
  VS.querySelector('.vl-vrt').style.opacity=vrt||day?0:1;VS.querySelector('.vl-bz.on').style.opacity=!day&&!vrt&&PL.light?1:0;VS.querySelector('.vl-bz.off').style.opacity=!day&&vrt&&!PL.light?1:0;
  host.classList.toggle('pcams',sub==='cams');[].forEach.call(VS.querySelectorAll('.vl-cam'),function(x){x.classList.toggle('on',+x.dataset.vcam===cam);});
  host.classList.toggle('pmass',PL.mass);host.classList.toggle('pfall',PL.fall);var pb=VS.querySelector('.vl-pool');pb.classList.toggle('on',PL.light&&!day);pb.querySelector('span').textContent='Bazen '+fmt(PL.t)+' °C';var vb=host.querySelector('[data-vrt]');if(vb)vb.classList.toggle('on',vrt);}
@@ -417,8 +422,8 @@ host.addEventListener('pointerover',function(e){if(e.target.closest&&e.target.cl
 /* ---------- jedan dan u kući ---------- */
 var DAN=[function(){applyScene('dan');go('home');},
  function(){applyScene('van');go('security');},
- function(){sun='above_horizon';set('sun.sun',sun);cam=0;go('cams');},
- function(){heat=true;go('climate');},
+ function(){sun='above_horizon';set('sun.sun',sun);cam=0;go('cams');toast('Kurir zvoni: slika s ulaza stiže na mobitel, a vrata mu otvarate jednim dodirom.');},
+ function(){heat=true;go('climate');toast('Krenuli ste kući: grijanje se uključuje, da bude toplo kad stignete.');},
  function(){applyScene('vecer');go('home');},
  function(){applyScene('noc');go('home');}];
 var danI=-1,danT=0,dPlay=document.querySelector('[data-dan-play]');
@@ -428,6 +433,7 @@ function danStop(){clearInterval(danT);danT=0;if(dPlay){dPlay.textContent='▶ P
 [].forEach.call(document.querySelectorAll('[data-dan]'),function(b){b.addEventListener('click',function(){danStop();danStep(+b.dataset.dan);});});
 if(dPlay)dPlay.addEventListener('click',function(){if(danT){danStop();return;}dPlay.textContent='❚❚ Zaustavi';dPlay.setAttribute('aria-pressed','true');danStep((danI+1)%DAN.length);danT=setInterval(function(){if(danI>=DAN.length-1){danStop();return;}danStep(danI+1);},3800);});
 
+(function(){var sec=document.getElementById('demo-sekcija');if(!sec)return;function off(){sec.classList.add('dirao');sec.removeEventListener('click',off,true);}sec.addEventListener('click',off,true);})();
 init();render();
 function dustNow(){if(window.fielTabDust)window.fielTabDust();}setTimeout(dustNow,60);setTimeout(dustNow,600);if(document.fonts&&document.fonts.ready)document.fonts.ready.then(dustNow);
 })();

@@ -3,9 +3,9 @@
 <link href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,300;0,400;0,500;1,500&family=Source+Sans+3:wght@400;600&family=IBM+Plex+Mono:wght@500&family=Orbitron:wght@500&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box}html{scroll-behavior:smooth}
-body{margin:0;font:400 17px/1.6 "Source Sans 3",system-ui,sans-serif;background:var(--bg);color:var(--text)}
+body{margin:0;font:400 18px/1.6 "Source Sans 3",system-ui,sans-serif;background:var(--bg);color:var(--text)}
 :root{--gold:#d9ad52;--gold2:#f3c66b}
-.dark{--bg:#080f1a;--bg2:#0e1828;--card:#111d30;--text:#e9eef5;--muted:rgba(233,238,245,.62);--line:rgba(190,205,228,.12);--line2:rgba(190,205,228,.22);--ink:#f4f6fa}
+.dark{--bg:#080f1a;--bg2:#0e1828;--card:#111d30;--text:#e9eef5;--muted:rgba(233,238,245,.78);--line:rgba(190,205,228,.12);--line2:rgba(190,205,228,.22);--ink:#f4f6fa}
 .light{--bg:#fbfbfa;--bg2:#eef1f5;--card:#fff;--text:#33404f;--muted:#64717f;--line:#d9dfe7;--line2:#c3ccd8;--ink:#1f3550}
 h1,h2,h3{font-family:Jost,system-ui,sans-serif;color:var(--ink);margin:0;font-weight:300;letter-spacing:-.025em;text-wrap:balance}
 h1{font-size:clamp(2.4rem,6vw,4.6rem);line-height:1.02}h2{font-size:clamp(1.7rem,3.6vw,2.7rem);line-height:1.1}h3{font-weight:500;font-size:1.12rem;letter-spacing:0}
@@ -21,7 +21,7 @@ p{margin:0}a{color:inherit}
 .btn.gold{background:var(--gold);border-color:var(--gold);color:#0b1220;box-shadow:0 12px 40px -14px rgba(217,173,82,.75)}
 .hero{position:relative;padding:72px 0 88px;overflow:hidden}
 .hero .wrap{display:grid;grid-template-columns:.82fr 1.18fr;gap:56px;align-items:center;position:relative;z-index:2}
-.hero p.lead{color:var(--muted);font-size:1.12rem;max-width:32em;margin-top:22px}
+.hero p.lead{color:var(--text);font-size:1.15rem;max-width:32em;margin-top:22px}
 .hero .row{display:flex;gap:12px;flex-wrap:wrap;margin-top:30px}
 .facts{display:grid;grid-template-columns:repeat(3,auto);gap:28px;margin-top:44px;justify-content:start}
 .facts b{display:block;font:400 1.35rem Jost,sans-serif;color:var(--ink)}.facts small{color:var(--muted);font-size:.85rem}
@@ -50,7 +50,7 @@ section{padding:96px 0;position:relative}
 .reveal span{opacity:.18;transition:opacity .35s}.reveal span.lit{opacity:1}
 .grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:44px}
 .card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:26px;display:grid;gap:10px;align-content:start}
-.card p{color:var(--muted);font-size:.97rem}.card .n{font:300 2.4rem Jost,sans-serif;color:var(--gold)}
+.card p{color:var(--muted);font-size:1rem}.card .n{font:300 2.4rem Jost,sans-serif;color:var(--gold)}
 .icon{width:38px;height:38px;border-radius:12px;border:1px solid var(--line2);display:grid;place-items:center;color:var(--gold)}
 .band{background:var(--bg2);border-block:1px solid var(--line)}
 .contact .wrap{display:grid;grid-template-columns:1.2fr .8fr;gap:40px;align-items:end}
@@ -364,6 +364,13 @@ footer .big{font:500 clamp(6rem,22vw,16rem)/0.8 Jost,sans-serif;letter-spacing:.
 @media (max-width:960px){.dan-row{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:6px;scrollbar-width:thin}.dan-row button{flex:0 0 min(170px,44vw);scroll-snap-align:start}}
 @media (max-width:560px){.dan-wrap{margin-top:18px}.dan-row small{display:none}.dan-row button{flex-basis:118px;padding:10px 12px}}
 .prikaz-note{color:var(--muted);font-size:.95rem;margin:4px 0 0;max-width:34em}
+.dan-h>div{display:grid;gap:2px}.dan-hint{color:var(--muted);font-size:.9rem}
+.demo-sec:not(.dirao) .dan-play{animation:danPulse 1.8s ease-in-out infinite}
+@keyframes danPulse{0%,100%{box-shadow:0 0 0 0 rgba(217,173,82,.55)}50%{box-shadow:0 0 0 10px rgba(217,173,82,0)}}
+@media (prefers-reduced-motion:reduce){.demo-sec:not(.dirao) .dan-play{animation:none}}
+.dm-toast{position:absolute;left:50%;bottom:16px;transform:translate(-50%,12px);width:min(92%,520px);z-index:9;background:rgba(7,13,23,.92);border:1px solid rgba(217,173,82,.55);color:#e9eef5;border-radius:14px;padding:10px 14px;font:400 .95rem/1.4 "Source Sans 3",sans-serif;opacity:0;pointer-events:none;transition:opacity .3s,transform .3s;box-shadow:0 14px 30px -12px rgba(0,0,0,.8)}
+.dm-toast.on{opacity:1;transform:translate(-50%,0)}
+@media (max-width:560px){.dm-toast{bottom:8px;font-size:.82rem;padding:7px 10px}.dan-hint{font-size:.82rem}}
 
 #fx{position:fixed;inset:0;width:100vw;height:100vh;z-index:0;pointer-events:none}
 .fx main,.fx footer,.fx .top{position:relative;z-index:1}.fx .top{position:sticky}
@@ -378,7 +385,7 @@ footer .big{font:500 clamp(6rem,22vw,16rem)/0.8 Jost,sans-serif;letter-spacing:.
 .sol-list{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .sol-list [data-s]{cursor:pointer;text-align:left;font:inherit;color:inherit;background:rgba(17,29,48,.6);border:1px solid var(--line);border-radius:18px;padding:22px;display:grid;gap:8px;transition:background .3s,border-color .3s,transform .3s}
 .sol-list [data-s].act{background:linear-gradient(160deg,rgba(217,173,82,.22),rgba(17,29,48,.7));border-color:rgba(217,173,82,.6);transform:translateY(-3px)}
-.sol-list b{font:500 1.1rem Jost,sans-serif;color:var(--ink)}.sol-list span{color:var(--muted);font-size:.95rem}
+.sol-list b{font:500 1.1rem Jost,sans-serif;color:var(--ink)}.sol-more{font:500 .85rem Jost,sans-serif;color:var(--gold);text-decoration:none;justify-self:start;opacity:0;transition:opacity .3s}.sol-list [data-s].act .sol-more,.sol-list [data-s]:focus-within .sol-more{opacity:1}@media (max-width:700px){.sol-more{opacity:1}}.sol-list span{color:var(--muted);font-size:.95rem}
 .clock{font:500 .8rem "IBM Plex Mono",monospace;color:var(--muted);letter-spacing:.08em}
 .glow-beam{position:absolute;width:900px;height:900px;left:-300px;top:-400px;background:radial-gradient(closest-side,rgba(66,92,122,.45),transparent);filter:blur(40px);pointer-events:none;z-index:0}
 @media (max-width:960px){.sol .wrap{grid-template-columns:1fr}.sol-list{grid-template-columns:1fr}}
@@ -401,13 +408,13 @@ document.addEventListener('DOMContentLoaded',function(){var d=document.createEle
 <span class="label">Zagreb i okolica</span>
 <h1 style="margin-top:18px">Pametna kuća koja radi <em>i kad internet ne radi.</em></h1>
 <p class="lead">Projektiramo i ugrađujemo pametne instalacije, video nadzor i portafone za stambene zgrade, kuće i poslovne prostore. Sustav radi u vašem objektu, bez mjesečne pretplate.</p>
-<div class="row"><a class="btn gold" href="#kontakt">Dogovorite besplatan dolazak</a><a class="btn" href="#demo">Isprobajte demo ↓</a></div>
+<div class="row"><a class="btn gold" href="kontakt.html#upit">Dogovorite besplatan dolazak</a><a class="btn" href="#demo">Isprobajte demo ↓</a></div>
 <div class="facts"><div><b>2 god.</b><small>jamstvo</small></div><div><b>0 €</b><small>pretplate</small></div><div><b>1 ekipa</b><small>ugradnja i održavanje</small></div></div>
 </div><div class="tab-col"><div class="tab-wrap" id="tabwrap"><div class="tab" id="tablet" aria-label="Demo zidnog zaslona"><div class="tb-in"><nav class="tb-nav"></nav><div class="tb-body"></div><div class="tb-pop" hidden></div></div></div></div><p class="tab-hint">Zidni zaslon u kući · sve se može kliknuti</p></div></div></div>
 <section class="demo-sec" id="demo-sekcija" data-shape="dust"><div class="wrap">
-<div class="head"><div><span class="label">Isprobajte</span><h2 style="margin-top:14px">Upravljajte kućom <em>s mobitela</em></h2></div>
+<div class="head"><div><span class="label">Isprobajte</span><h2 style="margin-top:14px">Upravljajte kućom s mobitela</h2></div>
 <p>Vizualizacija kuće i aplikacija kakvu dobiju naši klijenti. Upalite svjetlo, spustite rolete ili odaberite scenu i pogledajte što se događa na kući. Možete kliknuti i prozor na slici. Demo radi samo u vašem pregledniku.</p></div>
-<div class="dan-wrap"><div class="dan-h"><b>Jedan dan u kući</b><button class="dan-play" data-dan-play aria-pressed="false">▶ Pusti cijeli dan</button></div>
+<div class="dan-wrap"><div class="dan-h"><div><b>Jedan dan u kući</b><small class="dan-hint">Počnite ovdje: odaberite doba dana ili pustite cijeli dan.</small></div><button class="dan-play" data-dan-play aria-pressed="false">▶ Pusti cijeli dan</button></div>
 <div class="dan-row" role="group" aria-label="Jedan dan u kući, odaberite doba dana">
 <button data-dan="0"><time>07:00</time><b>Buđenje</b><small>Rolete se dižu.</small></button>
 <button data-dan="1"><time>08:15</time><b>Odlazak</b><small>Sve se gasi, alarm se uključuje.</small></button>
@@ -430,16 +437,16 @@ document.addEventListener('DOMContentLoaded',function(){var d=document.createEle
 <div class="card up"><div class="icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M8 12h8M12 8v8"/><circle cx="12" cy="12" r="9"/></svg></div><h3>Bez vezanosti</h3><p>Ako proizvođač ukine uređaj ili aplikaciju, mijenja se samo taj uređaj, a ne cijeli sustav.</p></div>
 <div class="card up"><div class="icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 11l9-7 9 7v9H3z"/><rect x="9" y="13" width="6" height="7"/></svg></div><h3>Podaci kod vas</h3><p>Snimke kamera i podaci spremaju se u objektu.</p></div>
 </div></div></section>
-<section class="sol" data-shape="lamp" data-x="-2.6"><div class="wrap"><div><span class="label">Rješenja</span><h2 style="margin-top:14px">Jedan sustav <em>za cijeli objekt</em></h2>
+<section class="sol" data-shape="lamp" data-x="-2.6"><div class="wrap"><div><span class="label">Rješenja</span><h2 style="margin-top:14px">Jedan sustav za cijeli objekt</h2>
 <p style="color:var(--muted);margin-top:16px;max-width:28em">Prijeđite mišem ili dodirnite karticu.</p></div>
 <div class="mslot" aria-hidden="true"></div>
 <div class="sol-list">
-<button data-s="lamp" class="act"><b>Rasvjeta</b><span>Noću se u hodniku pali prigušeno svjetlo, a kad izađete, sve se gasi.</span></button>
-<button data-s="heat"><b>Grijanje i hlađenje</b><span>Toplo je kad stignete, a prazna kuća se ne grije.</span></button>
-<button data-s="blind"><b>Rolete</b><span>Ljeti ne griju sobu, a ujutro se dižu same.</span></button>
-<button data-s="door"><b>Alarm i brave</b><span>Na izlazu jedan dodir: vrata zaključana, alarm uključen.</span></button>
-<button data-s="cam"><b>Kamere i portafon</b><span>Znate tko je pred vratima, i kad niste kod kuće.</span></button>
-<button data-s="villa"><b>Cijela kuća</b><span>Sve na jednom zaslonu i mobitelu, i kad internet ne radi.</span></button>
+<button data-s="lamp" class="act"><b>Rasvjeta</b><span>Noću se u hodniku pali prigušeno svjetlo, a kad izađete, sve se gasi.</span><a class="sol-more" href="pametna-kuca.html#rasvjeta">Više o tome ↗</a></button>
+<button data-s="heat"><b>Grijanje i hlađenje</b><span>Toplo je kad stignete, a prazna kuća se ne grije.</span><a class="sol-more" href="pametna-kuca.html#grijanje">Više o tome ↗</a></button>
+<button data-s="blind"><b>Rolete</b><span>Ljeti ne griju sobu, a ujutro se dižu same.</span><a class="sol-more" href="pametna-kuca.html#rolete">Više o tome ↗</a></button>
+<button data-s="door"><b>Alarm i brave</b><span>Na izlazu jedan dodir: vrata zaključana, alarm uključen.</span><a class="sol-more" href="pametna-kuca.html#alarm">Više o tome ↗</a></button>
+<button data-s="cam"><b>Kamere i portafon</b><span>Znate tko je pred vratima, i kad niste kod kuće.</span><a class="sol-more" href="video-nadzor-i-portafoni.html">Više o tome ↗</a></button>
+<button data-s="villa"><b>Cijela kuća</b><span>Sve na jednom zaslonu i mobitelu, i kad internet ne radi.</span><a class="sol-more" href="pametna-kuca.html">Više o tome ↗</a></button>
 </div></div></section>
 <section class="band" data-shape="villa" data-x="2.6"><div class="wrap"><span class="label">Kako radimo</span><h2 style="margin-top:14px">Od prvog razgovora <em>do predaje</em></h2><div class="mslot band-slot" aria-hidden="true"></div>
 <div class="grid4">
@@ -448,7 +455,7 @@ document.addEventListener('DOMContentLoaded',function(){var d=document.createEle
 <div class="card up"><span class="n">03</span><h3>Ugradnja</h3><p>Ugradimo, povežemo i podesimo sustav.</p></div>
 <div class="card up"><span class="n">04</span><h3>Predaja i podrška</h3><p>Pokažemo kako se koristi i predamo dokumentaciju i pristup. Sustav je vaš.</p></div>
 </div></div></section>
-<section class="contact" id="kontakt" data-shape="villa" data-x="2.9" data-mshape="dust"><div class="wrap"><div><span class="label">Kontakt</span><h2 style="margin-top:14px">Recite nam <em>što planirate</em></h2><a class="phone" href="tel:+38598802490">+385 98 802 490</a></div>
+<section class="contact" id="kontakt" data-shape="villa" data-x="2.9" data-mshape="dust"><div class="wrap"><div><span class="label">Kontakt</span><h2 style="margin-top:14px">Recite nam što planirate</h2><a class="phone" href="tel:+38598802490">+385 98 802 490</a></div>
 <div class="row" style="display:flex;gap:12px;flex-wrap:wrap"><a class="btn gold" href="tel:+38598802490">Nazovite</a><a class="btn" href="kontakt.html">Pošaljite upit</a><a class="btn" href="kontakt.html#prikaz">Dogovorite prikaz sustava</a></div><p class="prikaz-note">Prije odluke možemo vam pokazati kako sustav radi, na tabletu na sastanku ili kratkim videopozivom.</p></div></section>
 </main>
 <footer><div class="wrap">© 2026 Fiel d.o.o. · Rušiščak 5b, Zagreb · <span class="clock">ZAGREB, SADA <span id="sat"></span></span><div class="big" aria-hidden="true">FIEL</div></div></footer>
@@ -541,9 +548,14 @@ function applyScene(k,quiet){scene=k;if(k==='noc'||k==='van'){PL.light=false;PL.
  set('sun.sun',sun);
  LIGHTS.forEach(function(l){var v=L[l[0]];if(v==null){light(l[0],false);return;}var p=v.length?v[0]:v,rgb=v.length?v[1]:null;light(l[0],true,p,rgb);});
  for(var id in C)moveCover(id,C[id]);
- if(!quiet)push();
+ if(!quiet){push();toast(TOAST[k]);}
 }
 
+var TOAST={dan:'Dan: sve rolete se dižu.',vecer:'Večer: upaljena rasvjeta u prizemlju i hodniku, rolete u spavaćim sobama spuštene.',
+ film:'Film: ostala svjetla se gase, TV traka svijetli prigušeno, rolete u dnevnom boravku i kuhinji se spuštaju.',noc:'Laku noć: sva svjetla ugašena, sve rolete dolje, alarm u noćnom načinu.',
+ van:'Odlazak: svjetla ugašena, rolete dolje, alarm uključen.',tv:'TV: dnevni boravak prigušen na 25 %, TV traka upaljena.',rom:'Romantika: prigušena topla rasvjeta u dnevnom boravku.',max:'Maks: sva svjetla na 100 %.'};
+var toastT=0;function toast(t){if(!t||!host)return;var r=host.getBoundingClientRect();if(r.bottom<0||r.top>innerHeight)return;var el=host.querySelector('.dm-toast');if(!el){el=document.createElement('div');el.className='dm-toast';el.setAttribute('role','status');host.appendChild(el);}
+ el.textContent=t;el.classList.add('on');clearTimeout(toastT);toastT=setTimeout(function(){el.classList.remove('on');},4200);}
 /* ---------- veza s 3D kućom ---------- */
 function callService(domain,service,data){
  [].concat(data.entity_id||[]).forEach(function(id){
@@ -617,7 +629,7 @@ V.climate=function(){return head('Klima i grijanje',heat?'Grijanje radi po raspo
  '<div class="ph-lbl">Termostati</div><div class="ph-thg">'+Object.keys(TN).map(function(k){var w=heat&&CUR[k]<TGT[k]-.1;return '<div class="ph-tc'+(w?' warm':'')+'"><small>'+TN[k]+'</small><b>'+fmt(CUR[k])+'°</b><div class="ph-pm"><button data-tgt="'+k+'" data-d="-0.5" aria-label="Snizi">−</button><span>'+fmt(TGT[k])+'°</span><button data-tgt="'+k+'" data-d="0.5" aria-label="Povisi">+</button></div></div>';}).join('')+'</div>';};
 var KAM=[['ulaz','Ulaz',[905,418]],['prilaz','Prilaz',[372,338]],['bazen','Bazen',[1040,522]],['vrt','Vrt iza kuće',[1032,226]]],CAMS=KAM.map(function(k){return k[1];});
 function feedImg(i,cls){var k=KAM[i];return '<img src="kam/'+k[0]+'-'+(sun==='above_horizon'?'d':'n')+'.jpg" alt="Kamera '+k[1]+', vizualizacija" class="kimg'+(cls?' '+cls:'')+'" loading="lazy">';}
-V.cams=function(){return head('Kamere i portafon',KAM.length+' kamere · '+CAMS[cam],1)+'<div class="ph-feed c'+cam+'">'+feedImg(cam)+'<span class="live">● UŽIVO</span><span class="demo">'+CAMS[cam]+'</span><span class="ts" id="ph-ts"></span></div>'+
+V.cams=function(){return head('Kamere i portafon',KAM.length+' kamere · '+CAMS[cam],1)+'<div class="ph-feed c'+cam+'">'+feedImg(cam)+'<span class="live">● SIMULACIJA</span><span class="demo">'+CAMS[cam]+'</span><span class="ts" id="ph-ts"></span></div>'+
  '<div class="ph-kg">'+KAM.map(function(c,i){return '<button data-cam="'+i+'" class="'+(cam===i?'on':'')+'">'+feedImg(i)+'<span>'+c[1]+'</span></button>';}).join('')+'</div>'+
  '<div class="ph-card wide"><div class="ph-row"><span class="ph-li big">'+I('phone')+'</span><span class="ph-ln"><b>Portafon · ulaz</b><small>'+(on('binary_sensor.vrata_ulaz')?'vrata otvorena':'nema poziva')+'</small></span><button class="ph-pill" data-act="opendoor">Otvori vrata</button></div></div>';};
 V.security=function(){var ow=openWins();return head('Sigurnost',ow.length?ow.length+' otvoreno':'Sve zatvoreno',1)+
@@ -744,7 +756,7 @@ TV.energija=function(){var w=watts(),lw=0;LIGHTS.forEach(function(l){if(on(l[0])
  return pophead('Potrošnja','bolt')+'<div class="tp-hz w"><div class="tp-card en">'+gauge(w,0,5500,w,'W')+'<small>ograničenje priključka 5,5 kW</small></div><div class="tp-card">'+[['Grijanje',heat?620:0],['Rasvjeta',lw],['Navodnjavanje',water>=0?90:0],['Klima',KL.filter(function(k){return k.mode!=='off';}).length*700],['Ostalo',140]].map(function(r){return '<div class="tt"><span>'+r[0]+'</span><b>'+r[1]+' W</b></div>';}).join('')+'</div></div>';};
 var TCAM=[0,1],CAMN=CAMS,robo=0,hold=false,rad='',mtab=0;
 var FC=[['Sub','sun',8,2],['Ned','cloud',8,2],['Pon','sun',11,2],['Uto','cloud',15,8],['Sri','sun',17,9]];
-function tcam(slot){var i=TCAM[slot];return '<div class="tc cam c'+slot+'">'+feedImg(i)+'<span class="live">● UŽIVO</span><span class="lbl">'+CAMN[i]+'</span><button class="ar l" data-tcam="'+slot+':-1" aria-label="Prethodna kamera">‹</button><button class="ar r" data-tcam="'+slot+':1" aria-label="Sljedeća kamera">›</button><span class="ts">'+new Date().toLocaleDateString('hr-HR')+' '+tclock()+'</span></div>';}
+function tcam(slot){var i=TCAM[slot];return '<div class="tc cam c'+slot+'">'+feedImg(i)+'<span class="live">● SIMULACIJA</span><span class="lbl">'+CAMN[i]+'</span><button class="ar l" data-tcam="'+slot+':-1" aria-label="Prethodna kamera">‹</button><button class="ar r" data-tcam="'+slot+':1" aria-label="Sljedeća kamera">›</button><span class="ts">'+new Date().toLocaleDateString('hr-HR')+' '+tclock()+'</span></div>';}
 function cvrow(id,name){var p=pos(id);return '<div class="cvr"><span class="ci">'+I('blind')+'</span><span class="cn">'+name+'<small>'+(p===0?'Zatvoreno':p===100?'Otvoreno':'Otvoreno · '+p+' %')+'</small></span><button data-cover="'+id+'" data-to="100" aria-label="Podigni">'+I('up')+'</button><button data-cover="'+id+'" data-to="stop" aria-label="Zaustavi">'+I('stop')+'</button><button data-cover="'+id+'" data-to="0" aria-label="Spusti">'+I('down')+'</button></div>';}
 TV.home=function(){var d=new Date(),w=watts(),ow=openWins(),lp=pct('light.dnevni'),lo=on('light.dnevni');
  return '<div class="tch">'+
@@ -863,7 +875,7 @@ function buildVila(){var h='<div class="vila"><div class="vl-st"><img src="vila/
  Object.keys(VR).forEach(function(k){var r=VR[k];h+='<button class="vl-h" data-vroom="'+k+'" style="left:'+((r.s[0]+r.s[2])/2/15.36)+'%;top:'+((r.s[1]+r.s[3])/2/10.24)+'%"><i></i><span>'+r.n+'</span></button>';});
  h+='</div><span class="vl-tag">Vizualizacija</span></div>';
  host.insertAdjacentHTML('afterbegin',h);
- host.insertAdjacentHTML('beforeend','<div class="vl-ctl"><button data-vmode="foto" class="on">Kuća</button><button data-vmode="3d">3D tlocrt</button><button data-vsun class="vsun">Dan</button><button data-vrt class="vrt on">Vrtna rasvjeta</button></div>');
+ host.insertAdjacentHTML('beforeend','<div class="vl-ctl"><button data-vmode="foto" class="on">Kuća</button><button data-vmode="3d">3D tlocrt</button><button data-vsun class="vsun">Dnevni prikaz</button><button data-vrt class="vrt on">Vrtna rasvjeta</button></div>');
  VS=host.querySelector('.vl-st');fitVila();addEventListener('resize',fitVila);
  host.addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;
   if(b.dataset.vroom){var r=VR[b.dataset.vroom],v=!r.l.some(on);r.l.forEach(function(id){light(id,v);});scene='';push();return;}
@@ -884,7 +896,7 @@ function vilaUpd(){if(!VS)return;if((sub==='pool')!==vfz)fitVila();
  SHL.forEach(function(q,i){var r=VR[q[0]],w=r.s[2]-r.s[0],h=r.s[3]-r.s[1],d=-q[4]*w/h*100,Yl=(100-pos(q[1]))*(1+d/100),xa=q[2],xb=q[3],f=function(x){return (Yl-d*x/100).toFixed(2)+'%';};
   VS.querySelector('.vl-r[data-i="'+i+'"]').style.clipPath='polygon('+xa+'% 0%,'+xb+'% 0%,'+xb+'% '+f(xb)+','+xa+'% '+f(xa)+')';});
  var cf=1-pos('cover.zavjesa_dnevni')/100,X=(cf*100).toFixed(2),cu=VS.querySelector('.vl-cur');cu.style.clipPath='polygon(0% 26.9%,'+X+'% '+(26.9*(1-cf)).toFixed(2)+'%,'+X+'% '+(100-25.7*cf).toFixed(2)+'%,0% 100%)';cu.classList.toggle('lit',VR.dnevni.l.some(on));
- var day=sun==='above_horizon';host.classList.toggle('vday',day);var sb=host.querySelector('[data-vsun]');if(sb)sb.textContent=day?'Noć':'Dan';
+ var day=sun==='above_horizon';host.classList.toggle('vday',day);var sb=host.querySelector('[data-vsun]');if(sb)sb.textContent=day?'Noćni prikaz':'Dnevni prikaz';
  VS.querySelector('.vl-vrt').style.opacity=vrt||day?0:1;VS.querySelector('.vl-bz.on').style.opacity=!day&&!vrt&&PL.light?1:0;VS.querySelector('.vl-bz.off').style.opacity=!day&&vrt&&!PL.light?1:0;
  host.classList.toggle('pcams',sub==='cams');[].forEach.call(VS.querySelectorAll('.vl-cam'),function(x){x.classList.toggle('on',+x.dataset.vcam===cam);});
  host.classList.toggle('pmass',PL.mass);host.classList.toggle('pfall',PL.fall);var pb=VS.querySelector('.vl-pool');pb.classList.toggle('on',PL.light&&!day);pb.querySelector('span').textContent='Bazen '+fmt(PL.t)+' °C';var vb=host.querySelector('[data-vrt]');if(vb)vb.classList.toggle('on',vrt);}
@@ -896,8 +908,8 @@ host.addEventListener('pointerover',function(e){if(e.target.closest&&e.target.cl
 /* ---------- jedan dan u kući ---------- */
 var DAN=[function(){applyScene('dan');go('home');},
  function(){applyScene('van');go('security');},
- function(){sun='above_horizon';set('sun.sun',sun);cam=0;go('cams');},
- function(){heat=true;go('climate');},
+ function(){sun='above_horizon';set('sun.sun',sun);cam=0;go('cams');toast('Kurir zvoni: slika s ulaza stiže na mobitel, a vrata mu otvarate jednim dodirom.');},
+ function(){heat=true;go('climate');toast('Krenuli ste kući: grijanje se uključuje, da bude toplo kad stignete.');},
  function(){applyScene('vecer');go('home');},
  function(){applyScene('noc');go('home');}];
 var danI=-1,danT=0,dPlay=document.querySelector('[data-dan-play]');
@@ -907,6 +919,7 @@ function danStop(){clearInterval(danT);danT=0;if(dPlay){dPlay.textContent='▶ P
 [].forEach.call(document.querySelectorAll('[data-dan]'),function(b){b.addEventListener('click',function(){danStop();danStep(+b.dataset.dan);});});
 if(dPlay)dPlay.addEventListener('click',function(){if(danT){danStop();return;}dPlay.textContent='❚❚ Zaustavi';dPlay.setAttribute('aria-pressed','true');danStep((danI+1)%DAN.length);danT=setInterval(function(){if(danI>=DAN.length-1){danStop();return;}danStep(danI+1);},3800);});
 
+(function(){var sec=document.getElementById('demo-sekcija');if(!sec)return;function off(){sec.classList.add('dirao');sec.removeEventListener('click',off,true);}sec.addEventListener('click',off,true);})();
 init();render();
 function dustNow(){if(window.fielTabDust)window.fielTabDust();}setTimeout(dustNow,60);setTimeout(dustNow,600);if(document.fonts&&document.fonts.ready)document.fonts.ready.then(dustNow);
 })();
