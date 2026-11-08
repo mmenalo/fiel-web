@@ -1,6 +1,6 @@
 (function(){
 var root=document.getElementById('demo'); if(!root) return;
-var scr=root.querySelector('.ph-screen'), nav=root.querySelector('.ph-nav'), host=root.querySelector('.house');
+var scr=root.querySelector('.ph-screen'), nav=root.querySelector('.ph-nav'), host=document.querySelector('.house');
 var CFG=JSON.parse(document.getElementById('kuca3d-cfg').textContent);
 
 /* ---------- stanje (sve u pregledniku) ---------- */
@@ -48,7 +48,7 @@ function init(){
 }
 
 /* ---------- scene ---------- */
-function applyScene(k,quiet){scene=k;if(k==='noc'||k==='van'){PL.light=false;PL.mass=false;PL.fall=false;PL.sl=false;}if(k==='vecer'){PL.light=true;}if(typeof vrt!=='undefined'){vrt=!(k==='noc'||k==='van');}
+function applyScene(k,quiet){scene=k;[].forEach.call(document.querySelectorAll('[data-hscene]'),function(x){x.classList.toggle('on',x.dataset.hscene===k);});if(k==='noc'||k==='van'){PL.light=false;PL.mass=false;PL.fall=false;PL.sl=false;}if(k==='vecer'){PL.light=true;}if(typeof vrt!=='undefined'){vrt=!(k==='noc'||k==='van');}
  var L={},C={};
  if(k==='dan'){sun='above_horizon';COVERS.forEach(function(c){C[c[0]]=100;});}
  if(k==='vecer'){sun='below_horizon';L={'light.dnevni':70,'light.blagovaonica':80,'light.kuhinja':100,'light.holl':100,'light.hodnik':60,'light.traka_tv':40,'light.ana':50};C={'cover.toni':0,'cover.mz':0};}
@@ -359,7 +359,7 @@ if(TB){
  });
  TB.addEventListener('keydown',function(e){if(e.key==='Escape'&&tpop){tpop='';renderTab();}});
 }
-if(TB){var TW=document.getElementById('tabwrap');function fitTab(){TB.style.transform='scale('+(TW.clientWidth/1000)+')';}fitTab();addEventListener('resize',fitTab);
+if(TB){var TW=document.getElementById('tabwrap');function fitTab(){var w=TW.clientWidth||TW.parentNode.clientWidth;TB.style.transform='scale('+(w/1000)+')';}fitTab();addEventListener('resize',fitTab);
  setTimeout(function(){TB.classList.add('on');TW.classList.add('on');},!matchMedia('(prefers-reduced-motion: reduce)').matches?2600:100);}
 function toastTv(){tvToast=1;clearTimeout(camT);camT=setTimeout(function(){tvToast=0;renderTab();},1800);}
 setInterval(function(){if(TB&&(!tpop||tpop==='navodnjavanje'))renderTab();},15000);
@@ -433,6 +433,14 @@ function danStop(){clearInterval(danT);danT=0;if(dPlay){dPlay.textContent='▶ P
 [].forEach.call(document.querySelectorAll('[data-dan]'),function(b){b.addEventListener('click',function(){danStop();danStep(+b.dataset.dan);});});
 if(dPlay)dPlay.addEventListener('click',function(){if(danT){danStop();return;}dPlay.textContent='❚❚ Zaustavi';dPlay.setAttribute('aria-pressed','true');danStep((danI+1)%DAN.length);danT=setInterval(function(){if(danI>=DAN.length-1){danStop();return;}danStep(danI+1);},3800);});
 
+/* ---------- kuća: vrh stranice ili demo ---------- */
+var hslot=document.querySelector('.hero-house'),dslot=document.querySelector('.house-slot'),hIn='hero';
+function placeHouse(){if(!hslot||!dslot)return;var st=document.getElementById('demo');if(!st)return;var r=st.getBoundingClientRect(),want=r.top<innerHeight*.6?'demo':'hero';if(want===hIn)return;hIn=want;(want==='demo'?dslot:hslot).insertBefore(host,(want==='demo'?dslot:hslot).firstChild);document.body.classList.toggle('house-in-demo',want==='demo');
+ if(typeof fitVila==='function')fitVila();if(card&&card._resize){card._config.height=host.clientHeight;card._resize();}}
+addEventListener('scroll',placeHouse,{passive:true});addEventListener('resize',placeHouse);placeHouse();
+[].forEach.call(document.querySelectorAll('[data-hscene]'),function(b){b.addEventListener('click',function(){applyScene(b.dataset.hscene);[].forEach.call(document.querySelectorAll('[data-hscene]'),function(x){x.classList.toggle('on',x===b);});});});
+/* uređaji: mobitel / zidni zaslon */
+[].forEach.call(document.querySelectorAll('[data-dev]'),function(b){b.addEventListener('click',function(){var k=b.dataset.dev;[].forEach.call(document.querySelectorAll('[data-dev]'),function(x){x.setAttribute('aria-selected',x===b);});[].forEach.call(document.querySelectorAll('[data-devpane]'),function(p){p.hidden=p.dataset.devpane!==k;});if(k==='tab'&&typeof fitTab==='function'){fitTab();if(window.fielTabDust)window.fielTabDust();}});});
 (function(){var sec=document.getElementById('demo-sekcija');if(!sec)return;function off(){sec.classList.add('dirao');sec.removeEventListener('click',off,true);}sec.addEventListener('click',off,true);})();
 init();render();
 function dustNow(){if(window.fielTabDust)window.fielTabDust();}setTimeout(dustNow,60);setTimeout(dustNow,600);if(document.fonts&&document.fonts.ready)document.fonts.ready.then(dustNow);

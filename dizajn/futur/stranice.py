@@ -138,12 +138,12 @@ CSS = """
 .form .consent a{color:#f3c66b}.form .btn{width:100%}.sent{color:#9ff0c2}
 .upit .phone,.sub .phone{display:block;font:300 clamp(2rem,4.5vw,3.2rem) Jost,sans-serif;color:var(--ink);text-decoration:none;margin-top:22px}
 /* snimke zaslona */
-.dash{margin:0;display:grid;gap:10px}.dash .glass{border-radius:22px;padding:10px;background:linear-gradient(160deg,rgba(124,92,255,.25),rgba(17,29,48,.7));border:1px solid rgba(160,150,255,.3);box-shadow:0 40px 100px -40px rgba(0,0,0,.9),0 0 80px -30px rgba(124,92,255,.55);transition:transform .4s}
+.dash{margin:0;display:grid;gap:10px}.dash .glass{border-radius:22px;padding:10px;background:linear-gradient(160deg,rgba(217,173,82,.25),rgba(17,29,48,.7));border:1px solid rgba(217,173,82,.3);box-shadow:0 40px 100px -40px rgba(0,0,0,.9),0 0 80px -30px rgba(217,173,82,.55);transition:transform .4s}
 .dash img{display:block;width:100%;height:auto;border-radius:14px}
 .dash figcaption,.dphone figcaption,.plan figcaption{font:500 .72rem "IBM Plex Mono",monospace;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);text-align:center}
 .hero-dash .glass{transform:perspective(1400px) rotateY(-9deg) rotateX(3deg)}.hero-dash:hover .glass{transform:perspective(1400px) rotateY(-3deg)}
 .dash.wide{margin:40px auto 0;max-width:1140px;padding:0 20px}
-.dphone{margin:0;display:grid;gap:10px;justify-items:center}.pframe{width:min(300px,80vw);border-radius:42px;padding:10px;background:#05070d;border:1px solid rgba(190,205,228,.2);box-shadow:0 40px 100px -40px rgba(0,0,0,.9),0 0 70px -25px rgba(124,92,255,.5)}
+.dphone{margin:0;display:grid;gap:10px;justify-items:center}.pframe{width:min(300px,80vw);border-radius:42px;padding:10px;background:#05070d;border:1px solid rgba(190,205,228,.2);box-shadow:0 40px 100px -40px rgba(0,0,0,.9),0 0 70px -25px rgba(217,173,82,.5)}
 .pframe img{display:block;width:100%;border-radius:32px}
 .gal{padding-bottom:40px!important}.gal-ctl{display:flex;align-items:center;gap:8px;max-width:1180px;margin:0 auto;padding:0 20px}.gal-ar{width:42px;height:42px;border-radius:50%;border:1px solid var(--line2);background:rgba(17,29,48,.8);color:var(--ink);font-size:1.5rem;line-height:1;cursor:pointer}.gal-ar:hover{border-color:#f3c66b}.gal-hint{color:var(--muted);font-size:.9rem;margin-left:8px}.gal .slide .glass{cursor:zoom-in}.gal-lb{position:fixed;inset:0;z-index:90;background:rgba(5,9,16,.94);display:grid;place-items:center;padding:24px;gap:10px;grid-template-rows:1fr auto}.gal-lb[hidden]{display:none}.gal-lb img{max-width:min(1400px,96vw);max-height:84vh;border-radius:14px;box-shadow:0 40px 100px -30px #000}.gal-lb figcaption{color:var(--muted);font:500 .8rem 'IBM Plex Mono',monospace;letter-spacing:.1em;text-transform:uppercase}.gal-x{position:absolute;top:14px;right:18px;width:44px;height:44px;border-radius:50%;border:1px solid var(--line2);background:rgba(17,29,48,.8);color:var(--ink);font-size:1.6rem;cursor:pointer}.gal-row{display:flex;gap:20px;overflow-x:auto;scroll-snap-type:x mandatory;padding:10px max(20px,calc((100vw - 1180px)/2)) 30px;scrollbar-width:thin}
 .gal-row .slide{flex:0 0 min(720px,86vw);scroll-snap-align:center}
@@ -196,7 +196,8 @@ def convert(slug, body, P):
     if len(w) > 3:
         k = 1
         title = " ".join(w[:-k]) + " <em>" + " ".join(w[-k:]) + "</em>"
-    hero = (f'<div class="pgh" data-shape="{P["shape"]}" data-x="{P["x"]}" data-mshape="dust"><div class="glow-beam" aria-hidden="true"></div><div class="wrap"><div>'
+    hshape = "dust" if P["hero_fig"] else P["shape"]
+    hero = (f'<div class="pgh" data-shape="{hshape}" data-x="{P["x"]}" data-mshape="dust"><div class="glow-beam" aria-hidden="true"></div><div class="wrap"><div>'
             f'<span class="label">{label.group(1) if label else ""}</span><h1>{title}</h1>'
             f'{"<p class=\"lead\">" + lead.group(1) + "</p>" if lead else ""}'
             f'{"<div class=\"row\">" + ctah + "</div>" if ctah else ""}</div>{right}</div></div>')
