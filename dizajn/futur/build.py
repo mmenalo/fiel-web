@@ -359,7 +359,7 @@ THEME_CSS = '[data-tema=svijetla] .dark{--bg:#f6f4ef;--bg2:#ebe7df;--card:#fff;-
 THEME_JS = '<script>(function(){var q=(location.search.match(/[?&]tema=(\\w+)/)||[])[1],t;try{t=q||localStorage.getItem(\'fielTema\');}catch(e){t=q;}if(t!==\'svijetla\'&&t!==\'mjesano\')t=\'tamna\';document.documentElement.setAttribute(\'data-tema\',t);\nvar DARK=\'.demo-sec,.contact,.upit,.sol,.gal\';\nfunction apply(t){document.documentElement.setAttribute(\'data-tema\',t);try{localStorage.setItem(\'fielTema\',t);}catch(e){}\n [].forEach.call(document.querySelectorAll(\'main section, body > section\'),function(s){s.classList.toggle(\'lt\',t===\'mjesano\'&&!s.matches(DARK));});\n [].forEach.call(document.querySelectorAll(\'img.logo-img\'),function(i){i.src=t===\'svijetla\'?\'fiel-logo-svijetla.svg\':\'fiel-logo.svg\';});\n [].forEach.call(document.querySelectorAll(\'.tema-sw button\'),function(b){b.classList.toggle(\'on\',b.dataset.t===t);});}\nwindow.fielTema=apply;\ndocument.addEventListener(\'DOMContentLoaded\',function(){var d=document.createElement(\'div\');d.className=\'tema-sw\';d.setAttribute(\'role\',\'group\');d.setAttribute(\'aria-label\',\'Tema stranice\');\n d.innerHTML=\'<span>Tema</span><button data-t="tamna">Tamna</button><button data-t="svijetla">Svijetla</button><button data-t="mjesano">Mješovita</button>\';\n d.addEventListener(\'click\',function(e){var b=e.target.closest(\'button\');if(b)apply(b.dataset.t);});document.body.appendChild(d);apply(document.documentElement.getAttribute(\'data-tema\'));});})();</script>'
 FX_CSS = """
 #fx{position:fixed;inset:0;width:100vw;height:100vh;z-index:0;pointer-events:none}
-.fx main,.fx footer,.fx .top{position:relative;z-index:1}.fx .top{position:sticky}
+.fx main,.fx footer,.fx .top{position:relative;z-index:1}.fx .top{position:sticky;z-index:20}
 .fx section,.fx .hero{background:transparent}.fx .band{background:rgba(14,24,40,.55)}
 .fx .card{background:rgba(17,29,48,.72);backdrop-filter:blur(6px)}
 .app{transition:transform .25s ease-out;transform-style:preserve-3d}
@@ -391,7 +391,14 @@ p{margin:0}a{color:inherit}
 .wrap{max-width:1180px;margin:0 auto;padding:0 max(20px,env(safe-area-inset-left,0px))}
 .top{position:sticky;top:0;z-index:20;backdrop-filter:blur(12px);background:color-mix(in srgb,var(--bg) 75%,transparent);border-bottom:1px solid var(--line)}
 .top .wrap{display:flex;align-items:center;gap:28px;height:74px}.top .logo{height:42px;width:auto}
-.top nav{display:flex;gap:26px;margin-left:auto;font:400 .95rem Jost,sans-serif}.top nav a{text-decoration:none;color:var(--muted)}
+.top nav{display:flex;gap:26px;margin-left:auto;font:400 .95rem Jost,sans-serif;align-items:center}.top nav a{text-decoration:none;color:var(--muted)}
+.dd{position:relative}.dd-b{background:none;border:0;color:var(--muted);font:inherit;cursor:pointer;padding:0;display:inline-flex;align-items:center;gap:6px}.dd-b i{font-style:normal;font-size:.75em;transition:transform .2s}.dd.open .dd-b i{transform:rotate(180deg)}.dd.cur .dd-b,.top nav a[aria-current]{color:#f3c66b}
+.dd-m{position:absolute;top:calc(100% + 18px);left:50%;transform:translate(-50%,6px);min-width:340px;display:grid;gap:4px;padding:10px;border-radius:18px;background:linear-gradient(180deg,color-mix(in srgb,var(--bg) 88%,#fff 12%),var(--bg));border:1px solid var(--line2);box-shadow:0 24px 60px rgba(0,0,0,.55);z-index:30;opacity:0;visibility:hidden;transition:opacity .2s,transform .2s,visibility .2s}
+.dd-m::before{content:"";position:absolute;left:0;right:0;top:-18px;height:18px}
+.dd:hover .dd-m,.dd.open .dd-m,.dd:focus-within .dd-m{opacity:1;visibility:visible;transform:translate(-50%,0)}
+.top .dd-m a{display:grid;gap:2px;padding:12px 14px;border-radius:12px;color:var(--text)}.top .dd-m a:hover,.top .dd-m a[aria-current]{background:rgba(217,173,82,.12)}.dd-m b{font:500 1rem Jost,sans-serif}.dd-m span{font-size:.88rem;color:var(--muted);line-height:1.35}.top .dd-m a[aria-current] b{color:#f3c66b}
+.menu-b{display:none;margin-left:auto;width:42px;height:42px;border-radius:50%;border:1px solid var(--line2);background:none;cursor:pointer;flex-direction:column;align-items:center;justify-content:center;gap:5px}.menu-b i{display:block;width:18px;height:1.5px;background:var(--text);transition:transform .2s,opacity .2s}
+.top.menu-open .menu-b i:nth-child(1){transform:translateY(6.5px) rotate(45deg)}.top.menu-open .menu-b i:nth-child(2){opacity:0}.top.menu-open .menu-b i:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
 .cta{display:inline-flex;align-items:center;gap:10px;font:500 .95rem Jost,sans-serif;padding:11px 14px 11px 20px;border-radius:999px;border:1px solid var(--line2);text-decoration:none;color:var(--ink)}
 .cta i{width:26px;height:26px;border-radius:50%;background:var(--gold);display:grid;place-items:center;font-style:normal;color:#0b1220}
 .btn{display:inline-flex;align-items:center;justify-content:center;font:500 1rem Jost,sans-serif;padding:15px 26px;border-radius:999px;text-decoration:none;border:1px solid var(--line2);color:var(--ink)}
@@ -438,7 +445,9 @@ footer .big{font:500 clamp(6rem,22vw,16rem)/0.8 Jost,sans-serif;letter-spacing:.
 .light .hero.dark-band em{color:#f3c66b}
 .light .top{background:color-mix(in srgb,#fbfbfa 85%,transparent)}
 .light .card{border-radius:4px}.light .btn,.light .cta{border-radius:3px}.light .scenes button{border-radius:8px}
-@media (max-width:960px){.top nav{display:none}.cta{margin-left:auto}.hero .wrap,.contact .wrap{grid-template-columns:1fr;gap:40px}.grid4{grid-template-columns:1fr 1fr}.hero{padding:40px 0 64px}section{padding:64px 0}}
+@media (max-width:960px){.menu-b{display:flex}.top .cta{margin-left:0}.top nav{display:none;position:absolute;left:0;right:0;top:100%;flex-direction:column;align-items:stretch;gap:0;padding:8px 16px 18px;background:color-mix(in srgb,var(--bg) 96%,transparent);backdrop-filter:blur(16px);border-bottom:1px solid var(--line);max-height:calc(100vh - 74px);overflow:auto}
+.top.menu-open nav{display:flex;z-index:30;background:var(--bg)}.top nav>a{padding:14px 4px;border-top:1px solid var(--line);font-size:1.05rem}.dd{order:-1}.dd-b{display:none}.top nav .dd .dd-m,.top nav .dd.open .dd-m,.top nav .dd:hover .dd-m,.top nav .dd:focus-within .dd-m{position:static;transform:none;opacity:1;visibility:visible;min-width:0;padding:0;border:0;background:none;box-shadow:none;backdrop-filter:none;transition:none}.top .dd-m a{padding:12px 4px;border-top:1px solid var(--line);border-radius:0}.dd-m a:first-child{border-top:0}
+.cta{margin-left:auto}.hero .wrap,.contact .wrap{grid-template-columns:1fr;gap:40px}.grid4{grid-template-columns:1fr 1fr}.hero{padding:40px 0 64px}section{padding:64px 0}}
 @media (max-width:560px){.grid4{grid-template-columns:1fr}.facts{grid-template-columns:repeat(3,1fr);gap:12px}.facts b{font-size:1.1rem}.scenes{grid-template-columns:repeat(3,1fr)}.btn{width:100%}.top .logo{height:36px}.cta{padding:9px 10px 9px 16px;font-size:.88rem}}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.reveal span{opacity:1}}
 """
@@ -480,11 +489,36 @@ ICONS = {"net": '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" str
          "free": '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M8 12h8M12 8v8"/><circle cx="12" cy="12" r="9"/></svg>',
          "home": '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 11l9-7 9 7v9H3z"/><rect x="9" y="13" width="6" height="7"/></svg>'}
 
+SOL = [("pametna-kuca", "Pametna kuća", "Rasvjeta, rolete, grijanje i scene. Radi u kući, bez pretplate."),
+       ("video-nadzor-i-portafoni", "Video nadzor i portafoni", "Kamere i poziv s ulaza na zaslonu i mobitelu."),
+       ("alarmni-sustav", "Alarmni sustav Ajax", "Bežični alarm bez štemanja, obavijesti na mobitel."),
+       ("mrezna-oprema", "Mrežna oprema Ubiquiti", "Wi-Fi za cijeli objekt, odvojene mreže za kamere i goste.")]
+NAV2 = [("za-investitore", "Za investitore"), ("kako-radimo", "Kako radimo"), ("o-nama", "O nama")]
+
+
+def nav_html(slug="", href=lambda s: f"{s}.html"):
+    cur = lambda s: ' aria-current="page"' if s == slug else ''
+    items = "".join(f'<a href="{href(s)}"{cur(s)}><b>{n}</b><span>{d}</span></a>' for s, n, d in SOL)
+    insol = any(s == slug for s, _, _ in SOL)
+    dd = (f'<div class="dd{" cur" if insol else ""}"><button class="dd-b" type="button" aria-expanded="false" aria-haspopup="true">Rješenja <i>▾</i></button>'
+          f'<div class="dd-m" role="menu">{items}</div></div>')
+    rest = "".join(f'<a href="{href(s)}"{cur(s)}>{n}</a>' for s, n in NAV2)
+    return f'<button class="menu-b" type="button" aria-label="Izbornik" aria-expanded="false"><i></i><i></i><i></i></button><nav>{dd}{rest}</nav>'
+
+
+NAV_JS = """<script>(function(){var h=document.querySelector('.top');if(!h)return;var dd=h.querySelector('.dd'),b=h.querySelector('.dd-b'),mb=h.querySelector('.menu-b');
+function setDD(o){if(!dd)return;dd.classList.toggle('open',o);b.setAttribute('aria-expanded',o?'true':'false');}
+if(b){b.addEventListener('click',function(e){e.stopPropagation();setDD(!dd.classList.contains('open'));});}
+if(mb){mb.addEventListener('click',function(e){e.stopPropagation();var o=!h.classList.contains('menu-open');h.classList.toggle('menu-open',o);mb.setAttribute('aria-expanded',o?'true':'false');if(o)setDD(true);});}
+document.addEventListener('click',function(e){if(!h.contains(e.target)){setDD(false);h.classList.remove('menu-open');if(mb)mb.setAttribute('aria-expanded','false');}});
+document.addEventListener('keydown',function(e){if(e.key==='Escape'){setDD(false);h.classList.remove('menu-open');}});})();</script>"""
+
+
 def page(theme, name, ghost=False, particles=False, dark_band=False):
     lg = LOGO_DARK if theme == "dark" else LOGO_LIGHT
     hero_cls = "hero dark-band" if dark_band else "hero"
     body = f"""<header class="top"><div class="wrap"><a href="#">{lg}</a>
-<nav><a href="#">Pametna kuća</a><a href="#">Video nadzor i portafoni</a><a href="#">Za investitore</a><a href="#">Kako radimo</a><a href="#">O nama</a></nav>
+{nav_html()}
 <a class="cta" href="#kontakt">Besplatan dolazak <i>↗</i></a></div></header>
 <main>
 <div class="{hero_cls}">{'<canvas id="cestice" aria-hidden="true"></canvas>' if particles else ''}{'<div class="ghost" aria-hidden="true">FIEL</div>' if ghost else ''}
@@ -518,7 +552,7 @@ def page(theme, name, ghost=False, particles=False, dark_band=False):
     return f"""<!doctype html><html lang="hr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>{name} | Fiel</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,300;0,400;0,500;1,500&family=Source+Sans+3:wght@400;600&family=IBM+Plex+Mono:wght@500&family=Orbitron:wght@500&display=swap" rel="stylesheet">
-<style>{CSS}</style></head><body class="{theme}">{body}</body></html>"""
+<style>{CSS}</style></head><body class="{theme}">{body}{NAV_JS}</body></html>"""
 
 
 def page3():

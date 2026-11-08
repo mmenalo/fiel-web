@@ -83,6 +83,8 @@ PAGES = {
     "kako-radimo": dict(shape="tablet0", x="0", hero_fig="", shapes=["lamp", "dust"],
         extra=fig("tab-grijanje.jpg", "Zaslon rasporeda grijanja", "Primjer: raspored grijanja koji podesimo pri predaji", "dash wide")),
     "o-nama": dict(shape="door", x="2.6", hero_fig="", shapes=["dust", "villa"]),
+    "alarmni-sustav": dict(shape="door", x="2.6", hero_fig="", shapes=["door", "dust", "eye", "dust", "dust", "dust"]),
+    "mrezna-oprema": dict(shape="zgrada", x="2.6", hero_fig="", shapes=["dust", "zgrada", "dust", "dust", "dust", "dust"]),
     "kontakt": dict(shape="villa", x="2.8", hero_fig="", shapes=["dust"]),
     "pravila-privatnosti": dict(shape="dust", x="0", hero_fig="", shapes=["dust"]),
 }
@@ -168,9 +170,8 @@ var s=document.getElementById('sat');function tick(){if(s)s.textContent=new Date
 
 
 def header(slug):
-    nav = "".join(f'<a href="{s}.html"{" aria-current=\"page\"" if s == slug else ""}>{n}</a>' for s, n in NAV)
     return (f'<header class="top"><div class="wrap"><a href="{HOME}"><img class="logo logo-img" src="fiel-logo.svg" alt="Fiel d.o.o. – početna" width="1222" height="600"></a>'
-            f'<nav>{nav}</nav><a class="cta" href="kontakt.html">Besplatan dolazak <i>↗</i></a></div></header>')
+            f'{B.nav_html(slug)}<a class="cta" href="kontakt.html">Besplatan dolazak <i>↗</i></a></div></header>')
 
 
 FOOTER = ('<footer><div class="wrap">© 2026 Fiel d.o.o. · Rušiščak 5b, Zagreb · <a href="pravila-privatnosti.html" style="color:inherit">Pravila privatnosti</a> · '
@@ -247,7 +248,7 @@ def build_page(fn):
         head = head.replace("</title>", f'</title>\n<meta name="description" content="{desc}">', 1)
     head = head.replace("</style>", CSS + "</style>", 1)
     html = (head + '<body class="dark fx"><canvas id="fx" aria-hidden="true"></canvas>' + header(slug) +
-            f'<main class="sub">{main}</main>' + FOOTER + THREE + "<script>" + B.THREE_FX + "</script>" + FORM_JS + "</body></html>")
+            f'<main class="sub">{main}</main>' + FOOTER + THREE + "<script>" + B.THREE_FX + "</script>" + FORM_JS + B.NAV_JS + "</body></html>")
     open(os.path.join(OUT, slug + ".html"), "w").write(html)
     return slug
 
