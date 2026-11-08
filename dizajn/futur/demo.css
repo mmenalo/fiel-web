@@ -235,3 +235,12 @@
 .vl-cur{position:absolute;pointer-events:none;transition:clip-path .14s linear,filter .5s;background:linear-gradient(180deg,rgba(40,30,20,.25),transparent 18%,transparent 82%,rgba(40,30,20,.3)),repeating-linear-gradient(90deg,#efe6d3 0 7px,#d9cbb0 7px 10px,#f4ede0 10px 15px,#e0d3ba 15px 18px);filter:brightness(.42) saturate(.8);opacity:.86}
 .vl-cur.lit{filter:brightness(.98) sepia(.25) saturate(1.2)}
 .house.vday .vl-cur{filter:brightness(.92)}
+
+#demo{scroll-margin-top:100px}
+@media (max-width:700px){
+#demo{scroll-margin-top:78px}
+.demo-stage{gap:10px;margin-top:24px;align-items:start}
+.house{position:sticky;top:76px;z-index:6;height:min(60vw,260px);border-radius:18px;box-shadow:0 0 0 1px rgba(190,205,228,.14),0 18px 30px -10px rgba(0,0,0,.95)}
+.ph{width:100%;max-width:none;height:calc(100svh - 76px - min(60vw,260px) - 22px);min-height:420px;max-height:640px;border-radius:26px;padding:5px}
+.ph-in{border-radius:22px}.ph-notch{display:none}.ph-screen{padding-top:14px}
+}

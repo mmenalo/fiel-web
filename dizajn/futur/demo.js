@@ -357,7 +357,7 @@ function buildVila(){var h='<div class="vila"><div class="vl-st"><img src="vila/
   if(b.dataset.vmode){vmode=b.dataset.vmode;host.classList.toggle('m3d',vmode==='3d');[].forEach.call(host.querySelectorAll('[data-vmode]'),function(x){x.classList.toggle('on',x===b);});if(vmode==='3d'&&!card)load();if(card&&card._resize){card._config.height=host.clientHeight;card._resize();}cardVis=vmode==='3d';if(cardVis&&cardPend)toCard();return;}
  });
  vilaUpd();}
-function fitVila(){if(!VS)return;var w=host.clientWidth,h=host.clientHeight,s=Math.max(w/1536,h/1024)*(w<700?1.35:1.05),W=1536*s,H=1024*s;
+function fitVila(){if(!VS)return;var w=host.clientWidth,h=host.clientHeight,s=Math.max(w/1536,h/1024)*(w<700?1.12:1.05),W=1536*s,H=1024*s;
  VS.style.width=W+'px';VS.style.height=H+'px';VS.style.left=(w-W)/2+(w<700?-W*.04:0)+'px';VS.style.top=(h-H)/2+'px';}
 function vilaUpd(){if(!VS)return;
  Object.keys(VR).forEach(function(k){var r=VR[k],o=0;r.l.forEach(function(id){if(on(id))o=Math.max(o,.5+.5*(pct(id)||100)/100);});

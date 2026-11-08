@@ -236,6 +236,23 @@ THREE_FX = """
     /* zvučni valovi poziva */
     [.32,.45,.58].forEach(function(rr,i){area(.25,'g',function(){var a=rnd(-.7,.7);return [(x0+x1)/2+Math.cos(a)*rr*1.0+.05,-.6+Math.sin(a)*rr,.14];});});
     return done();};
+  COMP.zgrada=function(){
+    /* stambena zgrada: 5 katova, balkoni, osvijetljeni stanovi */
+    var W=1.5,D=.9,F=5,fh=.52,y0=-1.35;
+    box(-W,W,y0,y0+F*fh,-D,D,1.6,'w');
+    for(var f=1;f<F;f++){line([-W,y0+f*fh,D],[W,y0+f*fh,D],1.1,'s');line([W,y0+f*fh,-D],[W,y0+f*fh,D],.7,'s');}
+    for(var f2=0;f2<F;f2++){for(var c=0;c<5;c++){(function(f2,c){var x0=-W+.18+c*.58,x1=x0+.34,yy=y0+f2*fh+.12,lit=((f2*7+c*3)%5)<2;
+      rect(x0,x1,yy,yy+.3,D,1.2,lit?'g':'c');if(lit)area(.35,'g',function(){return [rnd(x0,x1),rnd(yy,yy+.3),D];});
+      if(f2>0&&c%2===0){line([x0-.06,yy-.02,D+.22],[x1+.06,yy-.02,D+.22],.9,'w');line([x0-.06,yy+.12,D+.22],[x1+.06,yy+.12,D+.22],.6,'s');}})(f2,c);}
+      for(var k=0;k<3;k++){(function(f2,k){var z0=-D+.15+k*.55,yy=y0+f2*fh+.12,lit=((f2+k*2)%4)===0;rect2(W,z0,z0+.3,yy,yy+.3,lit?'g':'c');})(f2,k);}}
+    function rect2(x,z0,z1,ya,yb,c){line([x,ya,z0],[x,ya,z1],1,c);line([x,yb,z0],[x,yb,z1],1,c);line([x,ya,z0],[x,yb,z0],1,c);line([x,ya,z1],[x,yb,z1],1,c);}
+    /* ulaz s portafonom */
+    rect(-.3,.3,y0,y0+.4,D+.01,2,'b');area(.3,'b',function(){return [rnd(-.28,.28),rnd(y0,y0+.4),D+.01];});
+    /* krov s LED trakom */
+    box(-W-.08,W+.08,y0+F*fh,y0+F*fh+.08,-D-.08,D+.08,1.6,'g');
+    /* tlo */
+    area(1.4,'n',function(){return [rnd(-2.6,2.6),y0,rnd(-1.6,2.2)];});
+    return done();};
   COMP.tablet=function(){var w=.5,h=.325,r=.035;
     function rr(x0,x1,y0,y1,d,c){var k=Math.min(r,(x1-x0)/4,(y1-y0)/4);line([x0+k,y0,0],[x1-k,y0,0],d,c);line([x0+k,y1,0],[x1-k,y1,0],d,c);line([x0,y0+k,0],[x0,y1-k,0],d,c);line([x1,y0+k,0],[x1,y1-k,0],d,c);
       [[x0+k,y0+k,Math.PI],[x1-k,y0+k,1.5*Math.PI],[x1-k,y1-k,0],[x0+k,y1-k,.5*Math.PI]].forEach(function(q){P.push({w:k*1.6*d,c:c,f:function(){var a=q[2]+Math.random()*Math.PI/2;return [q[0]+Math.cos(a)*k,q[1]+Math.sin(a)*k,0];}});});}
@@ -251,7 +268,7 @@ THREE_FX = """
     area(2.5,'d',function(){return [rnd(-w+.02,w-.02),rnd(-h+.02,h-.02),0];});
     area(.6,'g',function(){return [rnd(xs[0]+.02,xs[1]-.04),rnd(yr[1]+.03,yr[0]-.03),0];});
     return done();};
-  var CC={};function compInit(name){var D=COMP[name](),pos=new Float32Array(N*3),col=new Float32Array(N*3),j=0,sc=name==='villa'?.82:name==='tablet'?1:name==='cam'?.66:.95,dy=name==='villa'?.2:0;
+  var CC={};function compInit(name){var D=COMP[name](),pos=new Float32Array(N*3),col=new Float32Array(N*3),j=0,sc=name==='villa'?.82:name==='tablet'?1:name==='cam'?.66:name==='zgrada'?.85:.95,dy=name==='villa'?.2:0;
     for(var i=0;i<N;i++){var u=(i+.5)/N;while(D[j].e<u&&j<D.length-1)j++;var p=D[j].f(),c=VC[D[j].c];pos.set([p[0]*sc,p[1]*sc+dy,p[2]*sc],i*3);col.set([c.r,c.g,c.b],i*3);}
     CC[name]={p:pos,c:col};return CC[name];}
   var VC={w:new THREE.Color('#e3ebf7'),g:new THREE.Color('#f3c66b'),b:new THREE.Color('#3f9bff'),n:new THREE.Color('#4f7a63'),t:new THREE.Color('#8fc6a0'),s:new THREE.Color('#8f9fb6'),c:new THREE.Color('#d6dde8'),r:new THREE.Color('#ff4b4b'),d:new THREE.Color('#2c3a52'),o:new THREE.Color('#ff8a3d'),p:new THREE.Color('#a99bff'),h:new THREE.Color('#ff4f2e')};
@@ -276,18 +293,19 @@ THREE_FX = """
   var pts=new THREE.Points(g,m);sc.add(pts);
   var offX=0,goalX=0,cur='';
   function tabDust(){var D=window.fielTabletDust&&window.fielTabletDust(N);if(!D)return CC.tablet||compInit('tablet');var c=new Float32Array(N*3);for(var i=0;i<N;i++){var k=VC[D.k[i]]||VC.w;c[i*3]=k.r;c[i*3+1]=k.g;c[i*3+2]=k.b;}CC.tablet={p:D.p,c:c};return CC.tablet;}window.fielTabDust=function(){if(cur==='tablet'){var C=tabDust();ctg.set(C.c);}};
-  function shape(name,x){if(name===cur&&x===goalX)return;cur=name;goalX=x;if(COMP[name]){var C=name==='tablet'?tabDust():(CC[name]||compInit(name));if(name!=='tablet')tgt.set(C.p);ctg.set(C.c);return;}var f=shapes[name];for(var i=0;i<N;i++)tgt.set(f(i),i*3);ctg.set(base);}
+  function shape(name,x){if(name===cur&&x===goalX)return;cur=name;goalX=x;if(COMP[name]){var C=name==='tablet'?tabDust():(CC[name]||compInit(name));if(name!=='tablet'){tgt.set(C.p);measure();}ctg.set(C.c);return;}var f=shapes[name];for(var i=0;i<N;i++)tgt.set(f(i),i*3);ctg.set(base);}
+  var shW=4,shH=3,slot=null,sx=0,sy=0,ss=1;function measure(){var a=1e9,b=-1e9,c=1e9,d=-1e9;for(var i=0;i<N;i+=7){var X=tgt[i*3],Z=tgt[i*3+2],Y=tgt[i*3+1],R=Math.sqrt(X*X+Z*Z);if(-R<a)a=-R;if(R>b)b=R;if(Y<c)c=Y;if(Y>d)d=Y;}shW=b-a;shH=d-c;}
   window.fielShape=shape;
   var secs=[].slice.call(document.querySelectorAll('[data-shape]'));
   function pick(){var best=null,bv=0;secs.forEach(function(s){var b=s.getBoundingClientRect(),v=Math.min(b.bottom,innerHeight)-Math.max(b.top,0);if(v>bv){bv=v;best=s;}});
-    if(best&&!best.dataset.locked){var x=mob?0:parseFloat(best.dataset.x||0);shape(mob&&best.dataset.mshape||best.dataset.shape,x);}}
+    if(best){slot=mob?best.querySelector('.mslot'):null;}if(best&&!best.dataset.locked){var x=mob?0:parseFloat(best.dataset.x||0);shape(mob&&!slot&&best.dataset.mshape||best.dataset.shape,x);}}
   addEventListener('scroll',pick,{passive:true});pick();
   var mx=0,my=0;addEventListener('pointermove',function(e){mx=e.clientX/innerWidth-.5;my=e.clientY/innerHeight-.5;});
-  var t=0,ry=0,rx=0;(function f(){t+=.003;var p=g.attributes.position.array;
+  var t=0,ry=0,rx=0;(function f(){t+=.003;var TBm0=cur==='tablet';var p=g.attributes.position.array;
     if(cur==='tablet'&&CC.tablet){var te=document.getElementById('tabwrap');if(te){var tr=te.getBoundingClientRect(),hh=Math.tan(25*Math.PI/180)*7,hw=hh*cam.aspect,tcx=((tr.left+tr.width/2)/innerWidth*2-1)*hw,tcy=-((tr.top+tr.height/2)/innerHeight*2-1)*hh,tsw=tr.width/innerWidth*2*hw,TBp=CC.tablet.p;for(var q=0;q<N;q++){tgt[q*3]=TBp[q*3]*tsw+tcx;tgt[q*3+1]=TBp[q*3+1]*tsw+tcy;tgt[q*3+2]=0;}}}
     var cc=g.attributes.color.array;for(var i=0;i<N*3;i++){p[i]+=(tgt[i]-p[i])*.045;cc[i]+=(ctg[i]-cc[i])*.05;}
     g.attributes.position.needsUpdate=true;g.attributes.color.needsUpdate=true;offX+=(goalX-offX)*.05;
-    pts.position.x=offX;var V=!!COMP[cur],TBm=cur==='tablet';if(TBm){ry+=(0-ry)*.08;rx+=(0-rx)*.08;}else{ry+=((V?(cur==='villa'?-.55:-.35)+Math.sin(t*2)*.4:t*1.2)+mx*.5-ry)*.04;rx+=((cur==='villa'?.42:cur==='lamp'?.32:cur==='heat'?.28:V?.08:0)+my*.3+Math.sin(t)*.08-rx)*.04;}pts.rotation.y=ry;pts.rotation.x=rx;
+    var gx=offX,gy=0,gs=1;if(slot&&!TBm0&&COMP[cur]){var sr=slot.getBoundingClientRect(),h2=Math.tan(25*Math.PI/180)*7,w2=h2*cam.aspect;gx=((sr.left+sr.width/2)/innerWidth*2-1)*w2;gy=-((sr.top+sr.height/2)/innerHeight*2-1)*h2;gs=Math.min(sr.width/innerWidth*2*w2*.92/shW,sr.height/innerHeight*2*h2*.9/shH);}sx+=(gx-sx)*.12;sy+=(gy-sy)*.12;ss+=(gs-ss)*.08;pts.position.x=sx;pts.position.y=sy;pts.scale.setScalar(ss);var V=!!COMP[cur],TBm=cur==='tablet';if(TBm){ry+=(0-ry)*.08;rx+=(0-rx)*.08;}else{ry+=((V?(cur==='villa'?-.55:-.35)+Math.sin(t*2)*.4:t*1.2)+mx*.5-ry)*.04;rx+=((cur==='villa'?.42:cur==='lamp'?.32:cur==='heat'?.28:V?.08:0)+my*.3+Math.sin(t)*.08-rx)*.04;}pts.rotation.y=ry;pts.rotation.x=rx;
     r.render(sc,cam);requestAnimationFrame(f);})();
 })();
 (function(){
@@ -401,7 +419,7 @@ _IC = {"home": "M3 11l9-7 9 7v9h-6v-6H9v6H3z", "grid": "M4 4h7v7H4zM13 4h7v7h-7z
        "dots": "M5 5h2v2H5zM11 5h2v2h-2zM17 5h2v2h-2zM5 11h2v2H5zM11 11h2v2h-2zM17 11h2v2h-2zM5 17h2v2H5zM11 17h2v2h-2zM17 17h2v2h-2z"}
 DEMO = f"""<section class="demo-sec" id="demo-sekcija" data-shape="dust"><div class="wrap">
 <div class="head"><div><span class="label">Isprobajte</span><h2 style="margin-top:14px">Upravljajte kućom <em>s mobitela</em></h2></div>
-<p>Lijevo je vizualizacija kuće, desno aplikacija kakvu dobiju naši klijenti. Upalite svjetlo, spustite rolete ili odaberite scenu i pogledajte što se događa na kući. Možete kliknuti i prozor na slici. Demo radi samo u vašem pregledniku.</p></div>
+<p>Vizualizacija kuće i aplikacija kakvu dobiju naši klijenti. Upalite svjetlo, spustite rolete ili odaberite scenu i pogledajte što se događa na kući. Možete kliknuti i prozor na slici. Demo radi samo u vašem pregledniku.</p></div>
 <div class="demo-stage" id="demo">
 <div class="house"><div class="house-load">UČITAVAM 3D MODEL</div><span class="house-hint">Prizemlje i Kat gore desno: pogled u sobe, klik pali svjetlo</span></div>
 <div class="ph" aria-label="Demo aplikacije"><div class="ph-in"><div class="ph-notch"></div><div class="ph-screen" aria-live="polite"></div>
@@ -461,8 +479,8 @@ def page3():
     html = html.replace(APP, '<div class="tab-col"><div class="tab-wrap" id="tabwrap"><div class="tab" id="tablet" aria-label="Demo zidnog zaslona"><div class="tb-in"><nav class="tb-nav"></nav><div class="tb-body"></div><div class="tb-pop" hidden></div></div></div></div><p class="tab-hint">Zidni zaslon u kući · sve se može kliknuti</p></div>')
     html = html.replace('.hero .wrap{display:grid;grid-template-columns:1fr 1.05fr;', '.hero .wrap{display:grid;grid-template-columns:.82fr 1.18fr;')
     html = html.replace(LOGO_DARK, '<img class="logo logo-img" src="fiel-logo.svg" alt="Fiel d.o.o." width="1222" height="600">', 1)
-    html = html.replace('</style>', '.fx .top,.fx .top.scrolled{z-index:50;background:#070d17;backdrop-filter:none;-webkit-backdrop-filter:none;box-shadow:0 10px 30px -12px rgba(0,0,0,.8)}.fx .contact .wrap{grid-template-columns:minmax(0,600px);align-items:start;gap:28px}.fx .contact .row{margin-top:4px}.fx .contact{min-height:420px}.top .logo-img{height:68px;width:auto;display:block}.top .wrap{height:86px}@media (max-width:560px){.top .logo-img{height:50px}.top .wrap{height:70px}}</style>', 1)
-    html = html.replace('<a class="btn" href="#">Za investitore</a>', '<a class="btn" href="#demo-sekcija">Isprobajte demo ↓</a>', 1)
+    html = html.replace('</style>', 'html,body{overflow-x:clip}.pgh{overflow-x:clip}.mslot{display:none}@media (max-width:700px){.mslot{display:block;height:min(78vw,330px);margin:8px 0 4px}.sol .wrap{gap:10px}.sol-list{grid-template-columns:1fr 1fr!important;gap:8px}.sol-list button{padding:12px 14px!important}.sol-list button span{display:none!important}.band-slot{height:min(66vw,280px)}}.fx .top,.fx .top.scrolled{z-index:50;background:#070d17;backdrop-filter:none;-webkit-backdrop-filter:none;box-shadow:0 10px 30px -12px rgba(0,0,0,.8)}.fx .contact .wrap{grid-template-columns:minmax(0,600px);align-items:start;gap:28px}.fx .contact .row{margin-top:4px}.fx .contact{min-height:420px}.top .logo-img{height:68px;width:auto;display:block}.top .wrap{height:86px}@media (max-width:560px){.top .logo-img{height:50px}.top .wrap{height:70px}}</style>', 1)
+    html = html.replace('<a class="btn" href="#">Za investitore</a>', '<a class="btn" href="#demo">Isprobajte demo ↓</a>', 1)
     html = html.replace('<section><div class="wrap"><span class="label">Zašto lokalno</span>', DEMO + '<section><div class="wrap"><span class="label">Zašto lokalno</span>', 1)
     html = html.replace('</style>', DEMO_CSS + '</style>', 1)
     html = html.replace('</body>', '<script>' + DEMO_JS + '</script></body>')
@@ -474,6 +492,7 @@ def page3():
     html = html.replace('<div class="card">','<div class="card up">')
     sol = """<section class="sol" data-shape="lamp" data-x="-2.6"><div class="wrap"><div><span class="label">Rješenja</span><h2 style="margin-top:14px">Jedan sustav <em>za cijeli objekt</em></h2>
 <p style="color:var(--muted);margin-top:16px;max-width:28em">Prijeđite mišem ili dodirnite karticu.</p></div>
+<div class="mslot" aria-hidden="true"></div>
 <div class="sol-list">
 <button data-s="lamp" class="act"><b>Rasvjeta</b><span>Scene, raspored po dobu dana i prisutnost.</span></button>
 <button data-s="heat"><b>Grijanje i hlađenje</b><span>Temperatura po prostorijama i raspored po danima.</span></button>
@@ -483,9 +502,10 @@ def page3():
 <button data-s="villa"><b>Cijela kuća</b><span>Sve na jednom zaslonu, radi i bez interneta.</span></button>
 </div></div></section>"""
     html = html.replace('<section class="band">', sol + '\n<section class="band" data-shape="villa" data-x="2.6">')
+    html = html.replace('<section class="band" data-shape="villa" data-x="2.6"><div class="wrap"><span class="label">Kako radimo</span><h2 style="margin-top:14px">Od prvog razgovora <em>do predaje</em></h2>','<section class="band" data-shape="villa" data-x="2.6"><div class="wrap"><span class="label">Kako radimo</span><h2 style="margin-top:14px">Od prvog razgovora <em>do predaje</em></h2><div class="mslot band-slot" aria-hidden="true"></div>',1)
     html = html.replace('<section class="contact" id="kontakt">','<section class="contact" id="kontakt" data-shape="villa" data-x="2.9" data-mshape="dust">')
     html = html.replace('© 2026 Fiel d.o.o. · Rušiščak 5b, Zagreb','© 2026 Fiel d.o.o. · Rušiščak 5b, Zagreb · <span class="clock">ZAGREB, SADA <span id="sat"></span></span>')
-    html = html.replace('<script>','<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script><script>')
+    html = html.replace('<script>','<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script><script>', 1)
     html = html.replace('</script></body>', THREE_FX + '</script></body>')
     return html
 
