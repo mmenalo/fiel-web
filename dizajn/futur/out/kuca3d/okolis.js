@@ -11,7 +11,7 @@ export function pripremi(card) {
     applyFloor.call(this);
     const both = this._floor === 'both', [g, k] = this._floors || [];
     if (both && g && k) { g.position.set(0, 0, 0); k.position.set(0, UP, 0); }
-    if (this._env3) this._env3.roof.visible = both;
+    if (this._env3) { this._env3.roof.visible = both; if (this._env3.clad) this._env3.clad.visible = both; }
     if (this._labelsEl) this._labelsEl.style.display = both ? 'none' : '';
     this._shadowDirty = true; this._placeCamera();
   };
@@ -56,12 +56,12 @@ export function okolis(card) {
   const glow = (x, y, z, s, color, op = .55) => { if (!glowTex) return; add(plane(s, s), BAS(color, { map: glowTex, transparent: true, opacity: op, blending: 2, depthWrite: false }), x, y, z, { cast: false }); };
 
   const M = {
-    pave: STD(0x9aa0a8, { roughness: .9 }), drive: STD(0x3a3f47, { roughness: .95 }), coping: STD(0xd9d4c8, { roughness: .7 }),
-    deck: STD(0x8a5a36, { roughness: .75 }), hedge: STD(0x1f4a2a), leaf: STD(0x2c5e34), leaf2: STD(0x3d6f3a), trunk: STD(0x4a3526),
-    water: STD(0x1a8cc4, { roughness: .04, metalness: .15, emissive: 0x0a7fb5, emissiveIntensity: .85, transparent: true, opacity: .92 }),
+    pave: STD(0xcbbda8, { roughness: .55, metalness: .05 }), drive: STD(0x3a3f47, { roughness: .95 }), coping: STD(0xe6dccb, { roughness: .6 }),
+    deck: STD(0x8a5a36, { roughness: .75 }), hedge: STD(0x1f4a2a), leaf: STD(0x22402a), leaf2: STD(0x7d8a5c), trunk: STD(0x4a3526),
+    water: STD(0x3cc6d6, { roughness: .04, metalness: .1, emissive: 0x1aa6b8, emissiveIntensity: .75, transparent: true, opacity: .93 }),
     poolIn: STD(0x7fd0ea, { emissive: 0x1e7fa8, emissiveIntensity: .35 }),
     roof: STD(0x2b2f36, { roughness: .85 }), fascia: STD(0x1c1f24, { roughness: .6 }),
-    neon: BAS(0x38d6ff), lamp: BAS(0xffe2a8), tire: STD(0x111111, { roughness: .9 }), rim: STD(0xc9ced6, { metalness: .9, roughness: .25 }),
+    neon: BAS(0xffc77a), lamp: BAS(0xffe2a8), tire: STD(0x111111, { roughness: .9 }), rim: STD(0xc9ced6, { metalness: .9, roughness: .25 }),
     glass: STD(0x0b0f16, { metalness: .6, roughness: .08 }), head: BAS(0xf4f8ff), tail: BAS(0xff2a2a), lounger: STD(0xece8e0),
     fence: STD(0x2a2d33, { metalness: .4, roughness: .5 }),
   };
@@ -78,7 +78,6 @@ export function okolis(card) {
   edge(10.32, 10.42, ROOF + .41, .05, -.45, roof);
   env.add(roof);
   card._env3 = { roof };
-  edge(9.15, 8.05, .03, 0, -.3, env);           // neon uz tlo, kao na referenci
 
   /* terasa i bazen ispred dnevnog boravka */
   add(plane(9.4, 1.2), M.deck, 0, .02, 8.4, { cast: false });
@@ -116,8 +115,8 @@ export function okolis(card) {
     glow(x, .03, z, 6.2, 0xffffff, .1);
     return g;
   };
-  car(-8.0, 3.2, 0x2a3442);
-  car(-10.7, 2.4, 0xd8dbe0, .06);
+  car(-8.0, 3.2, 0x121519);
+  car(-10.7, 2.4, 0x1a1e24, .06);
 
   /* vrt: živica uz rub, stabla, rasvjeta staze */
   [[0, -16, 30, .4], [-15, 2, .4, 36], [15, 2, .4, 36]].forEach(h => add(box(h[2], 1.1, h[3]), M.hedge, h[0], .55, h[1]));
@@ -131,6 +130,31 @@ export function okolis(card) {
     add(cyl(.07, .07, .65, 8), M.fence, p[0], .33, p[1], { cast: false }); add(cyl(.09, .09, .1, 8), M.lamp, p[0], .7, p[1], { cast: false });
     glow(p[0], .04, p[1], 2.4, 0xffd38a, .5);
   });
+
+  /* izgled kao na vizualizaciji: krem fasada, drvena obloga, kameno prizemlje, topla LED rasvjeta */
+  const tex = (w, h, draw) => { if (!C.CanvasTexture) return null; const cv = document.createElement('canvas'); cv.width = w; cv.height = h; draw(cv.getContext('2d'), w, h); const t = new C.CanvasTexture(cv); t.colorSpace = 'srgb'; return t; };
+  const wood = tex(256, 256, (x, w, h) => { for (let i = 0; i < 16; i++) { x.fillStyle = ['#7a4a2b', '#8b5733', '#6d4126', '#93603a'][i % 4]; x.fillRect(i * 16, 0, 13, h); x.fillStyle = 'rgba(0,0,0,.55)'; x.fillRect(i * 16 + 13, 0, 3, h); } });
+  const stone = tex(256, 256, (x, w, h) => { x.fillStyle = '#9d988f'; x.fillRect(0, 0, w, h); for (let r = 0; r < 16; r++) for (let c = 0; c < 6; c++) { const o = r % 2 ? 22 : 0, g = 190 + ((r * 7 + c * 13) % 5) * 9; x.fillStyle = `rgb(${g},${g - 6},${g - 16})`; x.fillRect(c * 46 + o - 20, r * 16 + 1, 43, 14); } });
+  const cream = 0xf0e6d4;
+  (card._floors || []).forEach(f => f.traverse(o => { if (!o.isMesh || o.geometry.type !== 'ExtrudeGeometry') return; [].concat(o.material).forEach(m => { if (m.color && (m.color.getHex() === 0xcfcac2 || m.color.getHex() === 0xf1efea)) { m.color.setHex(cream); m.needsUpdate = true; } }); }));
+  let bb = null; const f0 = (card._floors || [])[0];
+  if (f0) { f0.updateMatrixWorld(true); f0.traverse(o => { if (!o.isMesh || o.geometry.type !== 'ExtrudeGeometry') return; o.geometry.computeBoundingBox(); const b = o.geometry.boundingBox.clone().applyMatrix4(o.matrixWorld); if (!bb) bb = b; else bb.union(b); }); }
+  const X0 = bb ? bb.min.x : -5, X1 = bb ? bb.max.x : 5, Z0 = bb ? bb.min.z : -5.5, Z1 = bb ? bb.max.z : 4.6;
+  const cl = new C.Group(); env.add(cl); card._env3.clad = cl;
+  if (wood) { wood.wrapS = wood.wrapT = 1000; wood.repeat && wood.repeat.set(3, 1); add(box(.08, 2.55, Z1 - Z0 - .2), STD(0xffffff, { map: wood, roughness: .7 }), X0 - .06, UP + 1.3, (Z0 + Z1) / 2, { parent: cl }); }
+  if (stone) { stone.wrapS = stone.wrapT = 1000; stone.repeat && stone.repeat.set(4, 1.6); add(box(.08, 3.2, Z1 - Z0 - .2), STD(0xffffff, { map: stone, roughness: .9 }), X0 - .06, 1.6, (Z0 + Z1) / 2, { parent: cl }); }
+  /* tamni pojas između katova i LED traka ispod krova */
+  add(box(X1 - X0 + .3, .28, .3), M.fascia, (X0 + X1) / 2, UP - .05, Z1 + .05, { parent: cl, cast: false });
+  add(box(.3, .28, Z1 - Z0 + .3), M.fascia, X0 - .05, UP - .05, (Z0 + Z1) / 2, { parent: cl, cast: false });
+  /* topla rasvjeta fasade odozdo */
+  if (C.PointLight) [[X0 - .7, 1.2, Z0 + 2], [X0 - .7, 1.2, (Z0 + Z1) / 2 + 1.5], [(X0 + X1) / 2 + 2.6, 1.1, Z1 + .8], [X1 + .7, 1.2, Z1 - 2]].forEach(p => { const l = new C.PointLight(0xffb867, 4.5, 6.5, 1.8); l.position.set(p[0], p[1], p[2]); env.add(l); });
+  [[X0 - .35, Z0 + 2], [X0 - .35, (Z0 + Z1) / 2 + 1.5], [X0 - .35, Z1 - 1.5]].forEach(p => glow(p[0], .05, p[1], 2.2, 0xffc77a, .45));
+  /* masline u posudama uz terasu */
+  const pot = STD(0xcfc6b6, { roughness: .8 });
+  [[X0 + .9, Z1 + 1.1], [X1 - .4, Z1 + 1.0]].forEach(p => { add(cyl(.55, .4, .8, 18), pot, p[0], .4, p[1]); add(cyl(.06, .09, 1.2, 8), M.trunk, p[0], 1.3, p[1]); [[0, 2.2, 0, .95], [.4, 2.0, .2, .7], [-.35, 2.05, -.25, .7]].forEach(q => add(cyl(q[3] * .9, q[3] * .7, .7, 12), M.leaf2, p[0] + q[0], q[1], p[1] + q[2])); glow(p[0], .05, p[1], 2, 0xffc77a, .35); });
+  /* ograda dvorišta */
+  const fw = STD(0x5a3a26, { roughness: .8 });
+  add(box(30, 1.6, .12), fw, 0, .8, -16.4); add(box(.12, 1.6, 36), fw, -15.4, .8, 2); add(box(.12, 1.6, 36), fw, 15.4, .8, 2);
   /* ograda s kapijom na prilazu */
 
   sc.add(env);
