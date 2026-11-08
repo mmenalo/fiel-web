@@ -273,3 +273,13 @@
 .ph-fp .sw{flex:none;transform:scale(.8);transform-origin:left center;margin-right:-8px}.ph-x{margin-left:auto;flex:none;width:22px;height:22px;border-radius:8px;background:rgba(255,255,255,.08)!important;color:rgba(238,240,255,.7)}
 .ph-add{margin-top:10px;width:100%;padding:8px;border-radius:12px;border:1px dashed rgba(255,255,255,.2)!important;color:rgba(238,240,255,.75);font-size:.8rem}
 .ph-seg.sm{margin-top:10px}.ph-seg.sm button{font-size:.78rem;padding:7px 4px}.ph-tag.on{background:rgba(63,182,217,.25);color:#9be6f7}
+.kimg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;animation:kb 16s ease-in-out infinite alternate;transform-origin:50% 55%}
+@keyframes kb{from{transform:scale(1.02) translateX(-1%)}to{transform:scale(1.09) translateX(1.2%)}}
+.ph-feed .live,.ph-feed .demo,.ph-feed .ts,.tc.cam .live,.tc.cam .lbl,.tc.cam .ts,.tc.cam .ar{z-index:2}
+.ph-kg{display:grid;grid-template-columns:1fr 1fr;gap:8px}.ph-kg button{position:relative;aspect-ratio:16/10;border-radius:14px;overflow:hidden;background:#0d1420;border:2px solid transparent!important}
+.ph-kg button.on{border-color:#a77bff!important}.ph-kg .kimg{animation:none}.ph-kg span{position:absolute;left:6px;bottom:5px;font-size:.66rem;background:rgba(0,0,0,.55);padding:2px 7px;border-radius:99px;z-index:2}
+.vl-cam{position:absolute;transform:translate(-50%,-50%);width:28px;height:28px;border-radius:50%;display:grid;place-items:center;background:rgba(10,16,28,.75);border:1.5px solid rgba(255,255,255,.55);color:#fff;opacity:0;pointer-events:none;transition:opacity .4s;z-index:4}
+.vl-cam svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:1.8}.vl-cam span{position:absolute;top:120%;left:50%;transform:translateX(-50%);white-space:nowrap;font:500 .62rem Jost,sans-serif;background:rgba(0,0,0,.6);padding:2px 7px;border-radius:99px}
+.pcams .vl-cam{opacity:1;pointer-events:auto}.vl-cam.on{background:#a77bff;border-color:#fff;box-shadow:0 0 0 0 rgba(167,123,255,.7);animation:vlc 1.6s ease-out infinite}
+@keyframes vlc{to{box-shadow:0 0 0 16px rgba(167,123,255,0)}}
+.pcams .vl-h{opacity:0;pointer-events:none}
