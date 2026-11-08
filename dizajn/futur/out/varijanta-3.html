@@ -401,6 +401,25 @@ footer .big{font:500 clamp(6rem,22vw,16rem)/0.8 Jost,sans-serif;letter-spacing:.
 }
 @media (max-width:960px) and (min-width:701px){.demo-stage.tabmode .house{height:min(50vw,360px)}}
 
+/* raspršivači */
+.vl-spr{position:absolute;width:20%;aspect-ratio:2.2;transform:translate(-50%,-50%);pointer-events:none;opacity:0;transition:opacity .7s ease;z-index:1}
+.vl-spr.on{opacity:1}
+.vl-spr i{position:absolute;inset:0;border-radius:50%;background:radial-gradient(closest-side,rgba(20,70,45,.5),rgba(20,70,45,.22) 55%,transparent)}.vl-spr.on i{animation:vlwet 3s ease-out both}@keyframes vlwet{from{transform:scale(.3);opacity:0}}
+.vl-spr b{position:absolute;left:50%;top:50%;width:52%;height:170%;transform-origin:0 50%;transform:translateY(-50%) rotate(var(--rot)) scaleY(.48);
+ background:conic-gradient(from 300deg at 0% 50%,transparent 0deg,rgba(200,240,255,.7) 30deg,rgba(255,255,255,1) 60deg,rgba(200,240,255,.7) 90deg,transparent 120deg);box-shadow:none;
+ -webkit-mask:radial-gradient(farthest-side at 0% 50%,transparent 0,rgba(0,0,0,.35) 18%,#000 55%,rgba(0,0,0,.6) 85%,transparent 100%);mask:radial-gradient(farthest-side at 0% 50%,transparent 0,rgba(0,0,0,.35) 18%,#000 55%,rgba(0,0,0,.6) 85%,transparent 100%);filter:blur(.7px)}
+.vl-spr.on b{animation:vlspr 3.2s ease-in-out infinite alternate}
+@keyframes vlspr{from{transform:translateY(-50%) rotate(calc(var(--rot) - 60deg)) scaleY(.48)}to{transform:translateY(-50%) rotate(calc(var(--rot) + 60deg)) scaleY(.48)}}
+.vl-spr::after{content:"";position:absolute;left:50%;top:50%;width:9px;height:9px;border-radius:50%;background:#eaf8ff;transform:translate(-50%,-50%);box-shadow:0 0 8px 2px rgba(255,255,255,.8)}
+.vl-spr.drip{width:5%;aspect-ratio:1.6}.vl-spr.drip b{display:none}
+.vl-spr.drip i{background:radial-gradient(closest-side,rgba(40,110,80,.5),transparent)}
+.vl-spr.drip::after{width:6px;height:6px;background:#bfe8ff;animation:vldrip 1.1s ease-in infinite}
+@keyframes vldrip{0%{transform:translate(-50%,-160%) scale(.6);opacity:0}30%{opacity:1}100%{transform:translate(-50%,-10%) scale(1);opacity:0}}
+/* veći demo: kuća i zidni zaslon izlaze iz stupca */
+@media (min-width:1240px){.demo-stage.tabmode{width:min(96vw,1560px);margin-left:calc(50% - min(48vw,780px));grid-template-columns:1fr 1.45fr;gap:36px}}
+.house.vday .vl-spr b{filter:blur(.5px) drop-shadow(0 0 2px rgba(60,120,160,.9));background:conic-gradient(from 300deg at 0% 50%,transparent 0deg,rgba(150,215,255,.85) 30deg,#fff 60deg,rgba(150,215,255,.85) 90deg,transparent 120deg)}
+.house.vday .vl-spr i{background:radial-gradient(closest-side,rgba(10,60,40,.55),rgba(10,60,40,.25) 55%,transparent)}
+
 #fx{position:fixed;inset:0;width:100vw;height:100vh;z-index:0;pointer-events:none}
 .fx main,.fx footer,.fx .top{position:relative;z-index:1}.fx .top{position:sticky}
 .fx section,.fx .hero{background:transparent}.fx .band{background:rgba(14,24,40,.55)}
@@ -902,6 +921,8 @@ function buildVila(){var h='<div class="vila"><div class="vl-st"><img src="vila/
   '<div class="vl-fall" style="left:'+(868/15.36)+'%;top:'+(742/10.24)+'%;width:'+(330/15.36)+'%"><i></i></div><div class="vl-jets">'+[[1236,668],[1286,690],[1336,712]].map(function(q){return '<i style="left:'+(q[0]/15.36)+'%;top:'+(q[1]/10.24)+'%"></i>';}).join('')+'</div>'+
   '<button class="vl-h vl-pool" data-vpool style="left:'+(1130/15.36)+'%;top:'+(770/10.24)+'%"><i></i><span>Bazen</span></button>';
  h+=KAM.map(function(k,i){return '<button class="vl-cam" data-vcam="'+i+'" style="left:'+(k[2][0]/15.36)+'%;top:'+(k[2][1]/10.24)+'%" aria-label="Kamera '+k[1]+'"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="'+IP.cam+'"/></svg><span>'+k[1]+'</span></button>';}).join('');
+var SPR=[[0,[[70,560,-20],[90,790,-10],[330,985,30],[640,1000,20]]],[1,[[1200,470,20],[1420,580,40],[1450,800,70],[1240,930,110],[250,335,-30]]],[2,[[45,900,-60],[150,965,-40],[1440,300,120]]],[3,[[1110,300,10],[1250,290,30]]],[4,[[1380,425],[612,565],[1052,470],[1132,280]],'d']];
+ h+='<div class="vl-spr-all">'+SPR.map(function(z){return z[1].map(function(q){return '<span class="vl-spr'+(z[2]==='d'?' drip':'')+'" data-z="'+z[0]+'" style="left:'+(q[0]/15.36)+'%;top:'+(q[1]/10.24)+'%;--rot:'+(q[2]||0)+'deg"><i></i><b></b></span>';}).join('');}).join('')+'</div>';
  h+='<div class="vl-cur" style="'+pc([659,419,852,586])+'"></div>';
  SHL.forEach(function(q,i){var r=VR[q[0]];h+='<div class="vl-r" data-i="'+i+'" style="'+pc(r.s)+'"><img src="vila/r-'+q[0]+'.png" alt="" class="n"><img src="vila/rd-'+q[0]+'.png" alt="" class="d"></div>';});
  Object.keys(VR).forEach(function(k){var r=VR[k];h+='<button class="vl-h" data-vroom="'+k+'" style="left:'+((r.s[0]+r.s[2])/2/15.36)+'%;top:'+((r.s[1]+r.s[3])/2/10.24)+'%"><i></i><span>'+r.n+'</span></button>';});
@@ -931,7 +952,7 @@ function vilaUpd(){if(!VS)return;if((sub==='pool')!==vfz)fitVila();host.classLis
  var day=sun==='above_horizon';host.classList.toggle('vday',day);var sb=host.querySelector('[data-vsun]');if(sb)sb.textContent=day?'Noćni prikaz':'Dnevni prikaz';
  VS.querySelector('.vl-vrt').style.opacity=vrt||day?0:1;VS.querySelector('.vl-bz.on').style.opacity=!day&&!vrt&&PL.light?1:0;VS.querySelector('.vl-bz.off').style.opacity=!day&&vrt&&!PL.light?1:0;
  host.classList.toggle('pcams',sub==='cams');[].forEach.call(VS.querySelectorAll('.vl-cam'),function(x){x.classList.toggle('on',+x.dataset.vcam===cam);});
- host.classList.toggle('pmass',PL.mass);host.classList.toggle('pfall',PL.fall);var pb=VS.querySelector('.vl-pool');pb.classList.toggle('on',PL.light&&!day);pb.querySelector('span').textContent='Bazen '+fmt(PL.t)+' °C';var vb=host.querySelector('[data-vrt]');if(vb)vb.classList.toggle('on',vrt);}
+ [].forEach.call(VS.querySelectorAll('.vl-spr'),function(x){x.classList.toggle('on',+x.dataset.z===water);});host.classList.toggle('pmass',PL.mass);host.classList.toggle('pfall',PL.fall);var pb=VS.querySelector('.vl-pool');pb.classList.toggle('on',PL.light&&!day);pb.querySelector('span').textContent='Bazen '+fmt(PL.t)+' °C';var vb=host.querySelector('[data-vrt]');if(vb)vb.classList.toggle('on',vrt);}
 
 cardVis=false;buildVila();
 if('IntersectionObserver' in window){var pio=new IntersectionObserver(function(es){if(es[0].isIntersecting){pio.disconnect();setTimeout(preload,400);}},{rootMargin:'900px 0px'});pio.observe(host);}else setTimeout(preload,3000);

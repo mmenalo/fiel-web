@@ -334,3 +334,22 @@
  .demo-stage.tabmode .devices{width:100%}
 }
 @media (max-width:960px) and (min-width:701px){.demo-stage.tabmode .house{height:min(50vw,360px)}}
+
+/* raspršivači */
+.vl-spr{position:absolute;width:20%;aspect-ratio:2.2;transform:translate(-50%,-50%);pointer-events:none;opacity:0;transition:opacity .7s ease;z-index:1}
+.vl-spr.on{opacity:1}
+.vl-spr i{position:absolute;inset:0;border-radius:50%;background:radial-gradient(closest-side,rgba(20,70,45,.5),rgba(20,70,45,.22) 55%,transparent)}.vl-spr.on i{animation:vlwet 3s ease-out both}@keyframes vlwet{from{transform:scale(.3);opacity:0}}
+.vl-spr b{position:absolute;left:50%;top:50%;width:52%;height:170%;transform-origin:0 50%;transform:translateY(-50%) rotate(var(--rot)) scaleY(.48);
+ background:conic-gradient(from 300deg at 0% 50%,transparent 0deg,rgba(200,240,255,.7) 30deg,rgba(255,255,255,1) 60deg,rgba(200,240,255,.7) 90deg,transparent 120deg);box-shadow:none;
+ -webkit-mask:radial-gradient(farthest-side at 0% 50%,transparent 0,rgba(0,0,0,.35) 18%,#000 55%,rgba(0,0,0,.6) 85%,transparent 100%);mask:radial-gradient(farthest-side at 0% 50%,transparent 0,rgba(0,0,0,.35) 18%,#000 55%,rgba(0,0,0,.6) 85%,transparent 100%);filter:blur(.7px)}
+.vl-spr.on b{animation:vlspr 3.2s ease-in-out infinite alternate}
+@keyframes vlspr{from{transform:translateY(-50%) rotate(calc(var(--rot) - 60deg)) scaleY(.48)}to{transform:translateY(-50%) rotate(calc(var(--rot) + 60deg)) scaleY(.48)}}
+.vl-spr::after{content:"";position:absolute;left:50%;top:50%;width:9px;height:9px;border-radius:50%;background:#eaf8ff;transform:translate(-50%,-50%);box-shadow:0 0 8px 2px rgba(255,255,255,.8)}
+.vl-spr.drip{width:5%;aspect-ratio:1.6}.vl-spr.drip b{display:none}
+.vl-spr.drip i{background:radial-gradient(closest-side,rgba(40,110,80,.5),transparent)}
+.vl-spr.drip::after{width:6px;height:6px;background:#bfe8ff;animation:vldrip 1.1s ease-in infinite}
+@keyframes vldrip{0%{transform:translate(-50%,-160%) scale(.6);opacity:0}30%{opacity:1}100%{transform:translate(-50%,-10%) scale(1);opacity:0}}
+/* veći demo: kuća i zidni zaslon izlaze iz stupca */
+@media (min-width:1240px){.demo-stage.tabmode{width:min(96vw,1560px);margin-left:calc(50% - min(48vw,780px));grid-template-columns:1fr 1.45fr;gap:36px}}
+.house.vday .vl-spr b{filter:blur(.5px) drop-shadow(0 0 2px rgba(60,120,160,.9));background:conic-gradient(from 300deg at 0% 50%,transparent 0deg,rgba(150,215,255,.85) 30deg,#fff 60deg,rgba(150,215,255,.85) 90deg,transparent 120deg)}
+.house.vday .vl-spr i{background:radial-gradient(closest-side,rgba(10,60,40,.55),rgba(10,60,40,.25) 55%,transparent)}

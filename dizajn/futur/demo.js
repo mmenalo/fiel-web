@@ -385,6 +385,8 @@ function buildVila(){var h='<div class="vila"><div class="vl-st"><img src="vila/
   '<div class="vl-fall" style="left:'+(868/15.36)+'%;top:'+(742/10.24)+'%;width:'+(330/15.36)+'%"><i></i></div><div class="vl-jets">'+[[1236,668],[1286,690],[1336,712]].map(function(q){return '<i style="left:'+(q[0]/15.36)+'%;top:'+(q[1]/10.24)+'%"></i>';}).join('')+'</div>'+
   '<button class="vl-h vl-pool" data-vpool style="left:'+(1130/15.36)+'%;top:'+(770/10.24)+'%"><i></i><span>Bazen</span></button>';
  h+=KAM.map(function(k,i){return '<button class="vl-cam" data-vcam="'+i+'" style="left:'+(k[2][0]/15.36)+'%;top:'+(k[2][1]/10.24)+'%" aria-label="Kamera '+k[1]+'"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="'+IP.cam+'"/></svg><span>'+k[1]+'</span></button>';}).join('');
+var SPR=[[0,[[70,560,-20],[90,790,-10],[330,985,30],[640,1000,20]]],[1,[[1200,470,20],[1420,580,40],[1450,800,70],[1240,930,110],[250,335,-30]]],[2,[[45,900,-60],[150,965,-40],[1440,300,120]]],[3,[[1110,300,10],[1250,290,30]]],[4,[[1380,425],[612,565],[1052,470],[1132,280]],'d']];
+ h+='<div class="vl-spr-all">'+SPR.map(function(z){return z[1].map(function(q){return '<span class="vl-spr'+(z[2]==='d'?' drip':'')+'" data-z="'+z[0]+'" style="left:'+(q[0]/15.36)+'%;top:'+(q[1]/10.24)+'%;--rot:'+(q[2]||0)+'deg"><i></i><b></b></span>';}).join('');}).join('')+'</div>';
  h+='<div class="vl-cur" style="'+pc([659,419,852,586])+'"></div>';
  SHL.forEach(function(q,i){var r=VR[q[0]];h+='<div class="vl-r" data-i="'+i+'" style="'+pc(r.s)+'"><img src="vila/r-'+q[0]+'.png" alt="" class="n"><img src="vila/rd-'+q[0]+'.png" alt="" class="d"></div>';});
  Object.keys(VR).forEach(function(k){var r=VR[k];h+='<button class="vl-h" data-vroom="'+k+'" style="left:'+((r.s[0]+r.s[2])/2/15.36)+'%;top:'+((r.s[1]+r.s[3])/2/10.24)+'%"><i></i><span>'+r.n+'</span></button>';});
@@ -414,7 +416,7 @@ function vilaUpd(){if(!VS)return;if((sub==='pool')!==vfz)fitVila();host.classLis
  var day=sun==='above_horizon';host.classList.toggle('vday',day);var sb=host.querySelector('[data-vsun]');if(sb)sb.textContent=day?'Noćni prikaz':'Dnevni prikaz';
  VS.querySelector('.vl-vrt').style.opacity=vrt||day?0:1;VS.querySelector('.vl-bz.on').style.opacity=!day&&!vrt&&PL.light?1:0;VS.querySelector('.vl-bz.off').style.opacity=!day&&vrt&&!PL.light?1:0;
  host.classList.toggle('pcams',sub==='cams');[].forEach.call(VS.querySelectorAll('.vl-cam'),function(x){x.classList.toggle('on',+x.dataset.vcam===cam);});
- host.classList.toggle('pmass',PL.mass);host.classList.toggle('pfall',PL.fall);var pb=VS.querySelector('.vl-pool');pb.classList.toggle('on',PL.light&&!day);pb.querySelector('span').textContent='Bazen '+fmt(PL.t)+' °C';var vb=host.querySelector('[data-vrt]');if(vb)vb.classList.toggle('on',vrt);}
+ [].forEach.call(VS.querySelectorAll('.vl-spr'),function(x){x.classList.toggle('on',+x.dataset.z===water);});host.classList.toggle('pmass',PL.mass);host.classList.toggle('pfall',PL.fall);var pb=VS.querySelector('.vl-pool');pb.classList.toggle('on',PL.light&&!day);pb.querySelector('span').textContent='Bazen '+fmt(PL.t)+' °C';var vb=host.querySelector('[data-vrt]');if(vb)vb.classList.toggle('on',vrt);}
 
 cardVis=false;buildVila();
 if('IntersectionObserver' in window){var pio=new IntersectionObserver(function(es){if(es[0].isIntersecting){pio.disconnect();setTimeout(preload,400);}},{rootMargin:'900px 0px'});pio.observe(host);}else setTimeout(preload,3000);
