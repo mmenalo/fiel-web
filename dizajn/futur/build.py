@@ -465,11 +465,11 @@ DEMO = f"""<section class="demo-sec" id="demo-sekcija" data-shape="dust"><div cl
 <button data-dan="4"><time>19:00</time><b>Dolazak</b><small>Večernja rasvjeta.</small></button>
 <button data-dan="5"><time>23:00</time><b>Laku noć</b><small>Rolete dolje, noćni alarm.</small></button>
 </div></div>
-<div class="demo-stage" id="demo">
+<div class="demo-stage tabmode" id="demo">
 <div class="house-slot" aria-hidden="true"></div>
-<div class="devices"><div class="dev-tabs" role="tablist"><button role="tab" data-dev="ph" aria-selected="true">Mobitel</button><button role="tab" data-dev="tab" aria-selected="false">Zidni zaslon</button></div>
-<div class="tab-col dev" data-devpane="tab" hidden><div class="tab-wrap" id="tabwrap"><div class="tab" id="tablet" aria-label="Demo zidnog zaslona"><div class="tb-in"><nav class="tb-nav"></nav><div class="tb-body"></div><div class="tb-pop" hidden></div></div></div></div><p class="tab-hint">Zidni zaslon u kući · sve se može kliknuti</p></div>
-<div class="ph dev" data-devpane="ph" aria-label="Demo aplikacije"><div class="ph-in"><div class="ph-notch"></div><div class="ph-screen" aria-live="polite"></div>
+<div class="devices"><div class="dev-tabs" role="tablist"><button role="tab" data-dev="tab" aria-selected="true">Zidni zaslon</button><button role="tab" data-dev="ph" aria-selected="false">Mobitel</button></div>
+<div class="tab-col dev" data-devpane="tab"><div class="tab-wrap" id="tabwrap"><div class="tab" id="tablet" aria-label="Demo zidnog zaslona"><div class="tb-in"><nav class="tb-nav"></nav><div class="tb-body"></div><div class="tb-pop" hidden></div></div></div></div><p class="tab-hint">Zidni zaslon u kući · sve se može kliknuti</p></div>
+<div class="ph dev" data-devpane="ph" hidden aria-label="Demo aplikacije"><div class="ph-in"><div class="ph-notch"></div><div class="ph-screen" aria-live="polite"></div>
 <nav class="ph-nav">{''.join(f'<button data-tab="{k}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="{_IC[i]}"/></svg>{n}</button>' for k, i, n in NAVB)}</nav></div></div>
 </div></div></div>
 <script type="application/json" id="kuca3d-cfg">{json.dumps(_cfg)}</script></section>

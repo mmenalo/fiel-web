@@ -48,7 +48,8 @@ function init(){
 }
 
 /* ---------- scene ---------- */
-function applyScene(k,quiet){scene=k;[].forEach.call(document.querySelectorAll('[data-hscene]'),function(x){x.classList.toggle('on',x.dataset.hscene===k);});if(k==='noc'||k==='van'){PL.light=false;PL.mass=false;PL.fall=false;PL.sl=false;}if(k==='vecer'){PL.light=true;}if(typeof vrt!=='undefined'){vrt=!(k==='noc'||k==='van');}
+function unzoom(){if(sub==='pool'){sub='';tab='more';}}
+function applyScene(k,quiet){scene=k;unzoom();[].forEach.call(document.querySelectorAll('[data-hscene]'),function(x){x.classList.toggle('on',x.dataset.hscene===k);});if(k==='noc'||k==='van'){PL.light=false;PL.mass=false;PL.fall=false;PL.sl=false;}if(k==='vecer'){PL.light=true;}if(typeof vrt!=='undefined'){vrt=!(k==='noc'||k==='van');}
  var L={},C={};
  if(k==='dan'){sun='above_horizon';COVERS.forEach(function(c){C[c[0]]=100;});}
  if(k==='vecer'){sun='below_horizon';L={'light.dnevni':70,'light.blagovaonica':80,'light.kuhinja':100,'light.holl':100,'light.hodnik':60,'light.traka_tv':40,'light.ana':50};C={'cover.toni':0,'cover.mz':0};}
@@ -328,7 +329,7 @@ window.fielTabletDust=function(N){if(!TB)return null;var R0=TB.getBoundingClient
   p[q*3]=x;p[q*3+1]=-(y-R0.height/W/2);p[q*3+2]=(Math.random()-.5)*.004;k[q]=it.c;}
  return {p:p,k:k};};
 if(TB){
- TB.addEventListener('click',function(e){var b=e.target.closest('button,[data-tpop]');if(!b)return;var d=b.dataset;
+ TB.addEventListener('click',function(e){var b=e.target.closest('button,[data-tpop]');if(!b)return;var d=b.dataset;if(sub==='pool'){unzoom();render();}
   if(d.tnav!=null){if(d.tnav==='kuca'){var ds=document.getElementById('demo-sekcija');if(ds)ds.scrollIntoView({behavior:'smooth'});return;}tpop=d.tnav==='home'?'':d.tnav;renderTab();return;}
   if(d.tcam){var q0=d.tcam.split(':');var sl=+q0[0],nv=TCAM[sl];do{nv=(nv+ +q0[1]+KAM.length)%KAM.length;}while(nv===TCAM[1-sl]);TCAM[sl]=nv;renderTab();return;}
   if(d.tvol){vol=Math.max(0,Math.min(100,vol+ +d.tvol));render();return;}
@@ -389,9 +390,9 @@ function buildVila(){var h='<div class="vila"><div class="vl-st"><img src="vila/
  Object.keys(VR).forEach(function(k){var r=VR[k];h+='<button class="vl-h" data-vroom="'+k+'" style="left:'+((r.s[0]+r.s[2])/2/15.36)+'%;top:'+((r.s[1]+r.s[3])/2/10.24)+'%"><i></i><span>'+r.n+'</span></button>';});
  h+='</div><span class="vl-tag">Vizualizacija</span></div>';
  host.insertAdjacentHTML('afterbegin',h);
- host.insertAdjacentHTML('beforeend','<div class="vl-ctl"><button data-vmode="foto" class="on">Kuća</button><button data-vmode="3d">3D tlocrt</button><button data-vsun class="vsun">Dnevni prikaz</button><button data-vrt class="vrt on">Vrtna rasvjeta</button></div>');
+ host.insertAdjacentHTML('beforeend','<div class="vl-ctl"><button data-vmode="foto" class="on">Kuća</button><button data-vmode="3d">3D tlocrt</button><button data-vsun class="vsun">Dnevni prikaz</button><button data-vrt class="vrt on">Vrtna rasvjeta</button></div><button class="vl-back" data-vback>↩ Cijela kuća</button>');
  VS=host.querySelector('.vl-st');fitVila();addEventListener('resize',fitVila);
- host.addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;
+ host.addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;if(b.dataset.vback!=null){unzoom();render();return;}if(sub==='pool'&&b.dataset.vpool==null){unzoom();}
   if(b.dataset.vroom){var r=VR[b.dataset.vroom],v=!r.l.some(on);r.l.forEach(function(id){light(id,v);});scene='';push();return;}
   if(b.dataset.vcam!=null){cam=+b.dataset.vcam;go('cams');return;}
   if(b.dataset.vpool!=null){PL.light=!PL.light;scene='';render();return;}
@@ -403,7 +404,7 @@ function buildVila(){var h='<div class="vila"><div class="vl-st"><img src="vila/
 var vfz=false;function fitVila(){if(!VS)return;var w=host.clientWidth,h=host.clientHeight,s=Math.max(w/1536,h/1024)*(w<700?1.12:1.05),W,H,L,T;vfz=sub==='pool';
  if(vfz){s*=w<700?1.9:1.45;W=1536*s;H=1024*s;L=Math.min(0,Math.max(w-W,w/2-1120*s));T=Math.min(0,Math.max(h-H,h/2-760*s));}else{W=1536*s;H=1024*s;L=(w-W)/2+(w<700?-W*.04:0);T=(h-H)/2;}
  VS.style.width=W+'px';VS.style.height=H+'px';VS.style.left=L+'px';VS.style.top=T+'px';}
-function vilaUpd(){if(!VS)return;if((sub==='pool')!==vfz)fitVila();
+function vilaUpd(){if(!VS)return;if((sub==='pool')!==vfz)fitVila();host.classList.toggle('pzoom',sub==='pool');
  Object.keys(VR).forEach(function(k){var r=VR[k],o=0;r.l.forEach(function(id){if(on(id))o=Math.max(o,.5+.5*(pct(id)||100)/100);});
   VS.querySelector('.vl-s[data-k="'+k+'"]').style.opacity=o;
   VS.querySelector('.vl-h[data-vroom="'+k+'"]').classList.toggle('on',o>0);});
@@ -436,11 +437,11 @@ if(dPlay)dPlay.addEventListener('click',function(){if(danT){danStop();return;}dP
 /* ---------- kuća: vrh stranice ili demo ---------- */
 var hslot=document.querySelector('.hero-house'),dslot=document.querySelector('.house-slot'),hIn='hero';
 function placeHouse(){if(!hslot||!dslot)return;var st=document.getElementById('demo');if(!st)return;var r=st.getBoundingClientRect(),want=r.top<innerHeight*.6?'demo':'hero';if(want===hIn)return;hIn=want;(want==='demo'?dslot:hslot).insertBefore(host,(want==='demo'?dslot:hslot).firstChild);document.body.classList.toggle('house-in-demo',want==='demo');
- if(typeof fitVila==='function')fitVila();if(card&&card._resize){card._config.height=host.clientHeight;card._resize();}}
+ if(typeof fitVila==='function')fitVila();if(card&&card._resize){card._config.height=host.clientHeight;card._resize();}dispatchEvent(new Event('resize'));}
 addEventListener('scroll',placeHouse,{passive:true});addEventListener('resize',placeHouse);placeHouse();
 [].forEach.call(document.querySelectorAll('[data-hscene]'),function(b){b.addEventListener('click',function(){applyScene(b.dataset.hscene);[].forEach.call(document.querySelectorAll('[data-hscene]'),function(x){x.classList.toggle('on',x===b);});});});
 /* uređaji: mobitel / zidni zaslon */
-[].forEach.call(document.querySelectorAll('[data-dev]'),function(b){b.addEventListener('click',function(){var k=b.dataset.dev;[].forEach.call(document.querySelectorAll('[data-dev]'),function(x){x.setAttribute('aria-selected',x===b);});[].forEach.call(document.querySelectorAll('[data-devpane]'),function(p){p.hidden=p.dataset.devpane!==k;});if(k==='tab'&&typeof fitTab==='function'){fitTab();if(window.fielTabDust)window.fielTabDust();}});});
+[].forEach.call(document.querySelectorAll('[data-dev]'),function(b){b.addEventListener('click',function(){var k=b.dataset.dev;[].forEach.call(document.querySelectorAll('[data-dev]'),function(x){x.setAttribute('aria-selected',x===b);});[].forEach.call(document.querySelectorAll('[data-devpane]'),function(p){p.hidden=p.dataset.devpane!==k;});var st=document.getElementById('demo');if(st)st.classList.toggle('tabmode',k==='tab');if(sub==='pool'){unzoom();render();}setTimeout(function(){if(typeof fitVila==='function')fitVila();if(card&&card._resize){card._config.height=host.clientHeight;card._resize();}},50);if(k==='tab'&&typeof fitTab==='function'){fitTab();if(window.fielTabDust)window.fielTabDust();}});});
 (function(){var sec=document.getElementById('demo-sekcija');if(!sec)return;function off(){sec.classList.add('dirao');sec.removeEventListener('click',off,true);}sec.addEventListener('click',off,true);})();
 init();render();
 function dustNow(){if(window.fielTabDust)window.fielTabDust();}setTimeout(dustNow,60);setTimeout(dustNow,600);if(document.fonts&&document.fonts.ready)document.fonts.ready.then(dustNow);

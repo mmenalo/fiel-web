@@ -379,14 +379,27 @@ footer .big{font:500 clamp(6rem,22vw,16rem)/0.8 Jost,sans-serif;letter-spacing:.
 .hero-scenes button{font:500 .92rem Jost,sans-serif;color:var(--ink);background:rgba(17,29,48,.7);border:1px solid var(--line2);border-radius:99px;padding:9px 18px;cursor:pointer;transition:background .3s,border-color .3s,color .3s}
 .hero-scenes button:hover{border-color:#f3c66b}.hero-scenes button.on{background:var(--gold);color:#0b1220;border-color:var(--gold)}
 .hero-scenes a{margin-left:auto;color:#f3c66b;font:500 .92rem Jost,sans-serif;text-decoration:none}
-.house-slot:empty{display:none}.house-in-demo .hero-house::before{content:"";display:block;height:560px;border-radius:28px;border:1px dashed var(--line)}
+.house-in-demo .hero-house::before{content:"";display:block;height:560px;border-radius:28px;border:1px dashed var(--line)}
 .demo-stage{grid-template-columns:1.05fr .95fr;align-items:start}
 .devices{display:grid;gap:14px;justify-items:center;align-self:center}.dev-tabs{display:flex;gap:4px;padding:4px;border-radius:99px;background:rgba(17,29,48,.8);border:1px solid var(--line)}
 .dev-tabs button{font:500 .9rem Jost,sans-serif;color:var(--ink);background:none;border:0;border-radius:99px;padding:8px 18px;cursor:pointer}.dev-tabs button[aria-selected=true]{background:var(--gold);color:#0b1220}
 .tab-col.dev{width:100%}.devices .tab{opacity:1;filter:none}
 .house.ready .house-load{display:none}
 @media (max-width:960px){.hero-house .house{height:min(62vw,420px)}.house-in-demo .hero-house::before{height:min(62vw,420px)}.demo-stage{grid-template-columns:1fr}.hero-scenes a{margin-left:0}}
-@media (max-width:700px){.house-slot:empty{display:none}.house-in-demo .house-slot{position:sticky;top:76px;z-index:6}.house-in-demo .house-slot .house{position:relative;top:auto}.hero-scenes button{flex:1;padding:9px 6px;text-align:center}.hero-scenes span{display:none}.hero-scenes a{width:100%;text-align:center}}
+@media (max-width:700px){.house-in-demo .house-slot{position:sticky;top:76px;z-index:6}.house-in-demo .house-slot .house{position:relative;top:auto}.hero-scenes button{flex:1;padding:9px 6px;text-align:center}.hero-scenes span{display:none}.hero-scenes a{width:100%;text-align:center}}
+
+/* usklađene veličine kuće i uređaja */
+.vl-back{display:none;position:absolute;right:16px;top:16px;z-index:4;font:500 .82rem Jost,sans-serif;color:#1b1406;background:#f3c66b;border:0;border-radius:99px;padding:8px 14px;cursor:pointer;box-shadow:0 10px 24px -10px rgba(0,0,0,.8)}
+.house.pzoom .vl-back{display:block}
+@media (min-width:961px){
+ .demo-stage{grid-template-columns:1fr 360px;gap:32px;align-items:center}
+ .house-slot .house{height:min(640px,calc(100vh - 150px))}
+ .demo-stage .ph{height:min(640px,calc(100vh - 150px));min-height:520px;width:340px}
+ .demo-stage.tabmode{grid-template-columns:1fr 1.5fr}
+ .demo-stage.tabmode .house-slot .house{height:auto;aspect-ratio:1536/1024}
+ .demo-stage.tabmode .devices{width:100%}
+}
+@media (max-width:960px) and (min-width:701px){.demo-stage.tabmode .house{height:min(50vw,360px)}}
 
 #fx{position:fixed;inset:0;width:100vw;height:100vh;z-index:0;pointer-events:none}
 .fx main,.fx footer,.fx .top{position:relative;z-index:1}.fx .top{position:sticky}
@@ -439,11 +452,11 @@ document.addEventListener('DOMContentLoaded',function(){var d=document.createEle
 <button data-dan="4"><time>19:00</time><b>Dolazak</b><small>Večernja rasvjeta.</small></button>
 <button data-dan="5"><time>23:00</time><b>Laku noć</b><small>Rolete dolje, noćni alarm.</small></button>
 </div></div>
-<div class="demo-stage" id="demo">
+<div class="demo-stage tabmode" id="demo">
 <div class="house-slot" aria-hidden="true"></div>
-<div class="devices"><div class="dev-tabs" role="tablist"><button role="tab" data-dev="ph" aria-selected="true">Mobitel</button><button role="tab" data-dev="tab" aria-selected="false">Zidni zaslon</button></div>
-<div class="tab-col dev" data-devpane="tab" hidden><div class="tab-wrap" id="tabwrap"><div class="tab" id="tablet" aria-label="Demo zidnog zaslona"><div class="tb-in"><nav class="tb-nav"></nav><div class="tb-body"></div><div class="tb-pop" hidden></div></div></div></div><p class="tab-hint">Zidni zaslon u kući · sve se može kliknuti</p></div>
-<div class="ph dev" data-devpane="ph" aria-label="Demo aplikacije"><div class="ph-in"><div class="ph-notch"></div><div class="ph-screen" aria-live="polite"></div>
+<div class="devices"><div class="dev-tabs" role="tablist"><button role="tab" data-dev="tab" aria-selected="true">Zidni zaslon</button><button role="tab" data-dev="ph" aria-selected="false">Mobitel</button></div>
+<div class="tab-col dev" data-devpane="tab"><div class="tab-wrap" id="tabwrap"><div class="tab" id="tablet" aria-label="Demo zidnog zaslona"><div class="tb-in"><nav class="tb-nav"></nav><div class="tb-body"></div><div class="tb-pop" hidden></div></div></div></div><p class="tab-hint">Zidni zaslon u kući · sve se može kliknuti</p></div>
+<div class="ph dev" data-devpane="ph" hidden aria-label="Demo aplikacije"><div class="ph-in"><div class="ph-notch"></div><div class="ph-screen" aria-live="polite"></div>
 <nav class="ph-nav"><button data-tab="home"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11l9-7 9 7v9h-6v-6H9v6H3z"/></svg>Početna</button><button data-tab="rooms"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM13 13h7v7h-7z"/></svg>Prostorije</button><button data-tab="light"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.5 10.9V16h7v-2.1A6 6 0 0 0 12 3z"/></svg>Rasvjeta</button><button data-tab="music"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18V5l11-2v13M9 18a3 3 0 1 1-6 0 3 3 0 0 1 6 0zM20 16a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/></svg>Glazba</button><button data-tab="more"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5h2v2H5zM11 5h2v2h-2zM17 5h2v2h-2zM5 11h2v2H5zM11 11h2v2h-2zM17 11h2v2h-2zM5 17h2v2H5zM11 17h2v2h-2zM17 17h2v2h-2z"/></svg>Više</button></nav></div></div>
 </div></div></div>
 <script type="application/json" id="kuca3d-cfg">{"rooms": {"dnevni": {"light": "light.dnevni", "temp": "sensor.dnevni_temperatura"}, "blagovaonica": {"light": "light.blagovaonica"}, "kuhinja": {"light": "light.kuhinja"}, "holl": {"light": "light.holl"}, "kupaonica": {"light": "light.kupaonica", "temp": "sensor.kupaonica_temperatura"}, "ured": {"light": "light.ured", "temp": "sensor.ured_temperatura"}, "toni": {"light": "light.toni", "temp": "sensor.toni_temperatura"}, "ana": {"light": "light.ana", "temp": "sensor.ana_temperatura"}, "mz": {"light": "light.mz", "temp": "sensor.mz_temperatura"}, "jopa": {"light": "light.jopa", "temp": "sensor.jopa_temperatura"}, "kupaonica_kat": {"light": "light.kupaonica_kat", "temp": "sensor.kupaonica_kat_temperatura"}, "hodnik": {"light": "light.hodnik"}}, "windows": {"dnevni_l": {"cover": "cover.dnevni_l"}, "dnevni_d": {"cover": "cover.dnevni_d", "open": "binary_sensor.dnevni_d_prozor", "slide": "left"}, "kuhinja": {"cover": "cover.kuhinja", "open": "binary_sensor.kuhinja_prozor"}, "toni": {"cover": "cover.toni", "open": "binary_sensor.toni_prozor"}, "ana": {"cover": "cover.ana", "open": "binary_sensor.ana_prozor"}, "mz": {"cover": "cover.mz", "open": "binary_sensor.mz_prozor"}, "balkon": {"cover": "cover.balkon", "open": "binary_sensor.balkon_prozor"}, "jopa": {"open": "binary_sensor.jopa_prozor"}, "kupaonica_kat": {"open": "binary_sensor.kupaonica_kat_prozor"}, "kupaonica": {"open": "binary_sensor.kupaonica_prozor"}}, "strips": {"tv": {"light": "light.traka_tv"}, "mz_krevet": {"light": "light.traka_mz_krevet"}, "ormar": {"light": "light.traka_ormar"}}, "doors": {"ulaz": {"open": "binary_sensor.vrata_ulaz"}}, "cameras": {}, "curtains": {"dnevni": {"cover": "cover.zavjesa_dnevni"}}, "floor": "both", "mode": "auto", "cut_walls": false, "sun_entity": "sun.sun", "fixed": true, "lawn": true, "show_bar": true, "show_info": false, "show_labels": true, "elevation": 46, "azimuth": -24, "zoom": 1.0, "quality": "auto", "transparent": true, "height": null}</script></section>
@@ -552,7 +565,8 @@ function init(){
 }
 
 /* ---------- scene ---------- */
-function applyScene(k,quiet){scene=k;[].forEach.call(document.querySelectorAll('[data-hscene]'),function(x){x.classList.toggle('on',x.dataset.hscene===k);});if(k==='noc'||k==='van'){PL.light=false;PL.mass=false;PL.fall=false;PL.sl=false;}if(k==='vecer'){PL.light=true;}if(typeof vrt!=='undefined'){vrt=!(k==='noc'||k==='van');}
+function unzoom(){if(sub==='pool'){sub='';tab='more';}}
+function applyScene(k,quiet){scene=k;unzoom();[].forEach.call(document.querySelectorAll('[data-hscene]'),function(x){x.classList.toggle('on',x.dataset.hscene===k);});if(k==='noc'||k==='van'){PL.light=false;PL.mass=false;PL.fall=false;PL.sl=false;}if(k==='vecer'){PL.light=true;}if(typeof vrt!=='undefined'){vrt=!(k==='noc'||k==='van');}
  var L={},C={};
  if(k==='dan'){sun='above_horizon';COVERS.forEach(function(c){C[c[0]]=100;});}
  if(k==='vecer'){sun='below_horizon';L={'light.dnevni':70,'light.blagovaonica':80,'light.kuhinja':100,'light.holl':100,'light.hodnik':60,'light.traka_tv':40,'light.ana':50};C={'cover.toni':0,'cover.mz':0};}
@@ -832,7 +846,7 @@ window.fielTabletDust=function(N){if(!TB)return null;var R0=TB.getBoundingClient
   p[q*3]=x;p[q*3+1]=-(y-R0.height/W/2);p[q*3+2]=(Math.random()-.5)*.004;k[q]=it.c;}
  return {p:p,k:k};};
 if(TB){
- TB.addEventListener('click',function(e){var b=e.target.closest('button,[data-tpop]');if(!b)return;var d=b.dataset;
+ TB.addEventListener('click',function(e){var b=e.target.closest('button,[data-tpop]');if(!b)return;var d=b.dataset;if(sub==='pool'){unzoom();render();}
   if(d.tnav!=null){if(d.tnav==='kuca'){var ds=document.getElementById('demo-sekcija');if(ds)ds.scrollIntoView({behavior:'smooth'});return;}tpop=d.tnav==='home'?'':d.tnav;renderTab();return;}
   if(d.tcam){var q0=d.tcam.split(':');var sl=+q0[0],nv=TCAM[sl];do{nv=(nv+ +q0[1]+KAM.length)%KAM.length;}while(nv===TCAM[1-sl]);TCAM[sl]=nv;renderTab();return;}
   if(d.tvol){vol=Math.max(0,Math.min(100,vol+ +d.tvol));render();return;}
@@ -893,9 +907,9 @@ function buildVila(){var h='<div class="vila"><div class="vl-st"><img src="vila/
  Object.keys(VR).forEach(function(k){var r=VR[k];h+='<button class="vl-h" data-vroom="'+k+'" style="left:'+((r.s[0]+r.s[2])/2/15.36)+'%;top:'+((r.s[1]+r.s[3])/2/10.24)+'%"><i></i><span>'+r.n+'</span></button>';});
  h+='</div><span class="vl-tag">Vizualizacija</span></div>';
  host.insertAdjacentHTML('afterbegin',h);
- host.insertAdjacentHTML('beforeend','<div class="vl-ctl"><button data-vmode="foto" class="on">Kuća</button><button data-vmode="3d">3D tlocrt</button><button data-vsun class="vsun">Dnevni prikaz</button><button data-vrt class="vrt on">Vrtna rasvjeta</button></div>');
+ host.insertAdjacentHTML('beforeend','<div class="vl-ctl"><button data-vmode="foto" class="on">Kuća</button><button data-vmode="3d">3D tlocrt</button><button data-vsun class="vsun">Dnevni prikaz</button><button data-vrt class="vrt on">Vrtna rasvjeta</button></div><button class="vl-back" data-vback>↩ Cijela kuća</button>');
  VS=host.querySelector('.vl-st');fitVila();addEventListener('resize',fitVila);
- host.addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;
+ host.addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;if(b.dataset.vback!=null){unzoom();render();return;}if(sub==='pool'&&b.dataset.vpool==null){unzoom();}
   if(b.dataset.vroom){var r=VR[b.dataset.vroom],v=!r.l.some(on);r.l.forEach(function(id){light(id,v);});scene='';push();return;}
   if(b.dataset.vcam!=null){cam=+b.dataset.vcam;go('cams');return;}
   if(b.dataset.vpool!=null){PL.light=!PL.light;scene='';render();return;}
@@ -907,7 +921,7 @@ function buildVila(){var h='<div class="vila"><div class="vl-st"><img src="vila/
 var vfz=false;function fitVila(){if(!VS)return;var w=host.clientWidth,h=host.clientHeight,s=Math.max(w/1536,h/1024)*(w<700?1.12:1.05),W,H,L,T;vfz=sub==='pool';
  if(vfz){s*=w<700?1.9:1.45;W=1536*s;H=1024*s;L=Math.min(0,Math.max(w-W,w/2-1120*s));T=Math.min(0,Math.max(h-H,h/2-760*s));}else{W=1536*s;H=1024*s;L=(w-W)/2+(w<700?-W*.04:0);T=(h-H)/2;}
  VS.style.width=W+'px';VS.style.height=H+'px';VS.style.left=L+'px';VS.style.top=T+'px';}
-function vilaUpd(){if(!VS)return;if((sub==='pool')!==vfz)fitVila();
+function vilaUpd(){if(!VS)return;if((sub==='pool')!==vfz)fitVila();host.classList.toggle('pzoom',sub==='pool');
  Object.keys(VR).forEach(function(k){var r=VR[k],o=0;r.l.forEach(function(id){if(on(id))o=Math.max(o,.5+.5*(pct(id)||100)/100);});
   VS.querySelector('.vl-s[data-k="'+k+'"]').style.opacity=o;
   VS.querySelector('.vl-h[data-vroom="'+k+'"]').classList.toggle('on',o>0);});
@@ -940,11 +954,11 @@ if(dPlay)dPlay.addEventListener('click',function(){if(danT){danStop();return;}dP
 /* ---------- kuća: vrh stranice ili demo ---------- */
 var hslot=document.querySelector('.hero-house'),dslot=document.querySelector('.house-slot'),hIn='hero';
 function placeHouse(){if(!hslot||!dslot)return;var st=document.getElementById('demo');if(!st)return;var r=st.getBoundingClientRect(),want=r.top<innerHeight*.6?'demo':'hero';if(want===hIn)return;hIn=want;(want==='demo'?dslot:hslot).insertBefore(host,(want==='demo'?dslot:hslot).firstChild);document.body.classList.toggle('house-in-demo',want==='demo');
- if(typeof fitVila==='function')fitVila();if(card&&card._resize){card._config.height=host.clientHeight;card._resize();}}
+ if(typeof fitVila==='function')fitVila();if(card&&card._resize){card._config.height=host.clientHeight;card._resize();}dispatchEvent(new Event('resize'));}
 addEventListener('scroll',placeHouse,{passive:true});addEventListener('resize',placeHouse);placeHouse();
 [].forEach.call(document.querySelectorAll('[data-hscene]'),function(b){b.addEventListener('click',function(){applyScene(b.dataset.hscene);[].forEach.call(document.querySelectorAll('[data-hscene]'),function(x){x.classList.toggle('on',x===b);});});});
 /* uređaji: mobitel / zidni zaslon */
-[].forEach.call(document.querySelectorAll('[data-dev]'),function(b){b.addEventListener('click',function(){var k=b.dataset.dev;[].forEach.call(document.querySelectorAll('[data-dev]'),function(x){x.setAttribute('aria-selected',x===b);});[].forEach.call(document.querySelectorAll('[data-devpane]'),function(p){p.hidden=p.dataset.devpane!==k;});if(k==='tab'&&typeof fitTab==='function'){fitTab();if(window.fielTabDust)window.fielTabDust();}});});
+[].forEach.call(document.querySelectorAll('[data-dev]'),function(b){b.addEventListener('click',function(){var k=b.dataset.dev;[].forEach.call(document.querySelectorAll('[data-dev]'),function(x){x.setAttribute('aria-selected',x===b);});[].forEach.call(document.querySelectorAll('[data-devpane]'),function(p){p.hidden=p.dataset.devpane!==k;});var st=document.getElementById('demo');if(st)st.classList.toggle('tabmode',k==='tab');if(sub==='pool'){unzoom();render();}setTimeout(function(){if(typeof fitVila==='function')fitVila();if(card&&card._resize){card._config.height=host.clientHeight;card._resize();}},50);if(k==='tab'&&typeof fitTab==='function'){fitTab();if(window.fielTabDust)window.fielTabDust();}});});
 (function(){var sec=document.getElementById('demo-sekcija');if(!sec)return;function off(){sec.classList.add('dirao');sec.removeEventListener('click',off,true);}sec.addEventListener('click',off,true);})();
 init();render();
 function dustNow(){if(window.fielTabDust)window.fielTabDust();}setTimeout(dustNow,60);setTimeout(dustNow,600);if(document.fonts&&document.fonts.ready)document.fonts.ready.then(dustNow);
