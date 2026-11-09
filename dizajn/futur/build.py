@@ -493,7 +493,7 @@ SOL = [("pametna-kuca", "Pametna kuća", "Rasvjeta, rolete, grijanje i scene. Ra
        ("video-nadzor-i-portafoni", "Video nadzor i portafoni", "Kamere za kuće, zgrade i firme, portafon s pozivom na mobitel."),
        ("alarmni-sustav", "Alarmni sustav Ajax", "Bežični alarm bez štemanja, obavijesti na mobitel."),
        ("mrezna-oprema", "Mrežna oprema Ubiquiti", "Wi-Fi za cijeli objekt, odvojene mreže za kamere i goste.")]
-NAV2 = [("za-investitore", "Za investitore"), ("kako-radimo", "Kako radimo"), ("o-nama", "O nama")]
+NAV2 = [("za-investitore", "Za investitore"), ("kako-radimo", "Kako radimo"), ("privatnost", "Privatnost"), ("blog", "Blog"), ("o-nama", "O nama")]
 
 
 def nav_html(slug="", href=lambda s: f"{s}.html"):
@@ -547,7 +547,7 @@ def page(theme, name, ghost=False, particles=False, dark_band=False):
 <section class="contact" id="kontakt"><div class="wrap"><div><span class="label">Kontakt</span><h2 style="margin-top:14px">Recite nam što planirate</h2><a class="phone" href="tel:+38598802490">+385 98 802 490</a></div>
 <div class="row" style="display:flex;gap:12px;flex-wrap:wrap"><a class="btn gold" href="tel:+38598802490">Nazovite</a><a class="btn" href="#">Pošaljite upit</a><a class="btn" href="kontakt.html#prikaz">Dogovorite prikaz sustava</a></div><p class="prikaz-note">Prije odluke možemo vam pokazati kako sustav radi, na tabletu na sastanku ili kratkim videopozivom.</p></div></section>
 </main>
-<footer><div class="wrap">© 2026 Fiel d.o.o. · Rušiščak 5b, Zagreb{'<div class="big" aria-hidden="true">FIEL</div>' if ghost else ''}</div></footer>
+<footer><div class="wrap">© 2026 Fiel d.o.o. · Rušiščak 5b, Zagreb · <a href="privatnost.html" style="color:inherit">Privatnost i sigurnost</a> · <a href="blog.html" style="color:inherit">Blog</a> · <a href="pravila-privatnosti.html" style="color:inherit">Pravila privatnosti</a>{'<div class="big" aria-hidden="true">FIEL</div>' if ghost else ''}</div></footer>
 <script>{JS}{PARTICLES if particles else ''}</script>"""
     return f"""<!doctype html><html lang="hr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>{name} | Fiel</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

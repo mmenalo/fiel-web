@@ -85,6 +85,9 @@ PAGES = {
     "o-nama": dict(shape="door", x="2.6", hero_fig="", shapes=["dust", "villa"]),
     "alarmni-sustav": dict(shape="door", x="2.6", hero_fig="", shapes=["door", "dust", "eye", "dust", "dust", "dust"]),
     "mrezna-oprema": dict(shape="zgrada", x="2.6", hero_fig="", shapes=["dust", "zgrada", "dust", "dust", "dust", "dust"]),
+    "privatnost": dict(shape="door", x="2.6", hero_fig="", shapes=["dust", "eye", "dust", "dust", "dust", "dust"]),
+    "blog": dict(shape="dust", x="0", hero_fig="", shapes=["dust", "dust"]),
+    "blog-sto-je-pametna-kuca": dict(shape="dust", x="0", hero_fig="", shapes=["dust", "dust"]),
     "kontakt": dict(shape="villa", x="2.8", hero_fig="", shapes=["dust"]),
     "pravila-privatnosti": dict(shape="dust", x="0", hero_fig="", shapes=["dust"]),
 }
@@ -127,6 +130,9 @@ CSS = """
 .faq summary{cursor:pointer;padding:18px 0;font:500 1.05rem Jost,sans-serif;list-style:none;display:flex;justify-content:space-between;gap:16px}.faq summary::after{content:"+";color:#f3c66b;font-size:1.3rem;line-height:1}
 .faq details[open] summary::after{content:"−"}.faq details>div{padding:0 0 18px;color:var(--muted);display:grid;gap:8px}
 .narrow{max-width:820px!important}
+.article{max-width:820px!important;display:grid;gap:14px}.article h2{font-size:1.5rem;margin-top:26px}.article p,.article li{color:var(--text)}.article ul,.article ol{margin:0;padding-left:22px;display:grid;gap:8px}.article .lined{margin:8px 0 10px}.article .btn{width:auto}
+.blog-list{grid-template-columns:repeat(2,1fr)}.blog-list a.post{text-decoration:none;color:var(--text)}.blog-list .post small{font:500 .78rem "IBM Plex Mono",monospace;letter-spacing:.06em;text-transform:uppercase;color:#f3c66b}.blog-list .post h3{font-size:1.25rem}.blog-list .post span{color:#f3c66b;font:500 .9rem Jost,sans-serif}
+@media (max-width:760px){.blog-list{grid-template-columns:1fr}}
 .person-photo{min-height:380px;border-radius:24px;border:1px dashed rgba(243,198,107,.5);display:grid;place-items:center;text-align:center;padding:30px;color:#f3d38a;background:rgba(17,29,48,.5)}
 .info{display:grid;grid-template-columns:1fr 1fr;gap:12px}.info>div{background:rgba(17,29,48,.66);border:1px solid var(--line);border-radius:16px;padding:18px;display:grid;gap:6px}
 .info strong{font:500 1.1rem Jost,sans-serif}.info a{color:inherit}
@@ -174,7 +180,7 @@ def header(slug):
             f'{B.nav_html(slug)}<a class="cta" href="kontakt.html">Besplatan dolazak <i>↗</i></a></div></header>')
 
 
-FOOTER = ('<footer><div class="wrap">© 2026 Fiel d.o.o. · Rušiščak 5b, Zagreb · <a href="pravila-privatnosti.html" style="color:inherit">Pravila privatnosti</a> · '
+FOOTER = ('<footer><div class="wrap">© 2026 Fiel d.o.o. · Rušiščak 5b, Zagreb · <a href="privatnost.html" style="color:inherit">Privatnost i sigurnost</a> · <a href="blog.html" style="color:inherit">Blog</a> · <a href="pravila-privatnosti.html" style="color:inherit">Pravila privatnosti</a> · '
           '<span class="clock">ZAGREB, SADA <span id="sat"></span></span><div class="big" aria-hidden="true">FIEL</div></div></footer>')
 
 
