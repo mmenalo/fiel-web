@@ -469,8 +469,8 @@ DEMO = f"""<section class="demo-sec" id="demo-sekcija" data-shape="dust"><div cl
 <div class="dan-row" role="group" aria-label="Jedan dan u kući, odaberite doba dana">
 <button data-dan="0"><time>07:00</time><b>Buđenje</b><small>Rolete se dižu.</small></button>
 <button data-dan="1"><time>08:15</time><b>Odlazak</b><small>Sve se gasi, alarm se uključuje.</small></button>
-<button data-dan="2"><time>14:00</time><b>Kurir zvoni</b><small>Vidite ga na mobitelu.</small></button>
-<button data-dan="3"><time>17:30</time><b>Krenuli ste kući</b><small>Grijanje se uključuje.</small></button>
+<button data-dan="2"><time>14:00</time><b>Pogled s posla</b><small>Kamere na mobitelu.</small></button>
+<button data-dan="3"><time>17:30</time><b>S posla</b><small>Uključujete grijanje s mobitela.</small></button>
 <button data-dan="4"><time>19:00</time><b>Dolazak</b><small>Večernja rasvjeta.</small></button>
 <button data-dan="5"><time>23:00</time><b>Laku noć</b><small>Rolete dolje, noćni alarm.</small></button>
 </div></div>
@@ -490,7 +490,7 @@ ICONS = {"net": '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" str
          "home": '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 11l9-7 9 7v9H3z"/><rect x="9" y="13" width="6" height="7"/></svg>'}
 
 SOL = [("pametna-kuca", "Pametna kuća", "Rasvjeta, rolete, grijanje i scene. Radi u kući, bez pretplate."),
-       ("video-nadzor-i-portafoni", "Video nadzor i portafoni", "Kamere i poziv s ulaza na zaslonu i mobitelu."),
+       ("video-nadzor-i-portafoni", "Video nadzor i portafoni", "Kamere za kuće, zgrade i firme, portafon s pozivom na mobitel."),
        ("alarmni-sustav", "Alarmni sustav Ajax", "Bežični alarm bez štemanja, obavijesti na mobitel."),
        ("mrezna-oprema", "Mrežna oprema Ubiquiti", "Wi-Fi za cijeli objekt, odvojene mreže za kamere i goste.")]
 NAV2 = [("za-investitore", "Za investitore"), ("kako-radimo", "Kako radimo"), ("o-nama", "O nama")]
@@ -577,7 +577,7 @@ def page3():
 <div class="mslot" aria-hidden="true"></div>
 <div class="sol-list">
 <button data-s="lamp" class="act"><b>Rasvjeta</b><span>Noću se u hodniku pali prigušeno svjetlo, a kad izađete, sve se gasi.</span><a class="sol-more" href="pametna-kuca.html#rasvjeta">Više o tome ↗</a></button>
-<button data-s="heat"><b>Grijanje i hlađenje</b><span>Toplo je kad stignete, a prazna kuća se ne grije.</span><a class="sol-more" href="pametna-kuca.html#grijanje">Više o tome ↗</a></button>
+<button data-s="heat"><b>Grijanje i hlađenje</b><span>Svaka soba po svom rasporedu, a prazna se ne grije.</span><a class="sol-more" href="pametna-kuca.html#grijanje">Više o tome ↗</a></button>
 <button data-s="blind"><b>Rolete</b><span>Ljeti ne griju sobu, a ujutro se dižu same.</span><a class="sol-more" href="pametna-kuca.html#rolete">Više o tome ↗</a></button>
 <button data-s="door"><b>Alarm i brave</b><span>Na izlazu jedan dodir: vrata zaključana, alarm uključen.</span><a class="sol-more" href="pametna-kuca.html#alarm">Više o tome ↗</a></button>
 <button data-s="cam"><b>Kamere i portafon</b><span>Znate tko je pred vratima, i kad niste kod kuće.</span><a class="sol-more" href="video-nadzor-i-portafoni.html">Više o tome ↗</a></button>

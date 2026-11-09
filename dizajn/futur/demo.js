@@ -131,7 +131,7 @@ V.music=function(){return head('Glazba','Odaberite gdje svira')+'<div class="ph-
  '<div class="ph-mc"><button data-act="prev" aria-label="Prethodna">'+I('prev')+'</button><button class="big" data-act="play" aria-label="'+(play?'Pauza':'Pusti')+'">'+I(play?'pause':'play')+'</button><button data-act="next" aria-label="Sljedeća">'+I('next')+'</button></div>'+
  '<label class="ph-vol"><span>Glasnoća</span><input type="range" min="0" max="100" value="'+vol+'" data-vol aria-label="Glasnoća"><b>'+vol+' %</b></label></div>';};
 var TILES=[['blinds','Žaluzine','blind',function(){return COVERS.filter(function(c){return pos(c[0])>0;}).length+' od '+COVERS.length+' otvoreno';}],
- ['climate','Klima i grijanje','therm',function(){return heat?'grijanje radi':'isključeno';}],['cams','Kamere i portafon','cam',function(){return '3 kamere';}],
+ ['climate','Klima i grijanje','therm',function(){return heat?'grijanje radi':'isključeno';}],['cams','Kamere','cam',function(){return '3 kamere';}],
  ['security','Sigurnost','shield',function(){return alarmTxt().toLowerCase()+' · '+(openWins().length?openWins().length+' otvoreno':'sve zatvoreno');}],
  ['pool','Bazen','pool',function(){return fmt(PL.t)+' °C · pH '+fmt(PL.ph,1);}],['water','Navodnjavanje','drop',function(){return water>=0?'radi zona '+(water+1):'sve zone miruju';}],['energy','Energija','bolt',function(){return fmt(watts()/1000,2)+' kW sada';}]];
 V.more=function(){return head('Više','Svi sustavi u kući')+'<div class="ph-tiles">'+TILES.map(function(t){return '<button data-go="'+t[0]+'">'+I(t[2])+'<b>'+t[1]+'</b><small>'+t[3]()+'</small></button>';}).join('')+'</div>';};
@@ -144,9 +144,9 @@ V.climate=function(){return head('Klima i grijanje',heat?'Grijanje radi po raspo
  '<div class="ph-lbl">Termostati</div><div class="ph-thg">'+Object.keys(TN).map(function(k){var w=heat&&CUR[k]<TGT[k]-.1;return '<div class="ph-tc'+(w?' warm':'')+'"><small>'+TN[k]+'</small><b>'+fmt(CUR[k])+'°</b><div class="ph-pm"><button data-tgt="'+k+'" data-d="-0.5" aria-label="Snizi">−</button><span>'+fmt(TGT[k])+'°</span><button data-tgt="'+k+'" data-d="0.5" aria-label="Povisi">+</button></div></div>';}).join('')+'</div>';};
 var KAM=[['ulaz','Ulaz',[905,418]],['prilaz','Prilaz',[372,338]],['bazen','Bazen',[1040,522]],['vrt','Vrt iza kuće',[1032,226]]],CAMS=KAM.map(function(k){return k[1];});
 function feedImg(i,cls){var k=KAM[i];return '<img src="kam/'+k[0]+'-'+(sun==='above_horizon'?'d':'n')+'.jpg" alt="Kamera '+k[1]+', vizualizacija" class="kimg'+(cls?' '+cls:'')+'" loading="lazy">';}
-V.cams=function(){return head('Kamere i portafon',KAM.length+' kamere · '+CAMS[cam],1)+'<div class="ph-feed c'+cam+'">'+feedImg(cam)+'<span class="live">● SIMULACIJA</span><span class="demo">'+CAMS[cam]+'</span><span class="ts" id="ph-ts"></span></div>'+
+V.cams=function(){return head('Kamere',KAM.length+' kamere · '+CAMS[cam],1)+'<div class="ph-feed c'+cam+'">'+feedImg(cam)+'<span class="live">● SIMULACIJA</span><span class="demo">'+CAMS[cam]+'</span><span class="ts" id="ph-ts"></span></div>'+
  '<div class="ph-kg">'+KAM.map(function(c,i){return '<button data-cam="'+i+'" class="'+(cam===i?'on':'')+'">'+feedImg(i)+'<span>'+c[1]+'</span></button>';}).join('')+'</div>'+
- '<div class="ph-card wide"><div class="ph-row"><span class="ph-li big">'+I('phone')+'</span><span class="ph-ln"><b>Portafon · ulaz</b><small>'+(on('binary_sensor.vrata_ulaz')?'vrata otvorena':'nema poziva')+'</small></span><button class="ph-pill" data-act="opendoor">Otvori vrata</button></div></div>';};
+ '<div class="ph-card wide"><div class="ph-row"><span class="ph-li big">'+I('lock')+'</span><span class="ph-ln"><b>Ulazna vrata</b><small>'+(on('binary_sensor.vrata_ulaz')?'otključana':'zaključana')+'</small></span><button class="ph-pill" data-act="opendoor">Otključaj</button></div></div>';};
 V.security=function(){var ow=openWins();return head('Sigurnost',ow.length?ow.length+' otvoreno':'Sve zatvoreno',1)+
  '<div class="ph-seg">'+[['off','Isključen'],['on','Uključen'],['night','Noćni']].map(function(a){return '<button data-alarm="'+a[0]+'" class="'+(alarm===a[0]?'on':'')+'">'+a[1]+'</button>';}).join('')+'</div>'+
  (alarm!=='off'&&ow.length?'<div class="ph-warn static">'+I('shield')+'<span><small>Alarm</small>Zone s otvorenim prozorima su isključene iz zaštite</span></div>':'')+
@@ -428,8 +428,8 @@ host.addEventListener('pointerover',function(e){if(e.target.closest&&e.target.cl
 /* ---------- jedan dan u kući ---------- */
 var DAN=[function(){applyScene('dan');go('home');},
  function(){applyScene('van');go('security');},
- function(){sun='above_horizon';set('sun.sun',sun);cam=0;go('cams');toast('Kurir zvoni: slika s ulaza stiže na mobitel, a vrata mu otvarate jednim dodirom.');},
- function(){heat=true;go('climate');toast('Krenuli ste kući: grijanje se uključuje, da bude toplo kad stignete.');},
+ function(){sun='above_horizon';set('sun.sun',sun);cam=0;go('cams');toast('S posla pogledate kamere: dvorište i ulaz na mobitelu.');},
+ function(){heat=true;go('climate');toast('S posla uključujete grijanje s mobitela, da bude toplo kad stignete.');},
  function(){applyScene('vecer');go('home');},
  function(){applyScene('noc');go('home');}];
 var danI=-1,danT=0,dPlay=document.querySelector('[data-dan-play]');
