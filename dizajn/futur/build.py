@@ -6,8 +6,8 @@ sys.path.insert(0, os.path.join(HERE, "..", "src"))
 from logo import logo  # noqa: E402
 OUT = os.path.join(HERE, "out"); os.makedirs(OUT, exist_ok=True)
 
-LOGO_DARK = logo("#eef2f7", "#8fa1ba", "#d9ad52", title="Fiel d.o.o.")
-LOGO_LIGHT = logo("#1f3550", "#7c8da6", "#c79a3a", title="Fiel d.o.o.")
+LOGO_DARK = logo("#eef2f7", "#8fa1ba", "#d9ad52", title="Fiel Node d.o.o.")
+LOGO_LIGHT = logo("#1f3550", "#7c8da6", "#c79a3a", title="Fiel Node d.o.o.")
 
 ROOMS = [("boravak", "DNEVNI BORAVAK", 20, 20, 300, 220), ("kuhinja", "KUHINJA", 320, 20, 140, 220),
          ("terasa", "TERASA", 460, 20, 120, 220), ("spavaca", "SPAVAĆA", 20, 240, 220, 160),
@@ -547,10 +547,10 @@ def page(theme, name, ghost=False, particles=False, dark_band=False):
 <section class="contact" id="kontakt"><div class="wrap"><div><span class="label">Kontakt</span><h2 style="margin-top:14px">Recite nam što planirate</h2><a class="phone" href="tel:+38598802490">+385 98 802 490</a></div>
 <div class="row" style="display:flex;gap:12px;flex-wrap:wrap"><a class="btn gold" href="tel:+38598802490">Nazovite</a><a class="btn" href="#">Pošaljite upit</a><a class="btn" href="kontakt.html#prikaz">Dogovorite prikaz sustava</a></div><p class="prikaz-note">Prije odluke možemo vam pokazati kako sustav radi, na tabletu na sastanku ili kratkim videopozivom.</p></div></section>
 </main>
-<footer><div class="wrap">© 2026 Fiel d.o.o. · Rušiščak 5b, Zagreb · <a href="privatnost.html" style="color:inherit">Privatnost i sigurnost</a> · <a href="blog.html" style="color:inherit">Blog</a> · <a href="pravila-privatnosti.html" style="color:inherit">Pravila privatnosti</a>{'<div class="big" aria-hidden="true">FIEL</div>' if ghost else ''}</div></footer>
+<footer><div class="wrap">© 2026 Fiel Node d.o.o. · Rušiščak 5b, Zagreb · <a href="privatnost.html" style="color:inherit">Privatnost i sigurnost</a> · <a href="blog.html" style="color:inherit">Blog</a> · <a href="pravila-privatnosti.html" style="color:inherit">Pravila privatnosti</a>{'<div class="big" aria-hidden="true">FIEL</div>' if ghost else ''}</div></footer>
 <script>{JS}{PARTICLES if particles else ''}</script>"""
     return f"""<!doctype html><html lang="hr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>{name} | Fiel</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<title>{name} | Fiel Node</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,300;0,400;0,500;1,500&family=Source+Sans+3:wght@400;600&family=IBM+Plex+Mono:wght@500&family=Orbitron:wght@500&display=swap" rel="stylesheet">
 <style>{CSS}</style></head><body class="{theme}">{body}{NAV_JS}</body></html>"""
 
@@ -559,7 +559,7 @@ def page3():
     html = page("dark", "Varijanta 3: Puni efekt", ghost=True)
     html = html.replace(APP, '<div class="hero-house"><div class="house"><div class="house-load">UČITAVAM 3D MODEL</div><span class="house-hint">Prizemlje i Kat gore desno: pogled u sobe, klik pali svjetlo</span></div><div class="hero-scenes" role="group" aria-label="Scene"><span>Isprobajte:</span><button data-hscene="vecer">Večer</button><button data-hscene="film">Film</button><button data-hscene="van">Odlazak</button><a href="#demo-sekcija">Cijeli demo ↓</a></div></div>')
     html = html.replace('.hero .wrap{display:grid;grid-template-columns:1fr 1.05fr;', '.hero .wrap{display:grid;grid-template-columns:.78fr 1.22fr;')
-    html = html.replace(LOGO_DARK, '<img class="logo logo-img" src="fiel-logo.svg" alt="Fiel d.o.o." width="1222" height="600">', 1)
+    html = html.replace(LOGO_DARK, '<img class="logo logo-img" src="fiel-logo.svg" alt="Fiel Node d.o.o." width="1222" height="600">', 1)
     html = html.replace('</style>', THEME_CSS+'</style>', 1).replace('</head>', THEME_JS+'</head>', 1)
     html = html.replace('</style>', 'html,body{overflow-x:clip}.pgh{overflow-x:clip}.mslot{display:none}@media (max-width:700px){.mslot{display:block;height:min(78vw,330px);margin:8px 0 4px}.sol .wrap{gap:10px}.sol-list{grid-template-columns:1fr 1fr!important;gap:8px}.sol-list button{padding:12px 14px!important}.sol-list button span{display:none!important}.band-slot{height:min(66vw,280px)}}.fx .top,.fx .top.scrolled{z-index:50;background:#070d17;backdrop-filter:none;-webkit-backdrop-filter:none;box-shadow:0 10px 30px -12px rgba(0,0,0,.8)}.fx .contact .wrap{grid-template-columns:minmax(0,600px);align-items:start;gap:28px}.fx .contact .row{margin-top:4px}.fx .contact{min-height:420px}.top .logo-img{height:68px;width:auto;display:block}.top .wrap{height:86px}@media (max-width:560px){.top .logo-img{height:50px}.top .wrap{height:70px}}</style>', 1)
     html = html.replace('<a class="btn" href="#">Za investitore</a>', '<a class="btn" href="#demo-sekcija">Isprobajte cijeli demo ↓</a>', 1)
@@ -586,7 +586,7 @@ def page3():
     html = html.replace('<section class="band">', sol + '\n<section class="band" data-shape="villa" data-x="2.6">')
     html = html.replace('<section class="band" data-shape="villa" data-x="2.6"><div class="wrap"><span class="label">Kako radimo</span><h2 style="margin-top:14px">Od prvog razgovora <em>do predaje</em></h2>','<section class="band" data-shape="villa" data-x="2.6"><div class="wrap"><span class="label">Kako radimo</span><h2 style="margin-top:14px">Od prvog razgovora <em>do predaje</em></h2><div class="mslot band-slot" aria-hidden="true"></div>',1)
     html = html.replace('<section class="contact" id="kontakt">','<section class="contact" id="kontakt" data-shape="villa" data-x="2.9" data-mshape="dust">')
-    html = html.replace('© 2026 Fiel d.o.o. · Rušiščak 5b, Zagreb','© 2026 Fiel d.o.o. · Rušiščak 5b, Zagreb · <span class="clock">ZAGREB, SADA <span id="sat"></span></span>')
+    html = html.replace('© 2026 Fiel Node d.o.o. · Rušiščak 5b, Zagreb','© 2026 Fiel Node d.o.o. · Rušiščak 5b, Zagreb · <span class="clock">ZAGREB, SADA <span id="sat"></span></span>')
     html = html.replace('<script>','<script src="three.min.js"></script><script>', 1)
     html = html.replace('</script></body>', THREE_FX + '</script></body>')
     return html
