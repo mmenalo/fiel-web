@@ -1,4 +1,4 @@
-"""Gradi stranice Fiel d.o.o. iz src/pages/*.html u web/.
+"""Gradi stranice Fiel Node d.o.o. iz src/pages/*.html u web/.
 
 Svaka stranica u src/pages počinje s tri retka:
 <!-- slug: pametna-kuca -->
@@ -22,7 +22,7 @@ NAV = [
     ("kako-radimo", "Kako radimo"),
     ("o-nama", "O nama"),
 ]
-LOGO = logo("#1f3550", "#7c8da6", "#c79a3a", title="Fiel d.o.o. – početna")
+LOGO = logo("#1f3550", "#7c8da6", "#c79a3a", title="Fiel Node d.o.o. – početna")
 
 PLAN = """<figure class="plan">
   <svg viewBox="0 0 520 380" role="img" aria-label="Tlocrt stana: rasvjeta, rolete, termostat, portafon, brava i senzor vode spojeni su na upravljački uređaj u stanu">
@@ -158,9 +158,9 @@ def page(slug, title, desc, body, full=True):
     <div class="foot-grid">
       <div style="display:grid;gap:14px;align-content:start"><a class="brand" href="index.html">{LOGO}</a><p>Pametne instalacije, video nadzor i portafoni. Zagreb i okolica.</p></div>
       <div><h3>Stranice</h3><ul>{"".join(f'<li><a href="{s}.html">{n}</a></li>' for s, n in NAV)}<li><a href="kontakt.html">Kontakt</a></li></ul></div>
-      <div><h3>Fiel d.o.o.</h3><ul><li>Rušiščak 5b, 10000 Zagreb</li><li><a href="tel:+38598802490">+385 98 802 490</a></li><li>info@fidelis-automatika.com <span class="check">nova adresa</span></li><li>OIB: <span class="check">provjeriti</span></li></ul></div>
+      <div><h3>Fiel Node d.o.o.</h3><ul><li>Rušiščak 5b, 10000 Zagreb</li><li><a href="tel:+38598802490">+385 98 802 490</a></li><li>info@fidelis-automatika.com <span class="check">nova adresa</span></li><li>OIB: <span class="check">provjeriti</span></li></ul></div>
     </div>
-    <div class="foot-bottom"><span>© 2026 Fiel d.o.o.</span><a href="pravila-privatnosti.html">Pravila privatnosti</a></div>
+    <div class="foot-bottom"><span>© 2026 Fiel Node d.o.o.</span><a href="pravila-privatnosti.html">Pravila privatnosti</a></div>
   </div>
 </footer>
 <div class="callbar"><a class="btn btn-solid" href="tel:+38598802490">Nazovite</a><a class="btn btn-line" href="kontakt.html">Pošaljite upit</a></div>

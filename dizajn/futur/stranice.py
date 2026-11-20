@@ -176,11 +176,11 @@ var s=document.getElementById('sat');function tick(){if(s)s.textContent=new Date
 
 
 def header(slug):
-    return (f'<header class="top"><div class="wrap"><a href="{HOME}"><img class="logo logo-img" src="fiel-logo.svg" alt="Fiel d.o.o. – početna" width="1222" height="600"></a>'
+    return (f'<header class="top"><div class="wrap"><a href="{HOME}"><img class="logo logo-img" src="fiel-logo.svg" alt="Fiel Node d.o.o. – početna" width="1222" height="600"></a>'
             f'{B.nav_html(slug)}<a class="cta" href="kontakt.html">Besplatan dolazak <i>↗</i></a></div></header>')
 
 
-FOOTER = ('<footer><div class="wrap">© 2026 Fiel d.o.o. · Rušiščak 5b, Zagreb · <a href="privatnost.html" style="color:inherit">Privatnost i sigurnost</a> · <a href="blog.html" style="color:inherit">Blog</a> · <a href="pravila-privatnosti.html" style="color:inherit">Pravila privatnosti</a> · '
+FOOTER = ('<footer><div class="wrap">© 2026 Fiel Node d.o.o. · Rušiščak 5b, Zagreb · <a href="privatnost.html" style="color:inherit">Privatnost i sigurnost</a> · <a href="blog.html" style="color:inherit">Blog</a> · <a href="pravila-privatnosti.html" style="color:inherit">Pravila privatnosti</a> · '
           '<span class="clock">ZAGREB, SADA <span id="sat"></span></span><div class="big" aria-hidden="true">FIEL</div></div></footer>')
 
 

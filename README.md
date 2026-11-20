@@ -1,6 +1,6 @@
-# Fiel d.o.o. — web stranica
+# Fiel Node d.o.o. — web stranica
 
-Statična dvojezična (HR/EN) web stranica za Fiel d.o.o. — pametne kuće, video nadzor i IP portafoni.
+Statična dvojezična (HR/EN) web stranica za Fiel Node d.o.o. — pametne kuće, video nadzor i IP portafoni.
 
 - `index.html` — hrvatska verzija
 - `en/index.html` — engleska verzija
